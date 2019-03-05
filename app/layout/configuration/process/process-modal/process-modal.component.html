@@ -1,0 +1,37 @@
+<app-msg-view [msgOb]="msgOb"></app-msg-view> 
+<form role="form" #processForm="ngForm" (ngSubmit)="onUpdate()">
+              
+      <div class="form-content">
+          <div class="form-group">
+              <label class="form-control-label" for="processName">Process Name</label>
+              <input type="text" class="form-control input-underline input-lg " id="" 
+              placeholder="Process Name" [(ngModel)]="process.processName" name="processName"  required  #name="ngModel" >
+             
+              <div *ngIf="name.invalid && (name.dirty || name.touched)"  class="alert alert-danger">
+
+                  <div *ngIf="name.errors.required">
+                      Name is required.
+                  </div>
+               
+              </div>
+              
+          </div>
+          <div class="form-group has-danger">
+              <label class="form-control-label" for="processDesc">Desc</label>
+              <input type="text" class="form-control input-underline input-lg " id=""  [(ngModel)]="process.processDesc" name="processDesc">
+              
+          </div>
+          <div class="form-group has-danger">
+            <label class="form-control-label" for="category">Category</label>
+           
+            <select [(ngModel)]="_categoryId" id="category" name="category" class="form-control input-underline input-lg " >
+              <option value="" disabled selected>>select a category</option>
+              <option *ngFor="let item of categories" [value]="item.id">{{item.categoryName}}</option>
+            </select>
+        </div>
+          
+         
+      </div>
+      <button type="submit" class="btn rounded-btn" [disabled]="!processForm.form.valid">{{process.id > 0 ? 'Update' : 'Save'}}</button>
+     
+  </form>

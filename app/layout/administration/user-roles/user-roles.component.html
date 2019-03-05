@@ -1,0 +1,82 @@
+<div [@routerTransition]>
+    <div class="row"> 
+    <div class="col col-xl-2 ">
+            
+        <div class="card mb-1 ">
+            <button type="button" class="btn btn-default" (click)="open(content,null,true)"  >New <i class="fa fa-w fa-group"></i></button>
+        </div>
+    </div>
+    </div>
+    <app-msg-view [msgOb]="msgOb"></app-msg-view> 
+    <div class="row">
+            <div class="col col-xl-12 col-lg-12">
+                <div class="card mb-3">
+                    <div class="card-header">
+                        Roles/Groups List
+                    </div>
+                <div class="card-body table-responsive">
+                    <!-- <ngx-datatable-demo></ngx-datatable-demo> -->
+                    <input
+                        type='text' [(ngModel)]="filter_UserRole.type"
+                        style='padding:8px;margin:15px auto;'
+                        placeholder='Filter role...'
+                        (keyup)='updateFilter($event)'
+                    />
+                  
+                    <ngx-datatable class="ngx-datatable bootstrap"
+                        #table
+                        [rows]="userRoles"
+                        
+                        [columnMode]="'force'"
+                        [headerHeight]="50"
+                        [footerHeight]="50"
+                        [rowHeight]="'auto'"
+                        [limit]="10"
+                        
+                        
+                        
+                        >
+                        <ngx-datatable-column [width]="50" name="#">
+                            <ng-template let-rowIndex="rowIndex"  ngx-datatable-cell-template>
+                                {{rowIndex+1}}
+                            </ng-template>
+                           
+                        </ngx-datatable-column>
+                       
+                        <ngx-datatable-column prop="type" name="Role"  ></ngx-datatable-column>
+                       
+                        <ngx-datatable-column [width]="50" name="Edit">
+                            <ng-template  let-user="row"  ngx-datatable-cell-template>
+                                <a [routerLink]="" (click)="open(content,user)"><i class="fa fa-fw fa-edit"></i></a>
+                            </ng-template>
+                           
+                        </ngx-datatable-column>
+                        <ngx-datatable-column [width]="50" name="Delete" >
+                            <ng-template #deleteBtn let-user="row"  ngx-datatable-cell-template>
+                                <a [routerLink]="" (click)="deleteUser(user)"><i class="fa fa-fw fa-remove"></i></a>
+                            </ng-template>
+                        </ngx-datatable-column>
+                        
+                    </ngx-datatable>
+                </div>
+            </div>
+        </div>
+    </div> 
+    
+    
+<ng-template #content let-c="close" let-d="dismiss">
+    <div class="modal-header">
+        <h4 class="modal-title">User Role</h4>
+        <button type="button" class="close" aria-label="Close" (click)="d('Close click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <app-user-roles-modal [userRole]="modalUserRoles" [msgOb]="msgOb"
+         [isNew]="isNew" (updated)="onUpdated($event)"></app-user-roles-modal>
+       
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="c('Close click')">Close</button>
+    </div>
+</ng-template>

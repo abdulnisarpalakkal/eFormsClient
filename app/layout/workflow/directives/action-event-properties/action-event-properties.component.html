@@ -1,0 +1,36 @@
+
+<!-- {{users|json}} -->
+
+<div class="card mb-1">
+<div class="card-body">
+    <a [routerLink]="" [class.remove]="true"  (click)="deleteEventClick()"  ><i class="fa fa-fw fa-remove"  ></i></a>
+<div class="form-group form-group-sm mb-2  row">
+  <label for="eventName" class="col-sm-5 col-form-label">Event Name</label>
+  <div class="col-sm-7">
+    <input type="text" readonly class="form-control-plaintext" id="eventName" value="{{actionEventObject.actionEvent.actionName}}">
+  </div>
+</div>
+<div class="form-content " *ngIf="actionEventObject.actionEvent.actionName=='SEND_MESSAGE'">
+    
+
+    <div class="form-group form-group-sm mb-2" *ngFor="let actionEventParamObject of actionEventObject.actionEventParamObjects; let i = index">
+      <label class="form-control-label mb-1" for="paramLabel">{{actionEventParamObject.actionEventParam.paramLabel}}</label>
+      
+      <select *ngIf="actionEventParamObject.actionEventParam.paramName=='USER' else role_content"  id="paramValue" name="paramValue" [(ngModel)]="actionEventParamObject.paramValue"  class="form-control input-underline form-control-sm " (ngModelChange)="onChangeUser($event)">
+        <option value="" disabled selected>>select a User</option>
+        <option *ngFor="let user of users" [value]="user.id" >{{user.username}}</option>
+      </select>
+      <ng-template #role_content>
+        <select  *ngIf="actionEventParamObject.actionEventParam.paramName=='ROLES' else other_content"  id="paramValue" name="paramValue" [(ngModel)]="actionEventParamObject.paramValue" class="form-control input-underline form-control-sm " (ngModelChange)="onChangeUserGroup($event)">
+          <option value="" disabled selected>>select a User Group</option>
+          <option *ngFor="let userGroup of userGroups" [value]="userGroup.id" >{{userGroup.type}}</option>
+        </select>
+      </ng-template>
+      <ng-template #other_content>
+        <input  type="text" class="form-control input-underline form-control-sm " id="paramValue"  [(ngModel)]="actionEventParamObject.paramValue" name="paramValue{{i}}">
+      </ng-template>
+    </div>
+    
+</div>
+</div>
+</div>

@@ -1,0 +1,22 @@
+<app-msg-view [msgOb]="msgOb"></app-msg-view> 
+  <form role="form" #userRoleForm="ngForm" (ngSubmit)="onUpdate(userRoleForm)">
+             
+        <div class="form-content ">
+         
+            <div class="form-group">
+                <label class="form-control-label" for="type">Role Name</label>
+                <input type="text" class="form-control input-underline input-lg " id="type"  [(ngModel)]="userRole.type" name="type">
+                
+            </div>
+            <div class="form-group">
+                <label class="form-control-label" for="userRoleDesc">Desc</label>
+                <input type="text" class="form-control input-underline input-lg " id="userRoleDesc"  [(ngModel)]="userRole.roleDesc" name="userRoleDesc">
+                
+            </div>
+         
+        </div>
+        
+       
+        <button type="submit" class="btn rounded-btn" [disabled]="!userRoleForm.form.valid">{{!isNew ? 'Update' : 'Save'}}</button>
+       
+    </form>

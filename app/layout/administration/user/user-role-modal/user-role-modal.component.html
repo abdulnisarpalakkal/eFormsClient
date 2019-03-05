@@ -1,0 +1,20 @@
+<app-msg-view [msgOb]="msgOb"></app-msg-view> 
+<form role="form" #userRoleAssignForm="ngForm" (ngSubmit)="onUpdate()">
+                
+    <div class="form-content">
+        <div class="form-group"  *ngFor="let userRole of userRoles; let i = index">
+            <div class="col-sm-offset-2 col-sm-10">
+              <div class="checkbox">
+                <label>
+                    <input type="checkbox" class="form-check-input" id="roleSelect"  [checked]="_userRoleSelectedIds.indexOf(userRole.id) != -1"  name="roleSelect{{i}}"  (change)="handleChange($event,userRole)" >
+                    {{userRole.type}}
+                </label>
+              </div>
+            </div>
+          </div>
+        
+       
+    </div>
+    <button type="submit" class="btn btn-secondary" [disabled]="!userRoleAssignForm.form.valid">Update</button>
+       
+  </form>

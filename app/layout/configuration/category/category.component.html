@@ -1,0 +1,94 @@
+<div [@routerTransition]>
+  <app-page-header [heading]="'Category'" [icon]="'fa-folder'"></app-page-header>
+  <div class="row"> 
+        <div class="col col-xl-2 ">
+                
+            <div class="card mb-2 ">
+                <button type="button" class="btn btn-default" (click)="open(content,category,true)"  >New <i class="fa fa-w fa-folder-o"></i></button>
+            </div>
+        </div>
+      </div>
+     
+      <app-msg-view [msgOb]="msgOb"></app-msg-view> 
+  
+  <!-- <br /> -->
+  <div class="row">
+          <div class="col col-xl-12 col-lg-12">
+              <div class="card mb-3">
+                  <div class="card-header">
+                      Category List
+                  </div>
+                 <div class="card-body table-responsive">
+                  <!-- <ngx-datatable-demo></ngx-datatable-demo> -->
+                  <!-- <input
+                      type='text' [(ngModel)]="fil_User.firstName"
+                      style='padding:8px;margin:15px auto;'
+                      placeholder='Filter first name...'
+                      (keyup)='updateFilter($event)'
+                  />
+                  <input
+                      type='text' [(ngModel)]="fil_User.lastName"
+                      style='padding:8px;margin:15px auto;'
+                      placeholder='Filter last name...'
+                      (keyup)='updateFilter($event)'
+                  />
+                  <input
+                      type='text' [(ngModel)]="fil_User.email"
+                      style='padding:8px;margin:15px auto;'
+                      placeholder='Filter email...'
+                      (keyup)='updateFilter($event)'
+                  /> -->
+                  <ngx-datatable class="ngx-datatable bootstrap"
+                      #table
+                      [rows]="categories"
+                      
+                      [columnMode]="'force'"
+                      [headerHeight]="50"
+                      [footerHeight]="50"
+                      [rowHeight]="'auto'"
+                      [limit]="5"
+                      >
+                      <ngx-datatable-column [width]="50" name="#">
+                          <ng-template let-rowIndex="rowIndex"  ngx-datatable-cell-template>
+                              {{rowIndex+1}}
+                          </ng-template>
+                         
+                      </ngx-datatable-column>
+                     
+                      <ngx-datatable-column prop="categoryName" name="Category Name"  ></ngx-datatable-column>
+                      <ngx-datatable-column prop="categoryDesc" name="Desc"  ></ngx-datatable-column>
+                      
+                      <ngx-datatable-column [width]="50" name="Edit">
+                          <ng-template  let-category="row"  ngx-datatable-cell-template>
+                              <a [routerLink]="" (click)="open(content,category,false)"><i class="fa fa-fw fa-edit"></i></a>
+                          </ng-template>
+                         
+                      </ngx-datatable-column>
+                      <ngx-datatable-column [width]="50" name="Delete" >
+                          <ng-template #deleteBtn let-category="row"  ngx-datatable-cell-template>
+                              <a [routerLink]="" (click)="deleteUser(category)"><i class="fa fa-fw fa-remove"></i></a>
+                          </ng-template>
+                      </ngx-datatable-column>
+                      
+                  </ngx-datatable>
+              </div>
+          </div>
+      </div>
+  </div> 
+  
+  
+<ng-template #content let-c="close" let-d="dismiss">
+  <div class="modal-header">
+      <h4 class="modal-title">User</h4>
+      <button type="button" class="close" aria-label="Close" (click)="d('Close click')">
+          <span aria-hidden="true">&times;</span>
+      </button>
+  </div>
+  <div class="modal-body">
+      <app-category-modal [category]="modalCategory" [msgOb]="msgOb" (updated)="onUpdated($event)"></app-category-modal>
+     
+  </div>
+  <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" (click)="c('Close click')">Close</button>
+  </div>
+</ng-template>

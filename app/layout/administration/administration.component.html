@@ -1,0 +1,33 @@
+<div [@routerTransition]>
+  <app-page-header [heading]="'Administration'" [icon]="'fa-group'"></app-page-header>
+ 
+  <div class="row mt-3">
+      <div class="col-sm-12">
+              <!-- <div class="card-body"> -->
+                  <ngb-tabset>
+                      <ngb-tab>
+                          <ng-template ngbTabTitle>Roles</ng-template>
+                          <ng-template ngbTabContent>
+                                  <br />
+                                  <app-user-roles></app-user-roles>
+                          </ng-template>
+                          
+                      </ngb-tab>
+                      <ngb-tab title="Users">
+                          <ng-template ngbTabContent>
+                                  <br />
+                                  <app-user></app-user>
+                          </ng-template>
+                      </ngb-tab>
+                      <!-- <ngb-tab>
+                          <ng-template ngbTabTitle>Privilages</ng-template>
+                          <ng-template ngbTabContent>
+                                  <br />
+                                  Privilages
+                          </ng-template>
+                      </ngb-tab> -->
+                     
+                  </ngb-tabset>
+              
+          <!-- </div> -->
+      </div>  

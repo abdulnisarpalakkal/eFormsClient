@@ -1,0 +1,8 @@
+export enum FormComponentEnum {
+    TEXT = "TEXT",
+    RADIO = "RADIO",
+    CHECKBOX = "CHECKBOX",
+    COMPO = "COMPO",
+    DATE="DATE",
+    LABEL="LABEL"
+}

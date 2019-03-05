@@ -1,0 +1,41 @@
+<div class="login-page" [@routerTransition]>
+    <div class="row justify-content-md-center">
+        <div class="col-md-4">
+            <img src="assets/images/logo.png" width="150px" class="user-avatar" />
+            <h1>eForms</h1>
+            <form role="form" #loginForm="ngForm" (ngSubmit)="onLoggedin()">
+              
+                <app-msg-view [msgOb]="msgOb"></app-msg-view>
+                <div class="form-content">
+                    <div class="form-group">
+                        <input type="text"  class="form-control input-underline input-lg" id="" placeholder="Email or Username" 
+                        [(ngModel)]="username" name="username" required  #user="ngModel" >
+                            <div *ngIf="user.invalid && (user.dirty || user.touched)"  class="alert alert-danger">
+
+                                <div *ngIf="user.errors.required">
+                                    Username is required.
+                                </div>
+                             
+                            </div>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="password" class="form-control input-underline input-lg" id="" placeholder="Password" 
+                        [(ngModel)]="password" name="password" required  #pwd="ngModel" >
+                        <div *ngIf="pwd.invalid && (pwd.dirty || pwd.touched)"  class="alert alert-danger">
+
+                            <div *ngIf="pwd.errors.required">
+                                Password is required.
+                            </div>
+                             
+                        </div>
+                    </div>
+                </div>
+                <!-- <a class="btn rounded-btn" [disabled]="!loginForm.form.valid"  (click)="onLoggedin()"> Log in </a> -->
+                <button type="submit" class="btn rounded-btn" [disabled]="!loginForm.form.valid">Submit</button>
+                &nbsp;
+                <a class="btn rounded-btn" [routerLink]="['/signup']">Register</a>
+            </form>
+        </div>
+    </div>
+</div>

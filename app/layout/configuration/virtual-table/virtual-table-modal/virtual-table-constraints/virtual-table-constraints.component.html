@@ -1,0 +1,63 @@
+<div class="card-body table-responsive " >
+  <div class="row">
+      <div class="col-xl-3 text-xs-center">
+            Local field
+      </div>
+      <div class="col-xl-4 text-xs-center">
+          
+              Reference table
+      </div>
+      <div class="col-xl-4 text-xs-center">
+              Reference field
+      </div>
+      
+      <div class="col-xl-1 text-xs-center">
+            
+     </div>
+  </div>
+  <hr />
+  <!-- {{foreignKeyConstraints|json}} -->
+  <!-- ------ -->
+  <!-- {{virtualTableFieldsConstraintDto.virtualTableFields|json}} -->
+ 
+  <div class="row " [class.ng-delete-req]="constraint.deleted"  *ngFor="let constraint of foreignKeyConstraints; let i = index" >
+    <!-- {{ constraint.foreignConstraint|json}}
+    ---
+    {{ pkeyRefConstraints|json}} -->
+    <div class="col-xl-3 text-xs-center mt-2 " >
+      <div class="form-group">
+        <select [ngModel]="constraint.virtualTableField.fieldName" id="virtualTableField" name="virtualTableField{{i}}" class="form-control input-underline input-lg " (ngModelChange)="updateFieldName(constraint,$event)" >
+                <option value="" disabled selected>>select local field</option>
+                <option *ngFor="let field of virtualTableFieldsConstraintDto.virtualTableFields" [ngValue]="field.fieldName" >{{field.fieldName}}</option>
+        </select>
+      </div>
+      
+    </div>  
+    <div class="col-xl-4 text-xs-center mt-2" >
+      <div class="form-group">
+        <select  id="refTable" [(ngModel)]="constraint.foreignConstraint.virtualTableField.virtualTableMaster.tableName"  name="refTable{{i}}" class="form-control input-underline input-lg " (ngModelChange)="onTableChanged(constraint,$event)" >
+                <option value="" disabled selected>>select ref. table</option>
+                <option *ngFor="let refVirtualTable of refVirtualTables" [ngValue]="refVirtualTable.tableName">{{refVirtualTable.tableName}}</option>
+        </select>
+    </div>
+      </div>
+      <div class="col-xl-4 text-xs-center mt-2">
+        <div class="form-group">
+          <select [ngModel]="constraint.foreignConstraint.virtualTableField.fieldName" id="foreignConstraint" name="foreignConstraint{{i}}" class="form-control input-underline input-lg " (ngModelChange)="updateRefConstraintField(constraint,$event)">
+                  <option value="" disabled selected>>select ref. field</option>
+                  <option *ngFor="let pkConstraint of pkeyRefConstraints|refFieldFilter:constraint.foreignConstraint.virtualTableField.virtualTableMaster.tableName" [ngValue]="pkConstraint.virtualTableField.fieldName" >{{pkConstraint.virtualTableField.fieldName}}</option>
+          </select>
+      </div>
+      </div>
+     
+      <div class="col-xl-1 text-xs-center mt-2">
+            <a [routerLink]="" (click)="removeForeignKey(constraint)">
+              <i  class="fa fa-fw " [class.fa-remove]="!constraint.deleted"  [class.fa-undo]="constraint.deleted"></i>
+            </a>
+      </div>
+      
+      
+  </div>
+  <button type="button" class="btn rounded-btn" (click)="addForeignKey()" >+</button>
+
+</div>

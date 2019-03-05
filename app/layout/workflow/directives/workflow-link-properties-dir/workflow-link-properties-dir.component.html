@@ -1,0 +1,31 @@
+<!-- {{link|json}} -->
+      <form >
+        <div class="form-content ">
+            <div class="form-group form-group-sm mb-2 ">
+                <label for="linkLabel" class="form-control-label mb-1">link Label</label>
+                <select  id="linkLabel" name="linkLabel" [(ngModel)]="link.label" class="form-control input-underline form-control-sm " >
+                  <option value="" disabled selected>>select a Label</option>
+                  <option *ngFor="let linkLabel of linkLabels"  >{{linkLabel}}</option>
+                </select>
+              </div>
+          
+         
+          
+          <div class="form-group form-group-sm mb-2">
+              <label class="form-control-label mb-1" for="sourceNode">Source Node</label>
+              <select  id="sourceNode" name="sourceNode" [(ngModel)]="link.source" class="form-control input-underline form-control-sm " >
+                <option value="" disabled selected [ngValue]="-1">>select a Node</option>
+                <option *ngFor="let node of nodes" [ngValue]="node.id" >{{node.label}}</option>
+              </select>
+          </div>
+         
+          <div class="form-group form-group-sm mb-2">
+            <label class="form-control-label mb-1" for="targetNode">Target Node</label>
+            <select  id="targetNode" name="targetNode" [(ngModel)]="link.target" class="form-control input-underline form-control-sm " >
+              <option value="" disabled selected [ngValue]="-1">>select a Node</option>
+              <option *ngFor="let node of nodes" [ngValue]="node.id" >{{node.label}}</option>
+            </select>
+        </div>
+       </div>
+        </form>
+      

@@ -1,0 +1,43 @@
+<app-msg-view [msgOb]="msgOb"></app-msg-view> 
+<form role="form" #formForm="ngForm" (ngSubmit)="onUpdate(formForm)">
+           
+      <div class="form-content ">
+       
+          <div class="form-group">
+              <label class="form-control-label" for="formName">form Name</label>
+              <input type="text" class="form-control input-underline input-lg " id="formName"  [(ngModel)]="form.formName" name="tableName">
+              
+          </div>
+          <div class="form-group">
+              <label class="form-control-label" for="formDesc">Desc</label>
+              <input type="text" class="form-control input-underline input-lg " id="formDesc"  [(ngModel)]="form.formDesc" name="tableDesc">
+              
+          </div>
+          <div class="form-group has-danger">
+              <label class="form-control-label" for="table">Table</label>
+            
+              <select [(ngModel)]="_virtualTableId" id="table" name="table" class="form-control input-underline input-lg " >
+                <option value="" disabled selected>>select a table</option>
+                <option *ngFor="let item of virtualTableList" [value]="item.id">{{item.tableName}}</option>
+              </select>
+          </div>
+          <div class="form-group has-danger">
+            <label class="form-control-label" for="user groups">Allowed access for </label>
+          </div>
+          <div class="form-group"  *ngFor="let userRole of userRoles; let i = index">
+            <div class="col-sm-offset-2 col-sm-10">
+              <div class="checkbox">
+                <label>
+                    <input type="checkbox" class="form-check-input" id="roleSelect"  [checked]="_userRoleSelectedIds.indexOf(userRole.id) != -1"  name="roleSelect{{i}}"  (change)="handleChange($event,userRole)" >
+                    {{userRole.type}}
+                </label>
+              </div>
+            </div>
+          </div>
+      </div>
+      
+     
+      <button type="submit" class="btn rounded-btn" [disabled]="!formForm.form.valid">{{!isNew ? 'Update' : 'Save'}}</button>
+     
+  </form>
+  <!-- {{virtualTableList|json}} -->

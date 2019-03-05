@@ -1,0 +1,88 @@
+
+<nav class="sidebar">
+                <div class="card mb-3">
+                                <div class="card-header">
+                                        Action controller
+                                </div>
+                                <div  class="list-group">
+                                            <div class="nested-menu">
+                                                    <a class="list-group-item" (click)="toggleExpandClass(0)">
+                                                            <span><i class="fa fa-plus"></i>&nbsp; Action controller</span>
+                                                    </a>
+                                                    <li class="nested" [class.expand]="pages[0]">
+                                                            <ul class="submenu">
+                                                                    <li >
+                                                                            <a class="list-group-item" [routerLink]="" (click)="autoGenerateComponents()">
+                                                                                            <span>Auto generate</span>
+                                                                            </a>
+                                                                    </li>
+                                                                    
+                                                                    <li >
+                                                                            <a class="list-group-item" [routerLink]="" (click)="createNewComponent()" >
+                                                                                            <span>Component</span>
+                                                                            </a>
+                                                                    </li>
+                                                            </ul>
+                                                    </li>
+                                            </div>
+                                </div>
+                                
+                        </div>
+            <div class="card mb-3">
+                    <div class="card-header">
+                            Table
+                    </div>
+                    <div class="list-group">
+                        <div class="nested-menu">
+                                <a class="list-group-item" (click)="toggleExpandClass(1)">
+                                    <span><i class="fa fa-plus"></i>&nbsp; {{form.virtualTableMaster.tableName}}</span>
+                                </a>
+                                <li class="nested" [class.expand]="pages[1]">
+                                    <ul class="submenu">
+                                        <li *ngFor="let virtualTableField of virtualTableFieldsList; let i = index">
+                                                <a class="list-group-item" [routerLink]="" >
+                                                        <span>{{virtualTableField.fieldName}}</span>
+                                                </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                        </div>
+                    </div>
+            </div>
+           
+</nav>
+
+<section class="main-container" data-spy="scroll">
+        
+        <app-msg-view [msgOb]="msgOb"></app-msg-view> 
+        <!-- <form role="form" #formDesignForm="ngForm" (ngSubmit)="onUpdate(formForm)"> -->
+                <div class="form-content ">
+                 
+                    <!-- <div class="form-group" *ngFor="let formDesign of formDesignList; let i = index">
+                        <app-form-component-dir [formDesign]="formDesign" (deleteComponentEmit)="deleteComponent($event)" (editComponentEmit)="editComponent($event)"></app-form-component-dir>
+                    </div> -->
+                
+                        <div class="example-list" cdkDropList (cdkDropListDropped)="drop($event)">
+                            <div class="example-box" *ngFor="let formDesign of formDesignList" cdkDrag >
+                                        <div class="example-handle" cdkDragHandle>
+                                                <svg width="24px" fill="currentColor" viewBox="0 0 24 24">
+                                                        <path d="M10 9h4V6h3l-5-5-5 5h3v3zm-1 1H6V7l-5 5 5 5v-3h3v-4zm14 2l-5-5v3h-3v4h3v3l5-5zm-9 3h-4v3H7l5 5 5-5h-3v-3z"></path>
+                                                        <path d="M0 0h24v24H0z" fill="none"></path>
+                                                </svg>
+                                        </div>
+                                <app-form-component-dir [formDesign]="formDesign" (deleteComponentEmit)="deleteComponent($event)" 
+                        (editComponentEmit)="editComponent($event)"></app-form-component-dir>
+                            </div>
+                        </div>
+                       
+                   
+                </div>
+                <!-- {{formDesignList|json}}      -->
+     
+        <!-- </form> -->
+</section>
+<nav class="sidebar-right"  >
+        <app-component-properties-dir *ngIf="formDesign"  [virtualTableFieldsList]="virtualTableFieldsList" [formDesign]="formDesign" ></app-component-properties-dir>
+</nav>
+
+

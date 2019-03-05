@@ -1,0 +1,34 @@
+
+     
+       
+<ngx-datatable class="ngx-datatable bootstrap"
+    [rows]="rows"
+    
+    [columnMode]="'force'"
+    [headerHeight]="50"
+    [footerHeight]="50"
+    [rowHeight]="'auto'"
+    [limit]="10"
+    [rowClass]="getRowClass"
+     >
+    <ngx-datatable-column name="Name"></ngx-datatable-column>
+    <ngx-datatable-column name="Gender" headerClass="is-gender" [cellClass]="getCellClass"></ngx-datatable-column>
+    <ngx-datatable-column name="Age"></ngx-datatable-column>
+    <ngx-datatable-column name="Company" [width]="400" ></ngx-datatable-column>
+    <ngx-datatable-column [width]="50">
+        <ng-template  let-row="row"  ngx-datatable-cell-template>
+            <a [routerLink]="" (click)="open(content,user)"><i class="fa fa-fw fa-edit"></i></a>
+        </ng-template>
+        <!-- <ng-template #deleteBtn let-row="row"  ngx-datatable-cell-template>
+                <div (click)="delete(row.id)" class="d-flex justify-content-center btn btn-sm btn-outline-secondary"><i class="fa fa-trash"></i></div>
+       </ng-template> -->
+    </ngx-datatable-column>
+    <ngx-datatable-column [width]="50" >
+        <ng-template #deleteBtn let-row="row"  ngx-datatable-cell-template>
+            <a [routerLink]="" (click)="deleteUser(user)"><i class="fa fa-fw fa-remove"></i></a>
+        </ng-template>
+    </ngx-datatable-column>
+    
+  </ngx-datatable>
+
+ 

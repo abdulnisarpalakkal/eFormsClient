@@ -1,0 +1,196 @@
+<nav class="sidebar">
+  <div class="card mb-3">
+    <div class="card-header">
+      Components
+    </div>
+    <!-- {{nodes|json}} -->
+  <!-- {{actionEventParamList|json}} -->
+    <div class="list-group">
+        <div class="nested-menu">
+            <a class="list-group-item" (click)="toggleExpandClass(0)">
+                    <span><i class="fa fa-plus"></i>&nbsp; Nodes</span>
+            </a>
+            <li class="nested" [class.expand]="pages[0]">
+                    <ul class="submenu">
+                            <li >
+                                <a class="list-group-item" [routerLink]="" (click)="open(nodeContent,'START')">
+                                                <span>Start</span>
+                                </a>
+                            </li>
+                            <li >
+                                <a class="list-group-item" [routerLink]="" (click)="open(nodeContent,'STOP')">
+                                                <span>Stop</span>
+                                </a>
+                            </li>
+                            <li >
+                                    <a class="list-group-item" [routerLink]="" (click)="open(nodeContent,'FORM')">
+                                                    <span>Form</span>
+                                    </a>
+                            </li>
+                    
+                            <li >
+                                    <a class="list-group-item" [routerLink]="" (click)="open(nodeContent,'ACTION')" >
+                                                    <span>Action</span>
+                                    </a>
+                            </li>
+                    </ul>
+            </li>
+      </div>
+      <div class="nested-menu">
+        <a class="list-group-item" (click)="toggleExpandClass(1)">
+                <span><i class="fa fa-plus"></i>&nbsp; Links</span>
+        </a>
+        <li class="nested" [class.expand]="pages[1]">
+                <ul class="submenu">
+                        <li >
+                            <a class="list-group-item" [routerLink]="" (click)="openLinkPop(linkContent,'SUCCESS')">
+                                            <span>Success</span>
+                            </a>
+                        </li>
+                        <li >
+                            <a class="list-group-item" [routerLink]="" (click)="openLinkPop(linkContent,'FAIL')">
+                                            <span>Fail</span>
+                            </a>
+                        </li>
+                        <li >
+                          <a class="list-group-item" [routerLink]="" (click)="openLinkPop(linkContent,'ACTION')">
+                                          <span>Action</span>
+                          </a>
+                      </li>
+                      <li >
+                        <a class="list-group-item" [routerLink]="" (click)="openLinkPop(linkContent,'FORM')">
+                                        <span>Form</span>
+                        </a>
+                    </li>
+                      
+                </ul>
+        </li>
+  </div>
+    </div>
+  </div>
+</nav>
+<section class="main-container " >
+ <!-- {{nodes|json}} -->
+ <!-- {{links|json}} -->
+
+
+<ngx-graph
+  class="chart-container"
+  [view]="view"
+  
+  [enableZoom]="enableZoom"
+  [autoCenter]="autoCenter"
+  [legend]="showLegend"
+  [links]="links"
+  (legendLabelClick)="onLegendLabelClick($event)"
+  [nodes]="nodes"
+  [scheme]="colorScheme"
+  [orientation]="orientation"
+  [curve]="curve"
+
+  
+  (select)="select($event)">
+
+  <ng-template #defsTemplate>
+    <svg:marker id="arrow" viewBox="0 -5 10 10" refX="8" refY="0" markerWidth="4" markerHeight="6" orient="auto">
+      <svg:path d="M0,-5L10,0L0,5" class="arrow-head" />
+    </svg:marker>
+  </ng-template>
+  <!-- <ng-template #clusterTemplate let-cluster>
+      <svg:g class="node cluster" ngx-tooltip [tooltipPlacement]="'top'" [tooltipType]="'tooltip'" [tooltipTitle]="cluster.label">
+        <svg:rect rx="5" ry="5" [attr.width]="cluster.dimension.width" [attr.height]="cluster.dimension.height" [attr.fill]="cluster.data.color" />
+      </svg:g>
+    </ng-template> -->
+  <ng-template #nodeTemplate let-node >
+     
+        <svg:g class="node"
+          ngx-tooltip
+          [tooltipPlacement]="'top'"
+          [tooltipType]="'tooltip'"
+          [tooltipTitle]="node.label"
+          (click)="nodeClicked(node)"
+         >
+          
+            <svg:rect  [attr.width]="node.width" [attr.height]="node.height" [attr.fill]="node.color" />
+            <svg:text alignment-baseline="central" [attr.x]="10" [attr.y]="node.height / 2">{{node.label}}</svg:text>
+            <!-- <svg:text>{{link|json}}</svg:text> -->
+          
+        </svg:g>
+   
+  </ng-template>
+
+  <ng-template #linkTemplate let-link>
+      <svg:g class="edge" (click)="linkClicked(link)">
+          <svg:path class="line" stroke-width="2" marker-end="url(#arrow)">
+              
+          </svg:path>
+          <svg:text class="edge-label" text-anchor="middle">
+            <textPath class="text-path" [attr.href]="'#' + link.id" [style.dominant-baseline]="link.dominantBaseline" startOffset="50%">
+              {{link.label}}
+              
+            </textPath>
+          </svg:text>
+          
+        </svg:g>
+        
+  </ng-template>
+
+</ngx-graph>
+
+  
+</section>
+<nav class="sidebar-right"  >
+  <div class="card mb-3">
+      <div class="card ">
+          <div class="card-header">
+            Properties
+          </div>
+          <div class="card-body" [hidden]="!nodeSelected">
+            <app-workflow-node-properties-dir  [node]="node" [formList]="workflowFormsList" [actionEventList]="actionEventList" [users]="users" [userGroups]="userGroups" >
+              </app-workflow-node-properties-dir>
+              <button type="button" class="btn btn-secondary" (click)="updateNodePropertiesClick()">OK</button>
+              <button type="button" class="btn btn-secondary" (click)="deleteNodeClick()">Delete</button>
+          </div>
+          <div class="card-body" [hidden]="!linkSelected">
+            <app-workflow-link-properties-dir  [link]="link" [nodes]="nodes"  >
+            </app-workflow-link-properties-dir>
+              <button type="button" class="btn btn-secondary" (click)="updateLinkPropertiesClick()">OK</button>
+          </div>
+          
+        </div>
+  </div>
+</nav>
+<ng-template #nodeContent let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">Workflow Node</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Close click')">
+        <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <app-workflow-node-properties-dir  [node]="node" [formList]="workflowFormsList" [actionEventList]="actionEventList"  [users]="users" [userGroups]="userGroups"  >
+  </app-workflow-node-properties-dir>
+   
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="c('Close click')">OK</button>
+    <button type="button" class="btn btn-secondary" (click)="d('Dismiss click')">Close</button>
+  </div>
+  </ng-template>
+  <ng-template #linkContent let-c="close" let-d="dismiss">
+    <div class="modal-header">
+      <h4 class="modal-title">Workflow Link</h4>
+      <button type="button" class="close" aria-label="Close" (click)="d('Close click')">
+          <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <app-workflow-link-properties-dir  [link]="link" [nodes]="nodes"  >
+    </app-workflow-link-properties-dir>
+     
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" (click)="c('Close click')">OK</button>
+      <button type="button" class="btn btn-secondary" (click)="d('Dismiss click')">Close</button>
+    </div>
+    </ng-template>

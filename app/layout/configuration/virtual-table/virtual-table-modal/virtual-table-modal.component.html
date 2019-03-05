@@ -1,0 +1,75 @@
+<div class="row justify-content-md-center">
+  <div  *ngIf="submitted"  class=" col-md-12 alert alert-{{msg_class}} ">
+
+          {{msg}}
+  
+  </div>
+</div>
+<!-- {{virtualTableFieldsConstraintDto|json}} -->
+<form role="form" #virtualTableForm="ngForm" (ngSubmit)="onUpdate(virtualTableForm)">
+           
+      <div class="form-content ">
+       
+          <div class="form-group">
+              <label class="form-control-label" for="visitorName">Table Name</label>
+              <input type="text" class="form-control input-underline input-lg " id="tableName"  [(ngModel)]="virtualTableFieldsConstraintDto.virtualTable.tableName" name="tableName">
+              
+          </div>
+          <div class="form-group">
+              <label class="form-control-label" for="tableDesc">Desc</label>
+              <input type="text" class="form-control input-underline input-lg " id="tableDesc"  [(ngModel)]="virtualTableFieldsConstraintDto.virtualTable.tableDesc" name="tableDesc">
+              
+          </div>
+          <div class=" form-check form-check-inline mb-3">
+            <label class="form-check-label">
+                    <input type="checkbox" class="form-check-input" id="autoIncr"  [(ngModel)]="virtualTableFieldsConstraintDto.virtualTable.autoIncr" name="autoIncr">Auto Incr
+            </label>
+           
+        </div>
+          <div class="form-group has-danger">
+            <label class="form-control-label" for="process">Process</label>
+           
+            <select [(ngModel)]="_processId" id="process" name="process" class="form-control input-underline input-lg " (change)="OnChangeProcess($event)" >
+              <option value="" disabled selected>>select a process</option>
+              <option *ngFor="let item of processList" [value]="item.id">{{item.processName}}</option>
+            </select>
+        </div>
+      </div>
+      <!-- <div class="row"  >
+          <div class="col col-xl-12 col-lg-12">
+            <div class="card mb-3"> -->
+                <!-- <div class="card-header">
+                    Table Fields
+                </div> -->
+
+                <ngb-tabset>
+                  
+                  <ngb-tab>
+                      <ng-template ngbTabTitle>Table Fields</ng-template>
+                      <ng-template ngbTabContent>
+                              <br />
+                              
+                             <app-virtual-table-fields [virtualTableFieldsConstraintDto]="virtualTableFieldsConstraintDto" [dataTypes]="dataTypes" [isNew]="isNew"></app-virtual-table-fields>
+                      </ng-template>
+                      
+                  </ngb-tab>
+                  <ngb-tab title="Constraints">
+                      <ng-template ngbTabContent>
+                              <br />
+                             <app-virtual-table-constraints [virtualTableFieldsConstraintDto]="virtualTableFieldsConstraintDto" 
+            [refVirtualTables]="refVirtualTables" [refVirtualTableConstraints]="refVirtualTableConstraints"></app-virtual-table-constraints>
+                      </ng-template>
+                  </ngb-tab>
+                
+                 
+              </ngb-tabset>
+
+
+<!--             
+          </div>
+        </div>
+      
+      </div> -->
+      
+     
+  </form>

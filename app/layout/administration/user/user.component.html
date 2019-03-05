@@ -1,0 +1,116 @@
+<div [@routerTransition]>
+    <div class="row"> 
+    <div class="col col-xl-2 ">
+            
+        <div class="card mb-1 ">
+            <button type="button" class="btn btn-default" (click)="open(content,null,true)"  >New <i class="fa fa-w fa-user-plus"></i></button>
+        </div>
+    </div>
+    </div>
+    <app-msg-view [msgOb]="msgOb"></app-msg-view> 
+    <div class="row">
+            <div class="col col-xl-12 col-lg-12">
+                <div class="card mb-3">
+                    <div class="card-header">
+                        Users List
+                    </div>
+                <div class="card-body table-responsive">
+                    <!-- <ngx-datatable-demo></ngx-datatable-demo> -->
+                    <input
+                        type='text' [(ngModel)]="fil_User.firstName"
+                        style='padding:8px;margin:15px auto;'
+                        placeholder='Filter first name...'
+                        (keyup)='updateFilter($event)'
+                    />
+                    <input
+                        type='text' [(ngModel)]="fil_User.lastName"
+                        style='padding:8px;margin:15px auto;'
+                        placeholder='Filter last name...'
+                        (keyup)='updateFilter($event)'
+                    />
+                    <input
+                        type='text' [(ngModel)]="fil_User.email"
+                        style='padding:8px;margin:15px auto;'
+                        placeholder='Filter email...'
+                        (keyup)='updateFilter($event)'
+                    />
+                    <ngx-datatable class="ngx-datatable bootstrap"
+                        #table
+                        [rows]="users"
+                        
+                        [columnMode]="'force'"
+                        [headerHeight]="50"
+                        [footerHeight]="50"
+                        [rowHeight]="'auto'"
+                        [limit]="10"
+                        
+                        
+                        
+                        >
+                        <ngx-datatable-column [width]="50" name="#">
+                            <ng-template let-rowIndex="rowIndex"  ngx-datatable-cell-template>
+                                {{rowIndex+1}}
+                            </ng-template>
+                           
+                        </ngx-datatable-column>
+                       
+                        <ngx-datatable-column prop="firstName" name="First Name"  ></ngx-datatable-column>
+                        <ngx-datatable-column prop="lastName" name="Last Name"  ></ngx-datatable-column>
+                        <ngx-datatable-column name="Email"></ngx-datatable-column>
+                      
+                        <ngx-datatable-column [width]="50" name="Edit">
+                            <ng-template  let-user="row"  ngx-datatable-cell-template>
+                                <a [routerLink]="" (click)="open(content,user)"><i class="fa fa-fw fa-edit"></i></a>
+                            </ng-template>
+                           
+                        </ngx-datatable-column>
+                        <ngx-datatable-column [width]="50" name="Delete" >
+                            <ng-template #deleteBtn let-user="row"  ngx-datatable-cell-template>
+                                <a [routerLink]="" (click)="deleteUser(user)"><i class="fa fa-fw fa-remove"></i></a>
+                            </ng-template>
+                        </ngx-datatable-column>
+                        <ngx-datatable-column [width]="50" name="Roles" >
+                            <ng-template #assignBtn let-user="row"  ngx-datatable-cell-template>
+                                <a [routerLink]="" (click)="assignRolesClick(content2,user)"><i class="fa fa-fw fa-users"></i></a>
+                            </ng-template>
+                        </ngx-datatable-column>
+                        
+                    </ngx-datatable>
+                </div>
+            </div>
+        </div>
+    </div> 
+    
+    
+<ng-template #content let-c="close" let-d="dismiss">
+    <div class="modal-header">
+        <h4 class="modal-title">User</h4>
+        <button type="button" class="close" aria-label="Close" (click)="d('Close click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <app-user-modal [user]="modalUser" [msgOb]="msgOb" (updated)="onUpdated($event)"></app-user-modal>
+       
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="c('Close click')">Close</button>
+    </div>
+</ng-template>
+
+<ng-template #content2 let-c="close" let-d="dismiss">
+        <div class="modal-header">
+            <h4 class="modal-title">User Roles: {{modalUser.firstName}}</h4>
+            <button type="button" class="close" aria-label="Close" (click)="d('Close click')">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <app-user-role-modal [user]="modalUser" [msgOb]="msgOb"  (updatedUserRoles)="onUpdatedUserRoles($event)"></app-user-role-modal>
+           
+        </div>
+        <!-- <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" (click)="c('Close click')">Update</button>
+            <button type="button" class="btn btn-secondary" (click)="c('Close click')">Close</button>
+        </div> -->
+    </ng-template>
