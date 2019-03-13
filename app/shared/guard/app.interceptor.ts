@@ -8,17 +8,19 @@ import {TokenStorage} from './token.storage';
 import 'rxjs/add/operator/do';
  import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
+import {MessageService} from '../services';
 
 
 // import {  throwError } from 'rxjs';
 import { retry, catchError } from 'rxjs/operators';
+import { UserMsg } from '../../model/user-msg.model';
 // import { Observable, throwError } from 'rxjs';
 const TOKEN_HEADER_KEY = 'Authorization';
 
 @Injectable()
 export class Interceptor implements HttpInterceptor {
-
-  constructor(private token: TokenStorage, private router: Router) { }
+  msgOb:UserMsg=new UserMsg();
+  constructor(private token: TokenStorage, private router: Router, private messageService:MessageService) { }
 
  
 
@@ -34,7 +36,8 @@ export class Interceptor implements HttpInterceptor {
       .do((event: HttpEvent<any>) => {
         if (event instanceof HttpResponse) {
           // do stuff with response if you want
-          
+          if(authReq.method!='GET')
+            this.handleSuccess();
         }
       }, (err: any) => {
         if (err instanceof HttpErrorResponse) {
@@ -49,7 +52,7 @@ export class Interceptor implements HttpInterceptor {
       .pipe(catchError((error, caught) => {
         //intercept the respons error and displace it to the console
         
-        this.handleAuthError(error);
+        this.handleError(error);
         return of(error);
       }) as any);
 
@@ -57,7 +60,13 @@ export class Interceptor implements HttpInterceptor {
 
     
   }
-  private handleAuthError(err: HttpErrorResponse): Observable<any> {
+  private handleSuccess(){
+    this.msgOb.success=true;
+    this.msgOb.msg_class="success";
+    this.msgOb.msg="Successfully completed"
+    this.messageService.sendMessage(this.msgOb);
+  }
+  private handleError(err: HttpErrorResponse): Observable<any> {
 
     let errorMessage = '';
     if(err.error.message)
@@ -65,7 +74,10 @@ export class Interceptor implements HttpInterceptor {
     else 
       errorMessage=`Error Code: ${err.status}\nMessage: ${err.message}`;
 
-
+      this.msgOb.success=false;
+      this.msgOb.msg_class="danger";
+      this.msgOb.msg=errorMessage
+      
     // if (err.error instanceof ErrorEvent) {
     //   // client-side error
     //   errorMessage = `Error: ${err.error.message}`;
@@ -74,8 +86,8 @@ export class Interceptor implements HttpInterceptor {
     //   errorMessage = `Error Code: ${err.status}\nMessage: ${err.message}`;
     // }
 
-   
-    throw errorMessage;
+    this.messageService.sendMessage(this.msgOb);
+    throw this.msgOb;
   }
 
 }

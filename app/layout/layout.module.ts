@@ -9,6 +9,7 @@ import { LayoutRoutingModule } from './layout-routing.module';
 import { LayoutComponent } from './layout.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { HeaderComponent } from './components/header/header.component';
+import {MsgViewModule} from './../shared/modules';
 
 
 @NgModule({
@@ -17,9 +18,9 @@ import { HeaderComponent } from './components/header/header.component';
         LayoutRoutingModule,
         TranslateModule,
         NgbDropdownModule.forRoot(),
-        NgbModule.forRoot()
-        // ,
-        // NgxDatatableModule
+        NgbModule.forRoot(),
+        MsgViewModule
+      
     ],
     declarations: [LayoutComponent, SidebarComponent, HeaderComponent]
     

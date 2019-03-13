@@ -5,8 +5,6 @@ import { ThrowStmt } from '@angular/compiler';
 import {Process} from '../../../../model/process.model';
 import {Category} from '../../../../model/category.model';
 import {ProcessService,CategoryService,Handler} from '../../../../shared';
-import { MsgInterface } from '../../../interface/msg-interface';
-import { UserMsg } from '../../../../model/user-msg.model';
 
 
 @Component({
@@ -14,9 +12,8 @@ import { UserMsg } from '../../../../model/user-msg.model';
   templateUrl: './process-modal.component.html',
   styleUrls: ['./process-modal.component.scss']
 })
-export class ProcessModalComponent implements OnInit,MsgInterface {
+export class ProcessModalComponent implements OnInit {
   @Input() process: Process;
-  @Input() msgOb:UserMsg=new UserMsg();
   _categoryId:number;
   @Output() updated = new EventEmitter<Process>();
 
@@ -37,10 +34,8 @@ export class ProcessModalComponent implements OnInit,MsgInterface {
       this.processService.create(this.process)
       .subscribe(
           data => {
-            this.successHandler("Process "+this.process.processName+" created successfully");
           },
           error=>{
-              this.errorHandler(error);
           }
       );
     }
@@ -49,10 +44,8 @@ export class ProcessModalComponent implements OnInit,MsgInterface {
       this.processService.update(this.process)
       .subscribe(
           data => {
-            this.successHandler("Process "+this.process.processName+" updated successfully");
           },
           error=>{
-              this.errorHandler(error);
           }
       );
     }
@@ -69,17 +62,6 @@ export class ProcessModalComponent implements OnInit,MsgInterface {
           }
     );
 }
-successHandler(msg)
-{
-   
-    this.msgOb.msg=msg;
-    this.msgOb=this.handler.getSuccessMsgObject(this.msgOb);
-}
-errorHandler(error)
-{
-    this.msgOb.msg=error;
-    this.msgOb=this.handler.getErrorMsgObject( this.msgOb);
-    
-}
+
  
 }

@@ -5,3 +5,4 @@ export * from './virtual-table.service';
 export * from './form.service';
 export * from './workflow.service';
 export * from './workflow-action.service';
+export * from './message-service';

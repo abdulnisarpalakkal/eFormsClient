@@ -9,16 +9,13 @@ import {VirtualTable} from '../../../model/virtual-table.model';
 import {VirtualTableFields} from '../../../model/virtual-table-fields.model';
 import { VirtualTableConstraintType } from './../../../model/virtual-table-constraints-type.model';
 import { VirtualTableFieldsConstraintDto } from '../../../model/Virtual-table-fields-constraint-dto.model';
-import { VirtualTableModalComponent } from './virtual-table-modal/virtual-table-modal.component';
-import { MsgInterface } from '../../interface/msg-interface';
-import { UserMsg } from '../../../model/user-msg.model';
 
 @Component({
   selector: 'app-virtual-table',
   templateUrl: './virtual-table.component.html',
   animations: [routerTransition()]
 })
-export class VirtualTableComponent implements OnInit,MsgInterface {
+export class VirtualTableComponent implements OnInit {
 //#region  Variables
 virtualTableList:VirtualTable[]=[];
 processList:Process[]=[];
@@ -34,7 +31,6 @@ public filter_VirtualTable: VirtualTable;
 public onlyAllowedFilter:boolean;
 public onlyNotAllowedFilter:boolean;
 
-msgOb:UserMsg=new UserMsg();
 closeResult: string;
 modalReference: any;
 isNew :boolean=false;
@@ -102,7 +98,6 @@ public getVirtualTableList() {
           // this.msg_class="danger";
           
           // this.msg=error.error?error.error.message:error.message; 
-          this.errorHandler(error);
         }
   );
 }
@@ -114,7 +109,6 @@ public getProcessList() {
           this.processList=data;   
         },
         error=>{
-          this.errorHandler(error);
         }
   );
 }
@@ -125,7 +119,6 @@ public getDataTypesList() {
           this.dataTypes=data;   
         },
         error=>{
-          this.errorHandler(error);
         }
   );
 }
@@ -136,12 +129,10 @@ delete(virtualTable:VirtualTable){
   this.virtualTableService.delete(virtualTable)
   .subscribe(
       data => {
-        this.successHandler("Virtual table "+virtualTable.tableName+" deleted successfully");
         this.getVirtualTableList();
       
       },
       error=>{
-          this.errorHandler(error);
           this.getVirtualTableList();
       }
   );
@@ -157,12 +148,10 @@ update() {
     this.virtualTableService.create(this.modalVirtualTableFieldsConstraintDto)
     .subscribe(
         data => {
-          this.successHandler("Virtual table "+this.modalVirtualTableFieldsConstraintDto.virtualTable.tableName+" saved successfully");
           this.closeModal();
           this.getVirtualTableList();
         },
         error=>{
-            this.errorHandler(error);
         }
     );
   }
@@ -171,12 +160,10 @@ update() {
     this.virtualTableService.update(this.modalVirtualTableFieldsConstraintDto)
     .subscribe(
         data => {
-          this.successHandler("Virtual table "+this.modalVirtualTableFieldsConstraintDto.virtualTable.tableName+" updated successfully");
           this.closeModal();
           this.getVirtualTableList();
         },
         error=>{
-            this.errorHandler(error);
         }
     );
   }
@@ -185,24 +172,12 @@ update() {
 }
 //#endregion
 //#region handlers
-successHandler(msg)
-{
-   
-    this.msgOb.msg=msg;
-    this.msgOb=this.handler.getSuccessMsgObject(this.msgOb);
-}
-errorHandler(error)
-{
-    this.msgOb.msg=error;
-    this.msgOb=this.handler.getErrorMsgObject( this.msgOb);
-    
-}
+
 //#endregion handlers
 
 
 //#region Modal window
 open(content,virtualTable:VirtualTable,isNew) {
-  this.msgOb.msg=null;
   this.isNew=isNew;
   this.virtualTableFieldsList=null;
   this.modalVirtualTableFieldsConstraintDto=new VirtualTableFieldsConstraintDto();

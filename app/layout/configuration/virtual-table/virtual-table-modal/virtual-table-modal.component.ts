@@ -18,8 +18,6 @@ import { UserMsg } from '../../../../model/user-msg.model';
 export class VirtualTableModalComponent implements OnInit {
   
   @Input() virtualTableFieldsConstraintDto:VirtualTableFieldsConstraintDto;
-  @Output() errorHandler = new EventEmitter<any>();
-  @Input() msgOb:UserMsg=new UserMsg();
   @Input() isNew:boolean; 
   @Input() processList:Process[]=[]; 
   @Input() dataTypes:string[]=[]; 
@@ -67,7 +65,6 @@ export class VirtualTableModalComponent implements OnInit {
           error=>{
            
      
-            this.errorHandler.emit(error);
           }
     );
   }
@@ -88,7 +85,6 @@ export class VirtualTableModalComponent implements OnInit {
           },
           error=>{
            
-            this.errorHandler.emit(error);
           }
     );
   }
@@ -102,7 +98,6 @@ export class VirtualTableModalComponent implements OnInit {
           },
           error=>{
            
-            this.errorHandler.emit(error);
           }
     );
   }
