@@ -15,13 +15,12 @@ export class CategoryModalComponent implements OnInit {
 
   @Input() category: Category;
   @Output() updated = new EventEmitter<Category>();
-  @Input() msgOb:UserMsg=new UserMsg();
   
 
   constructor(private categoryService: CategoryService,private handler:Handler) { }
 
   ngOnInit() {
-    this.msgOb.msg=null;
+    
   }
 
   onUpdate(categoryForm:NgForm) {
@@ -33,7 +32,6 @@ export class CategoryModalComponent implements OnInit {
             this.successHandler(this.category);
           },
           error=>{
-              this.errorHandler(error);
           }
       );
     }
@@ -45,7 +43,6 @@ export class CategoryModalComponent implements OnInit {
             this.successHandler(this.category);
           },
           error=>{
-              this.errorHandler(error);
           }
       );
     }
@@ -56,29 +53,6 @@ export class CategoryModalComponent implements OnInit {
    
     this.updated.emit(category);
   }
- errorHandler(error)
- {
-    this.msgOb.msg=error;
-    this.msgOb=this.handler.getErrorMsgObject(this.msgOb);
-    
- }
-  // errorHandler(error)
-  // {
-  //     this.submitted=true;
-  //     if(error.status==400)
-  //     {
-  //         this.msg="invalid input"
-  //     }
-  //     else if(error.status==0)
-  //     {
-  //         this.msg="Unknown Error"
-  //     }
-  //     else
-  //     {
-  //         this.msg=error.error.message; 
-  //     }
-      
-  //     this.msg_class="danger";
-  // }
+ 
 
 }

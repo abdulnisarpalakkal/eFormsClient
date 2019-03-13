@@ -1,12 +1,10 @@
-import { Component, OnInit,ViewChild } from '@angular/core';
+import { Component, OnInit,ViewChild, OnDestroy,ChangeDetectorRef  } from '@angular/core';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import {DatatableComponent} from '@swimlane/ngx-datatable';
 
 import { routerTransition } from '../../../router.animations';
-import {CategoryService,Handler} from '../../../shared';
+import {CategoryService,Handler,MessageService} from '../../../shared';
 import {Category} from '../../../model/category.model';
-import { UserMsg } from '../../../model/user-msg.model';
-import { MsgInterface } from '../../interface/msg-interface';
 
 @Component({
   selector: 'app-category',
@@ -14,7 +12,8 @@ import { MsgInterface } from '../../interface/msg-interface';
 
   animations: [routerTransition()]
 })
-export class CategoryComponent implements OnInit,MsgInterface {
+export class CategoryComponent implements OnInit {
+   
   categories=[];
   temp = [];
   modalCategory: Category;
@@ -24,16 +23,17 @@ export class CategoryComponent implements OnInit,MsgInterface {
   submitted = false;
   closeResult: string;
   modalReference: any;
-  msgOb:UserMsg=new UserMsg();
   
   categoryForm;
   @ViewChild(DatatableComponent) table: DatatableComponent;
-  constructor(private categoryService: CategoryService,private modalService: NgbModal, private handler:Handler) { }
+  
+  constructor(private ref: ChangeDetectorRef,private categoryService: CategoryService,private modalService: NgbModal, private handler:Handler,private messageService:MessageService) { }
 
   ngOnInit() {
       this.getCategories();
       this.filter_Category=new Category();
       this.modalCategory=new Category();
+  
   }
   public getCategories() {
       this.categoryService.get()
@@ -44,7 +44,6 @@ export class CategoryComponent implements OnInit,MsgInterface {
               this.categories=data;    
             },
             error=>{
-              this.errorHandler(error);
             }
       );
   }
@@ -70,19 +69,19 @@ deleteUser(category){
     this.categoryService.delete(category)
     .subscribe(
         data => {
-          this.successHandler("Category "+category.categoryName+" deleted successfully");
+          
           
           this.getCategories();
          
         },
         error=>{
-            this.errorHandler(error);
+
             this.getCategories();
         }
     );
 }
 open(content,category,isNew) {
-    this.msgOb.msg=null;
+  
     if(!isNew)
       this.modalCategory=category;
     else
@@ -110,27 +109,10 @@ private getDismissReason(reason: any): string {
     }
 }
 onUpdated(category: Category) {
-    this.successHandler("Category "+category.categoryName+" Updated/Saved successfully");
+    
     this.getCategories();
     this.closeModal();
 }
-successHandler(msg)
-{
-   
-    this.msgOb.msg=msg;
-    this.msgOb=this.handler.getSuccessMsgObject(this.msgOb);
-}
-errorHandler(error)
-{
-    this.msgOb.msg=error;
-    this.msgOb=this.handler.getErrorMsgObject( this.msgOb);
-    
-}
-// errorHandler(error)
-// {
-//     // this.msg=this.handler.getErrorMsg(error);
-//     this.success=false;
-//     this.msg_class="danger";
-// }
+
 
 }

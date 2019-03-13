@@ -8,7 +8,6 @@
             </div>
         </div>
       </div>
-      <app-msg-view [msgOb]="msgOb"></app-msg-view> 
   
   <!-- <br /> -->
   <div class="row">
@@ -80,7 +79,7 @@
       </button>
   </div>
   <div class="modal-body">
-      <app-process-modal [process]="modalProcess" [msgOb]="msgOb" (updated)="onUpdated($event)"></app-process-modal>
+      <app-process-modal [process]="modalProcess"  (updated)="onUpdated($event)"></app-process-modal>
      
   </div>
   <div class="modal-footer">

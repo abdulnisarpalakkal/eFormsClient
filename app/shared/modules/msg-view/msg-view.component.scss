@@ -1,0 +1,12 @@
+.msgClass{
+    z-index: 1100;
+    position: fixed;
+    bottom: 0;
+    max-width: 100%;
+    min-width: 100%;
+}
+.msgCloseClass{
+    right: 0;
+    margin-right: 5px;
+    position: absolute;
+}

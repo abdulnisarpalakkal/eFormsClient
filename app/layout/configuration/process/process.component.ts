@@ -6,8 +6,6 @@ import { routerTransition } from '../../../router.animations';
 import {ProcessService,CategoryService,Handler} from '../../../shared';
 import {Process} from '../../../model/process.model';
 import {Category} from '../../../model/category.model';
-import { MsgInterface } from '../../interface/msg-interface';
-import { UserMsg } from '../../../model/user-msg.model';
 
 
 @Component({
@@ -16,7 +14,7 @@ import { UserMsg } from '../../../model/user-msg.model';
   styleUrls: ['./process.component.scss'],
   animations: [routerTransition()]
 })
-export class ProcessComponent implements OnInit,MsgInterface {
+export class ProcessComponent implements OnInit {
 
   processes=[];
   temp = [];
@@ -25,7 +23,6 @@ export class ProcessComponent implements OnInit,MsgInterface {
   public _filter_categoryId:number;
   categories:Array<Category>=[];
 
-  msgOb:UserMsg=new UserMsg();
  
   closeResult: string;
   modalReference: any;
@@ -51,7 +48,6 @@ export class ProcessComponent implements OnInit,MsgInterface {
               this.processes=data;    
             },
             error=>{
-              this.errorHandler(error);
             }
       );
   }
@@ -62,7 +58,6 @@ export class ProcessComponent implements OnInit,MsgInterface {
             this.categories= data;    
           },
           error=>{
-            this.errorHandler(error);
             this.categories=null;
           }
     );
@@ -90,18 +85,15 @@ deleteUser(process:Process){
     this.processService.delete(process)
     .subscribe(
         data => {
-          this.successHandler("Process "+process.processName+" deleted successfully");
           this.getProcesses();
          
         },
         error=>{
-            this.errorHandler(error);
             this.getProcesses();
         }
     );
 }
 open(content,process,isNew) {
-   this.msgOb.msg=null;
     if(!isNew)
       this.modalProcess=process;
     else
@@ -131,19 +123,7 @@ private getDismissReason(reason: any): string {
     }
 }
 onUpdated(process: Process) {
-  this.successHandler("Process "+process.processName+" Updated/Saved successfully");
   this.closeModal();
 }
-successHandler(msg)
-{
-   
-    this.msgOb.msg=msg;
-    this.msgOb=this.handler.getSuccessMsgObject(this.msgOb);
-}
-errorHandler(error)
-{
-    this.msgOb.msg=error;
-    this.msgOb=this.handler.getErrorMsgObject( this.msgOb);
-    
-}
+
 }

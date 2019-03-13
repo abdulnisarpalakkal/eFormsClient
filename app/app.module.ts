@@ -8,7 +8,7 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 import { AuthGuard,Interceptor,TokenStorage,AdministrationService,CategoryService
     ,ProcessService,GlobalData,Handler,VirtualTableService,FormService,WorkflowService
-    , WorkflowActionService }
+    , WorkflowActionService,MessageService }
  from './shared';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -35,7 +35,7 @@ export function createTranslateLoader(http: HttpClient) {
                 deps: [HttpClient]
             }
         }),
-        AppRoutingModule 
+        AppRoutingModule
     ],
     declarations: [AppComponent],
     providers: [
@@ -46,6 +46,7 @@ export function createTranslateLoader(http: HttpClient) {
              FormService,
              WorkflowService,
              WorkflowActionService,
+             MessageService,
              AuthGuard,
              TokenStorage,
             {
@@ -56,6 +57,11 @@ export function createTranslateLoader(http: HttpClient) {
            
             GlobalData,
             Handler
+            // ,
+            // {
+            //     provide:ErrorHandler,
+            //     useClass:Handler
+            // }
             
         
     ],

@@ -1,5 +1,9 @@
+
 <app-header></app-header>
 <app-sidebar></app-sidebar>
 <section class="main-container">
     <router-outlet></router-outlet>
+   
 </section>
+<app-msg-view [msgOb]="msgOb" (deleted)="deleteMsg(msgOb)"></app-msg-view>
+

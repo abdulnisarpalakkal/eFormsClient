@@ -8,9 +8,7 @@
             </div>
         </div>
       </div>
-     
-      <app-msg-view [msgOb]="msgOb"></app-msg-view> 
-  
+    
   <!-- <br /> -->
   <div class="row">
           <div class="col col-xl-12 col-lg-12">
@@ -19,25 +17,7 @@
                       Category List
                   </div>
                  <div class="card-body table-responsive">
-                  <!-- <ngx-datatable-demo></ngx-datatable-demo> -->
-                  <!-- <input
-                      type='text' [(ngModel)]="fil_User.firstName"
-                      style='padding:8px;margin:15px auto;'
-                      placeholder='Filter first name...'
-                      (keyup)='updateFilter($event)'
-                  />
-                  <input
-                      type='text' [(ngModel)]="fil_User.lastName"
-                      style='padding:8px;margin:15px auto;'
-                      placeholder='Filter last name...'
-                      (keyup)='updateFilter($event)'
-                  />
-                  <input
-                      type='text' [(ngModel)]="fil_User.email"
-                      style='padding:8px;margin:15px auto;'
-                      placeholder='Filter email...'
-                      (keyup)='updateFilter($event)'
-                  /> -->
+               
                   <ngx-datatable class="ngx-datatable bootstrap"
                       #table
                       [rows]="categories"
@@ -85,7 +65,7 @@
       </button>
   </div>
   <div class="modal-body">
-      <app-category-modal [category]="modalCategory" [msgOb]="msgOb" (updated)="onUpdated($event)"></app-category-modal>
+      <app-category-modal [category]="modalCategory" (updated)="onUpdated($event)"></app-category-modal>
      
   </div>
   <div class="modal-footer">
