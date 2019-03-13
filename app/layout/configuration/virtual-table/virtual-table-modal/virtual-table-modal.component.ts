@@ -105,33 +105,6 @@ export class VirtualTableModalComponent implements OnInit {
   onUpdate(virtualTableForm:NgForm) {
     this.virtualTableFieldsConstraintDto.virtualTable.process= this.processList.find(x=>x.id == this._processId);
     
-    // this.virtualTableFieldsConstraintDto.virtualTableFields=this.virtualTableFieldsList;
-    // var field=this.virtualTable.virtualTableFieldsList.find(x=>x.fieldName==this.pkConstraint.virtualTableField.fieldName);
-    // if(this.virtualTable.virtualTableFieldsList!=null){
-    //   this.virtualTable.virtualTableFieldsList.forEach(field=>{
-    //     field.fieldConstraintList=[];
-
-    //     if(this.pkConstraint!=null){    //adding primary key constraint
-    //       if(this.pkConstraint.virtualTableField.fieldName==field.fieldName){
-    //         this.pkConstraint.virtualTableField=null; //for avoiding circular reference
-    //         field.fieldConstraintList.push(this.pkConstraint);
-    //       }
-    //     }
-
-    //     if(this.foreignKeyConstraints!=null){ //adding foreign key constraint
-    //       var fKey=this.foreignKeyConstraints.find(fk=>fk.virtualTableField.fieldName==field.fieldName);
-    //       if(fKey!=null){
-    //         fKey.virtualTableField=null;  //for avoiding circular reference
-    //         field.fieldConstraintList.push(fKey);
-    //       }
-
-    //     }
-    //   });
-    // }
-
-  
-
-    // this.updated.emit(this.virtualTable);
   }
   OnChangeProcess(event){
     this.virtualTableFieldsConstraintDto.virtualTable.process= this.processList.find(x=>x.id == event.target.value);
