@@ -15,7 +15,6 @@ import { UserMsg } from '../../../model/user-msg.model';
 export class WorkflowFormViewComponent implements OnInit {
   @Input() form: FormMaster;
   @Input() formDesignList: FormDesign[]=[];
-  @Input() msgOb:UserMsg=new UserMsg();
   selectComponent:FormComponentEnum=FormComponentEnum.COMPO;
   labelComponent:FormComponentEnum=FormComponentEnum.LABEL;
   radioComponent:FormComponentEnum=FormComponentEnum.RADIO;

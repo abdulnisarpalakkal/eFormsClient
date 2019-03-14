@@ -18,7 +18,7 @@ import { UserMsg } from '../../model/user-msg.model';
   styleUrls: ['./workflow-dashboard.component.scss'],
   animations: [routerTransition()]
 })
-export class WorkflowDashboardComponent implements OnInit,MsgInterface {
+export class WorkflowDashboardComponent implements OnInit {
   publishedWorkflows:WorkflowMaster[]=[]
   openWorkflowStages:WorkflowStage[]=[]
   constructor(public workflowService:WorkflowService,private modalService: NgbModal, private handler:Handler) { }
@@ -27,13 +27,14 @@ export class WorkflowDashboardComponent implements OnInit,MsgInterface {
   modalReference: any;
   form:FormMaster;  
   formDesignList:FormDesign[];
-  msgOb:UserMsg=new UserMsg();
+  workflowTrackList:WorkflowTrackDet[];
 
 submitted = false;
 
   ngOnInit() {
     // this.getAllPublishedWorkflows();
     this.getAllOpenWorkflow();
+    this.getAllWorkflowTrackDetByUser();
   }
   //#region Service call
   getAllPublishedWorkflows(){
@@ -41,7 +42,6 @@ submitted = false;
     .subscribe(data=>{
       this.publishedWorkflows=data;
     },error=>{
-      this.errorHandler(error);
     });
   }
   getAllOpenWorkflow(){
@@ -49,7 +49,6 @@ submitted = false;
     .subscribe(data=>{
       this.openWorkflowStages=data;
     },error=>{
-      this.errorHandler(error);
     });
   }
   getWorkflowStage(workflowStage:WorkflowStage,content){
@@ -61,39 +60,33 @@ submitted = false;
           this.formDesignList=this.form.formDesignList;
           this.open(content);
     },error=>{
-      this.errorHandler(error);
+    })
+  }
+  getAllWorkflowTrackDetByUser(){
+    
+    this.workflowService.getAllWorkflowTrackDetByUser()
+    .subscribe(data=>{
+          this.workflowTrackList=data;
+         
+    },error=>{
     })
   }
  submitAction(actionNode:WorkflowNode){
   this.workflowStage.selectedActionNode=actionNode;
   this.workflowService.submitActionWorkflow(this.workflowStage)
   .subscribe(data=>{
-      this.successHandler(actionNode.label+" submitted successfully");
       this.closeModal();
       this.getAllOpenWorkflow();
   },error=>{
-      this.errorHandler(error);
   });
  }
   //#endregion
   
   //#region handlers
-  successHandler(msg)
-  {
-     
-      this.msgOb.msg=msg;
-      this.msgOb=this.handler.getSuccessMsgObject(this.msgOb);
-  }
-  errorHandler(error)
-  {
-      this.msgOb.msg=error;
-      this.msgOb=this.handler.getErrorMsgObject( this.msgOb);
-      
-  }
+  
   //#endregion
 //#region Modal 1
 open(content) {
-  this.msgOb.msg=null;
   this.submitted=false;
   this.modalReference=this.modalService.open(content,{ size: 'lg', backdrop:"static" });
   

@@ -21,7 +21,7 @@ import { UserMsg } from '../../model/user-msg.model';
   encapsulation: ViewEncapsulation.None,
   animations: [routerTransition()]
 })
-export class FormComponent implements OnInit,MsgInterface {
+export class FormComponent implements OnInit {
 //#region  Variables
 virtualTableList:VirtualTable[]=[];
 virtualTableFieldsList: VirtualTableFields[]=[];
@@ -33,7 +33,6 @@ userRoles:UserRoles[];
 temp = [];
 modalform: FormMaster;
 public filter_Form: FormMaster;
-msgOb:UserMsg=new UserMsg();
 closeResult: string;
 modalReference: any;
 modalReference2: any;
@@ -72,18 +71,7 @@ updateFilter(){
 //#endregion
 
 //#region handlers
-successHandler(msg)
-{
-   
-    this.msgOb.msg=msg;
-    this.msgOb=this.handler.getSuccessMsgObject(this.msgOb);
-}
-errorHandler(error)
-{
-    this.msgOb.msg=error;
-    this.msgOb=this.handler.getErrorMsgObject( this.msgOb);
-    
-}
+
 
 //#endregion
 
@@ -91,7 +79,6 @@ errorHandler(error)
 //#region Modal window
 //#region Modal 1
 open(content,form:FormMaster,isNew) {
-  this.msgOb.msg=null;
   this.isNew=isNew;
   if(!isNew)
   {
@@ -123,7 +110,6 @@ private getDismissReason(reason: any): string {
 //#endregion Modal1
 //#region Modal2
 openDesignModal(content,form:FormMaster) {
-  this.msgOb.msg=null;
   this.modalform=form;
   this.modalReference2=this.modalService.open(content,{ size: 'lg', backdrop:"static", windowClass:'modal-xl custom_modal_dialog custom_modal_content' });
   
@@ -177,7 +163,6 @@ public getFormsList() {
         },
         error=>{
          
-          this.errorHandler(error);
         }
   );
 }
@@ -193,7 +178,6 @@ public getFormDesignList (formId) {
           }
         },
         error=>{
-          this.errorHandler(error);
         }
   );
 }
@@ -205,7 +189,6 @@ public getVirtualTableList() {
         },
         error=>{
      
-          this.errorHandler(error);
         }
   );
 }
@@ -216,7 +199,6 @@ public getFormComponentTypesList() {
           this.formComponentTypes=data;   
         },
         error=>{
-          this.errorHandler(error);
         }
   );
 }
@@ -227,8 +209,6 @@ public getVirtualTableFieldList(table:VirtualTable) {
           this.virtualTableFieldsList=data;   
         },
         error=>{
-     
-          this.errorHandler(error);
         }
   );
 }
@@ -237,7 +217,6 @@ public getUserRoles(){
   .subscribe(data=>{
     this.userRoles=data;
   },error=>{
-    this.errorHandler(error);
   });
 }
 delete(form:FormMaster){
@@ -247,12 +226,10 @@ delete(form:FormMaster){
   this.formService.delete(form)
   .subscribe(
       data => {
-        this.successHandler("Form "+form.formName+" deleted successfully");
         this.getFormsList();
       
       },
       error=>{
-          this.errorHandler(error);
           this.getFormsList();
       }
   );
@@ -267,12 +244,10 @@ onUpdated(form: FormMaster) {
     this.formService.create(form)
     .subscribe(
         data => {
-          this.successHandler("Form "+form.formName+" saved successfully");
           this.closeModal();
           this.getFormsList();
         },
         error=>{
-            this.errorHandler(error);
         }
     );
   }
@@ -281,12 +256,10 @@ onUpdated(form: FormMaster) {
     this.formService.update(form)
     .subscribe(
         data => {
-          this.successHandler("Form "+form.formName+" updated successfully");
           this.closeModal();
           this.getFormsList();
         },
         error=>{
-            this.errorHandler(error);
         }
     );
   }
@@ -297,12 +270,10 @@ onUpdatedDesign() {
   this.formService.updateDesign(this.formDesignList)
     .subscribe(
         data => {
-          this.successHandler("Form design "+this.modalform.formName+" updated successfully");
           this.closeModal();
           this.getFormsList();
         },
         error=>{
-            this.errorHandler(error);
         }
     );
 }

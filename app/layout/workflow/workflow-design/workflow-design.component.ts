@@ -33,7 +33,6 @@ export class WorkflowDesignComponent implements OnInit {
   @Output() nodeUpdated = new EventEmitter<any>();
   @Output() linkUpdated = new EventEmitter<any>();
   
-  @Input() msgOb:UserMsg=new UserMsg();
   @Input()  nodes: WorkflowNode[]=[] ;
   @Input() links: WorkflowLink[] = [];
   

@@ -90,7 +90,7 @@
         </button>
     </div>
     <div class="modal-body">
-        <app-user-modal [user]="modalUser" [msgOb]="msgOb" (updated)="onUpdated($event)"></app-user-modal>
+        <app-user-modal [user]="modalUser"  (updated)="onUpdated($event)"></app-user-modal>
        
     </div>
     <div class="modal-footer">
@@ -106,7 +106,7 @@
             </button>
         </div>
         <div class="modal-body">
-            <app-user-role-modal [user]="modalUser" [msgOb]="msgOb"  (updatedUserRoles)="onUpdatedUserRoles($event)"></app-user-role-modal>
+            <app-user-role-modal [user]="modalUser"   (updatedUserRoles)="onUpdatedUserRoles($event)"></app-user-role-modal>
            
         </div>
         <!-- <div class="modal-footer">

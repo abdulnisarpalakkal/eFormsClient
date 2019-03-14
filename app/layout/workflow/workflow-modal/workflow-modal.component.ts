@@ -12,7 +12,6 @@ import { UserMsg } from '../../../model/user-msg.model';
 export class WorkflowModalComponent implements OnInit {
   @Input() workflow: WorkflowMaster;
   @Output() updated = new EventEmitter<WorkflowMaster>();
-  @Input() msgOb:UserMsg=new UserMsg();
   @Input() isNew:boolean; 
   @Input() processList:Process[]=[]; 
   _processId:number;

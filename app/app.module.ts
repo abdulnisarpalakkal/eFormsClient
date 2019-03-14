@@ -12,6 +12,8 @@ import { AuthGuard,Interceptor,TokenStorage,AdministrationService,CategoryServic
  from './shared';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import {MsgViewModule} from './shared/modules';
+import {EqualValidator} from './shared';
 
 
 
@@ -35,9 +37,11 @@ export function createTranslateLoader(http: HttpClient) {
                 deps: [HttpClient]
             }
         }),
-        AppRoutingModule
+        AppRoutingModule,
+        MsgViewModule
+        
     ],
-    declarations: [AppComponent],
+    declarations: [AppComponent,EqualValidator],
     providers: [
         AdministrationService,
              CategoryService,

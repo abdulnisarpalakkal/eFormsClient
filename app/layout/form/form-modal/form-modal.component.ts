@@ -15,7 +15,6 @@ export class FormModalComponent implements OnInit,OnChanges {
 
   @Input() form: FormMaster;
   @Output() updated = new EventEmitter<FormMaster>();
-  @Input() msgOb:UserMsg=new UserMsg();
   @Input() isNew:boolean; 
   @Input() virtualTableList:VirtualTable[]=[]; 
   @Input() userRoles:UserRoles[];

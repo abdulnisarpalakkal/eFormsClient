@@ -148,7 +148,7 @@
           <div class="card-body" [hidden]="!nodeSelected">
             <app-workflow-node-properties-dir  [node]="node" [formList]="workflowFormsList" [actionEventList]="actionEventList" [users]="users" [userGroups]="userGroups" >
               </app-workflow-node-properties-dir>
-              <button type="button" class="btn btn-secondary" (click)="updateNodePropertiesClick()">OK</button>
+              <button type="button" class="btn btn-secondary mr-2" (click)="updateNodePropertiesClick()" >OK</button>
               <button type="button" class="btn btn-secondary" (click)="deleteNodeClick()">Delete</button>
           </div>
           <div class="card-body" [hidden]="!linkSelected">

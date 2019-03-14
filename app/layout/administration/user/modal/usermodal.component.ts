@@ -11,7 +11,6 @@ import { UserMsg } from '../../../../model/user-msg.model';
 export class UserModalComponent implements OnInit {
    
     @Input() user: User;
-    @Input() msgOb:UserMsg=new UserMsg();
     @Output() updated = new EventEmitter<User>();
 
     constructor(private administrationService: AdministrationService,private handler:Handler) {}
@@ -25,7 +24,6 @@ export class UserModalComponent implements OnInit {
               this.successHandler(this.user);
             },
             error=>{
-                this.errorHandler(error);
             }
         );
     }
@@ -34,10 +32,5 @@ export class UserModalComponent implements OnInit {
     {
         this.updated.emit(user);
     }
-    errorHandler(error)
-    {
-        this.msgOb.msg=error;
-        this.msgOb=this.handler.getErrorMsgObject( this.msgOb);
-        
-    }
+    
 }

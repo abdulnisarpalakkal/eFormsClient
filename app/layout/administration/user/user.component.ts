@@ -14,12 +14,11 @@ import { UserMsg } from '../../../model/user-msg.model';
     templateUrl: './user.component.html',
     animations: [routerTransition()]
 })
-export class UserComponent implements OnInit,MsgInterface {
+export class UserComponent implements OnInit {
     users=[];
     temp = [];
     
     public fil_User: User;
-    msgOb:UserMsg=new UserMsg();
     closeResult: string;
     modalReference: any;
     modalReference2: any;
@@ -47,7 +46,6 @@ export class UserComponent implements OnInit,MsgInterface {
                 this.users=data;    
               },
               error=>{
-                this.errorHandler(error);
               }
         );
     }
@@ -57,12 +55,10 @@ export class UserComponent implements OnInit,MsgInterface {
           this.userService.updateUserUserRoles(user)
           .subscribe(
               data => {
-                this.successHandler("User Roles updated successfully");  
                 this.closeUserRolesModal();
                 this.getUsers();
               },
               error=>{
-                  this.errorHandler(error);
               }
           );
         
@@ -94,12 +90,10 @@ export class UserComponent implements OnInit,MsgInterface {
         this.userService.deleteUser(user)
         .subscribe(
             data => {
-              this.successHandler(user.firstName+ " deleted successfully");
               this.getUsers();
              
             },
             error=>{
-                this.errorHandler(error);
                 this.getUsers();
             }
         );
@@ -107,7 +101,6 @@ export class UserComponent implements OnInit,MsgInterface {
 
 
     open(content,user,isNew) {
-        this.msgOb.msg=null;
         this.modalUser=isNew?new User(): user;
         this.modalReference=this.modalService.open(content);
         
@@ -132,7 +125,6 @@ export class UserComponent implements OnInit,MsgInterface {
     }
 
     openUserRolesModal(content,user) {
-        this.msgOb.msg=null;
         this.modalUser=user;
         this.modalReference2=this.modalService.open(content);
         
@@ -150,7 +142,6 @@ export class UserComponent implements OnInit,MsgInterface {
 
 
     onUpdated(user: User) {
-        this.successHandler(user.firstName+ " updated successfully");
         this.getUsers();
         this.closeModal();
     }
@@ -161,18 +152,7 @@ export class UserComponent implements OnInit,MsgInterface {
         this.updatedUserRoles(user);
        
     }
-    successHandler(msg)
-    {
-    
-        this.msgOb.msg=msg;
-        this.msgOb=this.handler.getSuccessMsgObject(this.msgOb);
-    }
-    errorHandler(error)
-    {
-        this.msgOb.msg=error;
-        this.msgOb=this.handler.getErrorMsgObject( this.msgOb);
-        
-    }
+  
    
     
 }

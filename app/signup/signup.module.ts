@@ -4,7 +4,7 @@ import { FormsModule   }   from '@angular/forms';
 
 import { SignupRoutingModule } from './signup-routing.module';
 import { SignupComponent } from './signup.component';
-import {EqualValidator} from '../shared';
+
 
 @NgModule({
   imports: [
@@ -12,6 +12,6 @@ import {EqualValidator} from '../shared';
     SignupRoutingModule,
     FormsModule      
   ],
-  declarations: [SignupComponent,EqualValidator]
+  declarations: [SignupComponent]
 })
 export class SignupModule { }

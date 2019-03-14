@@ -25,7 +25,7 @@ import { MsgInterface } from '../interface/msg-interface';
   styleUrls: ['./workflow.component.scss'],
   animations: [routerTransition()]
 })
-export class WorkflowComponent implements OnInit,MsgInterface {
+export class WorkflowComponent implements OnInit {
   //#region  Variables
 
 workflowList:WorkflowMaster[]=[];
@@ -44,7 +44,6 @@ temp = [];
 modalWorkflow: WorkflowMaster;
 public filter_Workflow: WorkflowMaster;
 
-msgOb:UserMsg=new UserMsg();
 closeResult: string;
 modalReference: any;
 modalReference2: any;
@@ -83,18 +82,7 @@ updateFilter(){
 //#endregion
 
 //#region handlers
-successHandler(msg)
-{
-   
-    this.msgOb.msg=msg;
-    this.msgOb=this.handler.getSuccessMsgObject(this.msgOb);
-}
-errorHandler(error)
-{
-    this.msgOb.msg=error;
-    this.msgOb=this.handler.getErrorMsgObject( this.msgOb);
-    
-}
+
 
 convertGraphNodesToWorkflowNodes(graphNodes:WorkflowNode[]){
   if(graphNodes==null || graphNodes.length==0)
@@ -263,7 +251,6 @@ public getWorkflowsList() {
         },
         error=>{
          
-          this.errorHandler(error);
         }
   );
 }
@@ -275,7 +262,6 @@ public getWorkflowNodeList (workflowId) {
           this.convertWorkflowNodesToGraphNodes(this.workflowNodeList);
         },
         error=>{
-          this.errorHandler(error);
         }
   );
 }
@@ -287,7 +273,6 @@ public getWorkflowLinkList (workflowId) {
           this.convertWorkflowLinksTOGraphLinks(this.workflowLinkList);
         },
         error=>{
-          this.errorHandler(error);
         }
   );
 }
@@ -298,7 +283,6 @@ public getActionEventList() {
           this.actionEventList=data;   
         },
         error=>{
-          this.errorHandler(error);
         }
   );
 }
@@ -321,7 +305,6 @@ public getProcessList() {
           this.processList=data;   
         },
         error=>{
-          this.errorHandler(error);
         }
   );
 }
@@ -332,7 +315,6 @@ public getWorkflowFormList(processId) {
           this.workflowFormsList=data;   
         },
         error=>{
-          this.errorHandler(error);
         }
   );
 }
@@ -343,7 +325,6 @@ public getUserList() {
           this.users=data;   
         },
         error=>{
-          this.errorHandler(error);
         }
   );
 }
@@ -354,7 +335,6 @@ public getUserRoleList() {
           this.userGroups=data;   
         },
         error=>{
-          this.errorHandler(error);
         }
   );
 }
@@ -365,19 +345,16 @@ delete(workflow:WorkflowMaster){
   this.workflowService.deleteWorkflow(workflow)
   .subscribe(
       data => {
-        this.successHandler("Workflow "+workflow.workflowName+" deleted successfully");
         this.getWorkflowsList();
       
       },
       error=>{
-          this.errorHandler(error);
           this.getWorkflowsList();
       }
   );
 }
 
 onUpdated(workflow: WorkflowMaster) {
-  this.msgOb.msg=null;
   if(this.isNew)
   {
     
@@ -385,12 +362,10 @@ onUpdated(workflow: WorkflowMaster) {
     this.workflowService.createWorkflow(workflow)
     .subscribe(
         data => {
-          this.successHandler("Workflow "+workflow.workflowName+" saved successfully");
           this.closeModal();
           this.getWorkflowsList();
         },
         error=>{
-            this.errorHandler(error);
         }
     );
   }
@@ -399,12 +374,10 @@ onUpdated(workflow: WorkflowMaster) {
     this.workflowService.updateWorkflow(workflow)
     .subscribe(
         data => {
-          this.successHandler("Workflow "+workflow.workflowName+" updated successfully");
           this.closeModal();
           this.getWorkflowsList();
         },
         error=>{
-            this.errorHandler(error);
         }
     );
   }
@@ -418,12 +391,10 @@ publishWorkflow(workflow: WorkflowMaster) {
     this.workflowService.publishWorkflow(workflow)
     .subscribe(
         data => {
-          this.successHandler("Workflow "+workflow.workflowName+" published successfully");
           this.closeModal();
           this.getWorkflowsList();
         },
         error=>{
-            this.errorHandler(error);
         }
     );
  }
@@ -433,12 +404,10 @@ createNodes(){
         data => {
           // if(this.workflowLinkList.length>0)
           //   this.createLinks();
-          this.successHandler("Workflow design "+this.modalWorkflow.workflowName+" saved successfully");
           this.closeDesignModal();
           this.getWorkflowsList();
         },
         error=>{
-            this.errorHandler(error);
         }
     );
 }
@@ -446,12 +415,10 @@ createLinks(){
   this.workflowService.createAllWorkflowLink(this.workflowLinkList)
   .subscribe(
       data => {
-        this.successHandler("Workflow links "+this.modalWorkflow.workflowName+" saved successfully");
         this.closeModal();
         this.getWorkflowsList();
       },
       error=>{
-          this.errorHandler(error);
       }
   );
 }

@@ -14,13 +14,12 @@ import {UserModalComponent} from './user/modal/usermodal.component';
 import {NgxDatatableComponent} from './user/table/ngx-datatable-demo';
 import { UserRolesModalComponent } from './user-roles/user-roles-modal/user-roles-modal.component';
 import { UserRoleModalComponent } from './user/user-role-modal/user-role-modal.component';
-import {EqualValidator} from './../../shared';
 
 
 @NgModule({
     imports: [CommonModule, AdministrationRoutingModule, PageHeaderModule
         ,FormsModule,NgxDatatableModule,NgbModule,MsgViewModule],
     declarations: [UserComponent,UserModalComponent,NgxDatatableComponent,AdministrationComponent,
-        UserRolesComponent,UserRolesModalComponent, UserRoleModalComponent,EqualValidator ]
+        UserRolesComponent,UserRolesModalComponent, UserRoleModalComponent ]
 })
 export class AdministrationModule {}

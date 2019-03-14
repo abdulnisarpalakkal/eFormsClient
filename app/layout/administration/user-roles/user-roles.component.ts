@@ -15,13 +15,12 @@ import { UserMsg } from '../../../model/user-msg.model';
   templateUrl: './user-roles.component.html',
   animations: [routerTransition()]
 })
-export class UserRolesComponent implements OnInit,MsgInterface {
+export class UserRolesComponent implements OnInit {
   userRoles:UserRoles[]=[];
   temp = [];
   modalUserRoles: UserRoles;
   public filter_UserRole: UserRoles;
 
-  msgOb:UserMsg=new UserMsg();
   closeResult: string;
   modalReference: any;
   
@@ -43,7 +42,6 @@ export class UserRolesComponent implements OnInit,MsgInterface {
               this.userRoles=data;    
             },
             error=>{
-              this.errorHandler(error);
             }
       );
   }
@@ -68,12 +66,10 @@ deleteUser(userRoles:UserRoles){
     this.administrationService.deleteUserRoles(userRoles)
     .subscribe(
         data => {
-          this.successHandler(userRoles.type+" deleted successfully");
           this.getUserRoles();
          
         },
         error=>{
-            this.errorHandler(error);
             this.getUserRoles();
         }
     );
@@ -88,12 +84,10 @@ onUpdated(userRoles: UserRoles) {
       this.administrationService.createUserRoles(userRoles)
       .subscribe(
           data => {
-            this.successHandler("userRole "+userRoles.type+" saved successfully");
             this.closeModal();
             this.getUserRoles();
           },
           error=>{
-              this.errorHandler(error);
           }
       );
     }
@@ -102,12 +96,10 @@ onUpdated(userRoles: UserRoles) {
       this.administrationService.updateUserRoles(userRoles)
       .subscribe(
           data => {
-            this.successHandler("userRole "+userRoles.type+" updated successfully");
             this.closeModal();
             this.getUserRoles();
           },
           error=>{
-              this.errorHandler(error);
           }
       );
     }
@@ -144,18 +136,6 @@ private getDismissReason(reason: any): string {
     }
 }
 
-successHandler(msg)
-{
-   
-    this.msgOb.msg=msg;
-    this.msgOb=this.handler.getSuccessMsgObject(this.msgOb);
-}
-errorHandler(error)
-{
-    this.msgOb.msg=error;
-    this.msgOb=this.handler.getErrorMsgObject( this.msgOb);
-    
-}
 
 }
 

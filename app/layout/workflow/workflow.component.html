@@ -82,7 +82,7 @@
     </button>
   </div>
   <div class="modal-body">
-    <app-workflow-modal  [workflow]="modalWorkflow" [msgOb]="msgOb"
+    <app-workflow-modal  [workflow]="modalWorkflow"
      [isNew]="isNew" [processList]="processList"  (updated)="onUpdated($event)" >
   </app-workflow-modal>
    
@@ -114,7 +114,7 @@
       <div class="modal-body" >
           
         <app-workflow-design [workflow]="modalWorkflow" [nodes]="workflowNodeList" [links]="workflowLinkList"  [actionEventList]="actionEventList"  [workflowFormsList]="workflowFormsList"  
-        [msgOb]="msgOb" (nodeUpdated)="onNodeUpdated($event)" (linkUpdated)="onLinkUpdated($event)" [users]="users" [userGroups]="userGroups"  >   </app-workflow-design>
+       (nodeUpdated)="onNodeUpdated($event)" (linkUpdated)="onLinkUpdated($event)" [users]="users" [userGroups]="userGroups"  >   </app-workflow-design>
        
       </div>
       <!-- <div class="modal-footer">

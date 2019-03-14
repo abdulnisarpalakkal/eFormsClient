@@ -20,6 +20,7 @@ export class WorkflowService {
   private workflowNodeUrl:string = '';
   private workflowLinkUrl:string = '';
   private workflowRunUrl:string = '';
+  private workflowRunDetUrl:string = '';
 
   constructor(private http:HttpClient,private _configuration: GlobalData) { 
     
@@ -28,6 +29,7 @@ export class WorkflowService {
     this.workflowLinkUrl = _configuration.Server+ 'workflowLink/workflowLinks';
     this.workflowNodeUrl = _configuration.Server+ 'workflowNode/workflowNodes';
     this.workflowRunUrl = _configuration.Server+ 'workflowTrackMaster/workflowTrackMasters';
+    this.workflowRunDetUrl = _configuration.Server+ 'workflowTrackDet/workflowTrackDets';
   }
  
   //#region workflow
@@ -123,5 +125,9 @@ export class WorkflowService {
     return this.http.post(this.workflowRunUrl+"/action",workflowStage);
   }
   //#endregion workflowExcecution
-
+//#region workflow track det
+public getAllWorkflowTrackDetByUser(): Observable<any> {
+  return this.http.get(this.workflowRunDetUrl+"/user");
+}
+//#endregion workflow track det
 }

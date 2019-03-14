@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule   }   from '@angular/forms';
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+
 
 import { WorkflowDashboardComponent } from './workflow-dashboard.component';
 import { WorkflowDashboardRoutingModule } from './workflow-dashboard-routing.module';
@@ -13,7 +15,8 @@ import { WorkflowFormViewComponent } from './workflow-form-view/workflow-form-vi
     FormsModule,
     WorkflowDashboardRoutingModule,
     PageHeaderModule,
-    MsgViewModule
+    MsgViewModule,
+    NgxDatatableModule
   ],
   declarations: [WorkflowDashboardComponent, WorkflowFormViewComponent]
 })

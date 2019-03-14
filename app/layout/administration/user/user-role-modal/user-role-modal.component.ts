@@ -13,7 +13,6 @@ import { UserMsg } from '../../../../model/user-msg.model';
 export class UserRoleModalComponent implements OnInit {
   @Input() user: User;
   @Output() updatedUserRoles = new EventEmitter<User>();
-  @Input() msgOb:UserMsg=new UserMsg();
   userRoles: UserRoles[]=[];
  _userRoleSelectedIds:number[];
   constructor(private administrationService:AdministrationService,private handler:Handler) { }
@@ -53,17 +52,11 @@ export class UserRoleModalComponent implements OnInit {
             this.onLoad();   
           },
           error=>{
-            this.errorHandler(error);
           }
     );
 }
   onLoad(){
     this._userRoleSelectedIds=this.user.userRoles.map(u =>u.id);
   }
-  errorHandler(error)
-  {
-      this.msgOb.msg=error;
-      this.msgOb=this.handler.getErrorMsgObject( this.msgOb);
-      
-  }
+  
 }

@@ -8,7 +8,6 @@
       </div>
   </div>
 </div>
-<app-msg-view [msgOb]="msgOb"></app-msg-view>
 <div class="row">
       <div class="col col-xl-12 col-lg-12">
           <div class="card mb-3">
@@ -80,7 +79,7 @@
   </button>
 </div>
 <div class="modal-body">
-  <app-form-modal  [form]="modalform" [msgOb]="msgOb"  [isNew]="isNew" 
+  <app-form-modal  [form]="modalform"   [isNew]="isNew" 
   [virtualTableList]="virtualTableList" [userRoles]="userRoles"  (updated)="onUpdated($event)" >
 </app-form-modal>
  
@@ -100,7 +99,7 @@
     <div class="modal-body" >
         
       <app-form-design-modal [form]="modalform" [virtualTableFieldsList]="virtualTableFieldsList" [formDesignList]="formDesignList"  
-      [msgOb]="msgOb"    >   </app-form-design-modal>
+          >   </app-form-design-modal>
      
     </div>
     <div class="modal-footer">
