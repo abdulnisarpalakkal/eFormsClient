@@ -25,11 +25,11 @@ export class WorkflowService {
   constructor(private http:HttpClient,private _configuration: GlobalData) { 
     
 
-    this.workflowUrl = _configuration.Server+ 'workflow/workflows';
-    this.workflowLinkUrl = _configuration.Server+ 'workflowLink/workflowLinks';
-    this.workflowNodeUrl = _configuration.Server+ 'workflowNode/workflowNodes';
-    this.workflowRunUrl = _configuration.Server+ 'workflowTrackMaster/workflowTrackMasters';
-    this.workflowRunDetUrl = _configuration.Server+ 'workflowTrackDet/workflowTrackDets';
+    this.workflowUrl =  'workflow/workflows';
+    this.workflowLinkUrl = 'workflowLink/workflowLinks';
+    this.workflowNodeUrl =  'workflowNode/workflowNodes';
+    this.workflowRunUrl =  'workflowTrackMaster/workflowTrackMasters';
+    this.workflowRunDetUrl =  'workflowTrackDet/workflowTrackDets';
   }
  
   //#region workflow

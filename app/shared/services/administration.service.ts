@@ -15,8 +15,8 @@ export class AdministrationService {
   private userUrl :string;
   private userRolesUrl :string;
   constructor(private http:HttpClient,private _configuration: GlobalData) { 
-    this.userUrl = _configuration.Server;
-    this.userRolesUrl = _configuration.Server+"userRole";
+    this.userUrl = "";
+    this.userRolesUrl ="userRole";
   }
   
 

@@ -15,8 +15,8 @@ export class FormService {
   private formDesignUrl:string = '';
 
   constructor(private http:HttpClient,private _configuration: GlobalData) { 
-    this.formUrl = _configuration.Server+ 'formMaster';
-    this.formDesignUrl = _configuration.Server+ 'formDesign';
+    this.formUrl =  'formMaster';
+    this.formDesignUrl = 'formDesign';
   }
   
   //#region formMaster

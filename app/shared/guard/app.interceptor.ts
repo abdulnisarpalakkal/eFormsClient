@@ -9,6 +9,8 @@ import 'rxjs/add/operator/do';
  import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
 import {MessageService} from '../services';
+import { environment } from '../../../environments/environment';
+
 
 
 // import {  throwError } from 'rxjs';
@@ -27,10 +29,15 @@ export class Interceptor implements HttpInterceptor {
 
   intercept(req: HttpRequest<any>, next: HttpHandler):  Observable<HttpEvent<any>> {
     let authReq = req;
+    // req.url=environment.baseUrl+req.url;
+  
     if (this.token.getToken() != null) {
       authReq = req.clone({ headers: req.headers.set(TOKEN_HEADER_KEY, 'Bearer ' + this .token.getToken())});
-    }
       
+    }
+    if(authReq.url.charAt(0)!='.')
+      authReq = authReq.clone({ url: environment.baseUrl+req.url });
+    console.log(authReq.url);
       return next.handle(authReq)
       
       .do((event: HttpEvent<any>) => {

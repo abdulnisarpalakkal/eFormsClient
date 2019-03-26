@@ -4,5 +4,7 @@
 // The list of which env maps to which file can be found in `.angular-cli.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  baseUrl: 'http://localhost:8080/'
+  // baseUrl:'http://localhost:8080/eFormsAPI-0.0.2-SNAPSHOT/' //for local tomcat
 };

@@ -17,9 +17,9 @@ export class VirtualTableService {
   private virtualTableConstraintUrl:string = '';
 
   constructor(private http:HttpClient,private _configuration: GlobalData) { 
-    this.virtualTableUrl = _configuration.Server+ 'virtualTableMaster';
-    this.virtualTableFieldUrl = _configuration.Server+ 'virtualTableFields';
-    this.virtualTableConstraintUrl = _configuration.Server+ 'virtualTableConstraints';
+    this.virtualTableUrl =  'virtualTableMaster';
+    this.virtualTableFieldUrl = 'virtualTableFields';
+    this.virtualTableConstraintUrl =  'virtualTableConstraints';
   }
   
   //#region virtualTableMaster

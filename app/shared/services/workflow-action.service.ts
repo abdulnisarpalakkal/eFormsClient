@@ -18,10 +18,10 @@ export class WorkflowActionService {
 
 
   constructor(private http:HttpClient,private _configuration: GlobalData) { 
-    this.actionEventUrl = _configuration.Server+ 'actionEvent/actionEvents';
-    this.actionEventObjectUrl = _configuration.Server+ 'actionEventObject/actionEventObjects';
-    this.actionEventParamUrl = _configuration.Server+ 'actionEventParam/actionEventParams';
-    this.actionEventParamObjectUrl = _configuration.Server+ 'actionEventParamObject/actionEventParamObjects';
+    this.actionEventUrl =  'actionEvent/actionEvents';
+    this.actionEventObjectUrl =  'actionEventObject/actionEventObjects';
+    this.actionEventParamUrl =  'actionEventParam/actionEventParams';
+    this.actionEventParamObjectUrl =  'actionEventParamObject/actionEventParamObjects';
 
   }
   

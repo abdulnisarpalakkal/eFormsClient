@@ -14,7 +14,7 @@ const httpOptions = {
 export class CategoryService {
   private apiUrl:string = '';
   constructor(private http:HttpClient,private _configuration: GlobalData) { 
-    this.apiUrl = _configuration.Server+ 'category/categories';
+    this.apiUrl = 'category/categories';
   }
   
 

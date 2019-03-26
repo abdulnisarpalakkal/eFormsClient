@@ -15,7 +15,7 @@ export class ProcessService {
   private processUrl:string = '';
 
   constructor(private http:HttpClient,private _configuration: GlobalData) { 
-    this.processUrl = _configuration.Server+ 'process';
+    this.processUrl = 'process';
   }
   
   
