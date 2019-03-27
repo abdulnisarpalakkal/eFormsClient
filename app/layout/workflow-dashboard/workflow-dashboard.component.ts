@@ -3,13 +3,12 @@ import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { Subject, Observable } from "rxjs";
 
 import { routerTransition } from '../../router.animations';
-import {WorkflowService, Handler} from '../../shared';
+import {WorkflowService, RefreshService} from '../../shared';
 import { WorkflowMaster } from '../../model/workflow-master.model';
 import { WorkflowStage } from '../../model/workflow-stage.model';
 import { FormMaster } from '../../model/form-master.model';
 import { FormDesign } from '../../model/form-design.model';
 import { WorkflowNode } from '../../model/workflow-node.model';
-import { WorkflowTrackDet } from '../../model/workflow-track-det';
 
 @Component({
   selector: 'app-workflow-dashboard',
@@ -20,13 +19,12 @@ import { WorkflowTrackDet } from '../../model/workflow-track-det';
 export class WorkflowDashboardComponent implements OnInit {
   publishedWorkflows:WorkflowMaster[]=[]
   openWorkflowStages:WorkflowStage[]=[]
-  constructor(public workflowService:WorkflowService,private modalService: NgbModal, private handler:Handler) { }
+  constructor(public workflowService:WorkflowService,private modalService: NgbModal, private refreshService:RefreshService) { }
   workflowStage:WorkflowStage;
   closeResult: string;
   modalReference: any;
   form:FormMaster;  
   formDesignList:FormDesign[];
-  workflowTrackList:WorkflowTrackDet[];
   
 
 submitted = false;
@@ -34,7 +32,6 @@ submitted = false;
   ngOnInit() {
     // this.getAllPublishedWorkflows();
     this.getAllOpenWorkflow();
-    this.getAllWorkflowTrackDetByUser();
   }
   //#region Service call
   getAllPublishedWorkflows(){
@@ -62,22 +59,15 @@ submitted = false;
     },error=>{
     })
   }
-  getAllWorkflowTrackDetByUser(){
-    
-    this.workflowService.getAllWorkflowTrackDetByUser()
-    .subscribe(data=>{
-          this.workflowTrackList=data;
-         
-    },error=>{
-    })
-  }
+ 
  submitAction(actionNode:WorkflowNode){
   this.workflowStage.selectedActionNode=actionNode;
   this.workflowService.submitActionWorkflow(this.workflowStage)
   .subscribe(data=>{
       this.closeModal();
       this.getAllOpenWorkflow();
-      this.getAllWorkflowTrackDetByUser();
+      this.refreshService.RefreshTrack();
+     
   },error=>{
   });
  }
