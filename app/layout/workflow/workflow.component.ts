@@ -57,13 +57,8 @@ isNew :boolean=false;
   constructor(private workflowActionService: WorkflowActionService,private workflowService: WorkflowService,private processService:ProcessService,private formService:FormService,private administrationService:AdministrationService,private modalService: NgbModal, private handler:Handler) { }
 
   ngOnInit() {
-    if(this.processId)
-      this.getAllWorkflowByProcess(this.processId);
-    else
-      this.getWorkflowsList();
-   
+    this.getWorkflowsList();
     this.getProcessList();
-    
     this.filter_Workflow=new WorkflowMaster();
   }
 //#region Filters 
@@ -247,20 +242,9 @@ openPreview(prevContent,designContent) {
 
 //#region Service calls
 public getWorkflowsList() {
-  this.workflowService.getAllWorkflow()
-  .subscribe(
-        data => {
-          this.temp = [...data];
-          this.workflowList=data;   
-          this.updateFilter(); 
-        },
-        error=>{
-         
-        }
-  );
-}
-public getAllWorkflowByProcess(processId:number) {
-  this.workflowService.getAllWorkflowByProcess(processId)
+  const service=this.processId?
+  this.workflowService.getAllWorkflowByProcess(this.processId):this.workflowService.getAllWorkflow();
+  service
   .subscribe(
         data => {
           this.temp = [...data];

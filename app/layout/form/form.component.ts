@@ -47,10 +47,7 @@ isNew :boolean=false;
 
   ngOnInit() {
     this.getVirtualTableList();
-    if(this.processId)
-      this.getAllUnderProcess(this.processId);
-    else
-      this.getFormsList();
+    this.getFormsList();
     this.getUserRoles();
     this.filter_Form=new FormMaster();
   }
@@ -158,7 +155,8 @@ openPreview(prevContent,designContent) {
 
 //#region Service calls
 public getFormsList() {
-  this.formService.get()
+  const service=this.processId?this.formService.getAllUnderProcess(this.processId):this.formService.get();
+  service
   .subscribe(
         data => {
           this.temp = [...data];
@@ -170,19 +168,7 @@ public getFormsList() {
         }
   );
 }
-public getAllUnderProcess(processId:number) {
-  this.formService.getAllUnderProcess(processId)
-  .subscribe(
-        data => {
-          this.temp = [...data];
-          this.formList=data;   
-          this.updateFilter(); 
-        },
-        error=>{
-         
-        }
-  );
-}
+
 
 public getFormDesignList (formId) {
   this.formService.getAllFormDesignByFormId(formId)

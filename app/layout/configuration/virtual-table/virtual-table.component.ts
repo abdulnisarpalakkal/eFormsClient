@@ -48,10 +48,7 @@ isNew :boolean=false;
   constructor(private processService: ProcessService,private virtualTableService: VirtualTableService,private modalService: NgbModal, private handler:Handler,private changeDetector : ChangeDetectorRef) { }
 
   ngOnInit() {
-    if(this.processId)
-      this.getVirtualTableListByProcess(this.processId);
-    else
-      this.getVirtualTableList();
+    this.getVirtualTableList();
     this.getProcessList();
     this.getDataTypesList();
     
@@ -79,26 +76,11 @@ updateFilter(){
 //#endregion
 
 //#region Service calls
-public getVirtualTableListByProcess(processId:number) {
-  this.virtualTableService.getByProcess(this.processId)
-  .subscribe(
-        data => {
-          this.temp = [...data];
-          this.virtualTableList=data;   
-          this.updateFilter(); 
-        },
-        error=>{
-          
-          // this.success=false;
-          // this.msg_class="danger";
-          
-          // this.msg=error.error?error.error.message:error.message; 
-        }
-  );
-}
+
 public getVirtualTableList() {
-  this.virtualTableService.get()
-  .subscribe(
+  const service=this.processId?this.virtualTableService.getByProcess(this.processId):this.virtualTableService.get();
+  
+  service.subscribe(
         data => {
           this.temp = [...data];
           this.virtualTableList=data;   
