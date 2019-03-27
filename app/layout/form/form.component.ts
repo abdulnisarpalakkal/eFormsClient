@@ -1,4 +1,4 @@
-import { Component, OnInit,ViewChild,ViewEncapsulation } from '@angular/core';
+import { Component, OnInit,ViewChild,ViewEncapsulation, Input } from '@angular/core';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import {DatatableComponent} from '@swimlane/ngx-datatable';
 
@@ -23,6 +23,7 @@ import { UserMsg } from '../../model/user-msg.model';
 })
 export class FormComponent implements OnInit {
 //#region  Variables
+@Input() processId:number;
 virtualTableList:VirtualTable[]=[];
 virtualTableFieldsList: VirtualTableFields[]=[];
 formList:FormMaster[]=[];
@@ -46,7 +47,10 @@ isNew :boolean=false;
 
   ngOnInit() {
     this.getVirtualTableList();
-    this.getFormsList();
+    if(this.processId)
+      this.getAllUnderProcess(this.processId);
+    else
+      this.getFormsList();
     this.getUserRoles();
     this.filter_Form=new FormMaster();
   }
@@ -166,6 +170,20 @@ public getFormsList() {
         }
   );
 }
+public getAllUnderProcess(processId:number) {
+  this.formService.getAllUnderProcess(processId)
+  .subscribe(
+        data => {
+          this.temp = [...data];
+          this.formList=data;   
+          this.updateFilter(); 
+        },
+        error=>{
+         
+        }
+  );
+}
+
 public getFormDesignList (formId) {
   this.formService.getAllFormDesignByFormId(formId)
   .subscribe(

@@ -27,6 +27,7 @@ import { FormPreviewComponent } from './form-preview/form-preview.component';
     ,MsgViewModule
   ],
   declarations: [FormComponent, FormModalComponent, FormDesignModalComponent, FormComponentDirComponent, ComponentPropertiesDirComponent,NgbdModalConfirm, FormPreviewComponent],
-  entryComponents: [NgbdModalConfirm]
+  entryComponents: [NgbdModalConfirm],
+  exports:[FormComponent]
 })
 export class FormModule { }

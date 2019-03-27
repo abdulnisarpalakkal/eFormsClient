@@ -31,6 +31,9 @@ export class VirtualTableService {
   public get(): Observable<any> {
     return this.http.get(this.virtualTableUrl);
   }
+  public getByProcess(processId:number): Observable<any> {
+    return this.http.get(this.virtualTableUrl+"/process/"+processId);
+  }
   public getOne(virtualTable): Observable<any> {
     return this.http.get(this.virtualTableUrl+ "/"+ virtualTable.id);
   }

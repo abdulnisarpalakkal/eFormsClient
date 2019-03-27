@@ -27,6 +27,7 @@ import { ActionEventPropertiesComponent, NgbdModalConfirm } from './directives/a
     MsgViewModule
   ],
   declarations: [WorkflowComponent, WorkflowModalComponent, WorkflowDesignComponent, WorkflowNodePropertiesDirComponent, WorkflowLinkPropertiesDirComponent, ActionEventPropertiesComponent,NgbdModalConfirm]
-  ,entryComponents: [NgbdModalConfirm]
+  ,entryComponents: [NgbdModalConfirm],
+  exports:[WorkflowComponent]
 })
 export class WorkflowModule { }

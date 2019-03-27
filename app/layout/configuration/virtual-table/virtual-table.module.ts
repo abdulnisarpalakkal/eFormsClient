@@ -22,6 +22,7 @@ import {SharedPipesModule} from './../../../shared/pipes/shared-pipes.module';
     ,SharedPipesModule
     ,MsgViewModule
   ],
-  declarations: [VirtualTableComponent, VirtualTableModalComponent, VirtualTableFieldsComponent, VirtualTableConstraintsComponent]
+  declarations: [VirtualTableComponent, VirtualTableModalComponent, VirtualTableFieldsComponent, VirtualTableConstraintsComponent],
+  exports:[VirtualTableComponent]
 })
 export class VirtualTableModule { }

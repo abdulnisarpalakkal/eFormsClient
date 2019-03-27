@@ -8,6 +8,9 @@ import { ProcessComponent } from './process.component';
 import { ProcessModalComponent } from './process-modal/process-modal.component';
 import { ProcessRoutingModule } from './process-routing.module';
 import { PageHeaderModule,MsgViewModule } from '../../../shared';
+import {VirtualTableModule} from './../virtual-table/virtual-table.module';
+import { ProcessDetailsComponent } from './process-details/process-details.component';
+
 
 
 
@@ -18,9 +21,10 @@ import { PageHeaderModule,MsgViewModule } from '../../../shared';
     ,PageHeaderModule
     ,NgbModule.forRoot()
     ,MsgViewModule
-    
+    ,VirtualTableModule
+   
    
   ],
-  declarations: [ProcessComponent, ProcessModalComponent]
+  declarations: [ProcessComponent, ProcessModalComponent,ProcessDetailsComponent]
 })
 export class ProcessModule { }

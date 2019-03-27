@@ -1,4 +1,4 @@
-import { Component,ViewChild, OnInit,ViewEncapsulation  } from '@angular/core';
+import { Component,ViewChild, OnInit,ViewEncapsulation, Input  } from '@angular/core';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import {DatatableComponent} from '@swimlane/ngx-datatable';
 
@@ -17,6 +17,7 @@ import { User } from '../../model/user.model';
 import { UserRoles } from '../../model/user-roles.model';
 import { UserMsg } from '../../model/user-msg.model';
 import { MsgInterface } from '../interface/msg-interface';
+import { ProcessRoutingModule } from '../configuration/process/process-routing.module';
 
 @Component({
   selector: 'app-workflow',
@@ -27,7 +28,7 @@ import { MsgInterface } from '../interface/msg-interface';
 })
 export class WorkflowComponent implements OnInit {
   //#region  Variables
-
+@Input() processId:number;
 workflowList:WorkflowMaster[]=[];
 workflowNodeList:WorkflowNode[]=[];
 workflowLinkList:WorkflowLink[]=[];
@@ -56,7 +57,11 @@ isNew :boolean=false;
   constructor(private workflowActionService: WorkflowActionService,private workflowService: WorkflowService,private processService:ProcessService,private formService:FormService,private administrationService:AdministrationService,private modalService: NgbModal, private handler:Handler) { }
 
   ngOnInit() {
-    this.getWorkflowsList();
+    if(this.processId)
+      this.getAllWorkflowByProcess(this.processId);
+    else
+      this.getWorkflowsList();
+   
     this.getProcessList();
     
     this.filter_Workflow=new WorkflowMaster();
@@ -243,6 +248,19 @@ openPreview(prevContent,designContent) {
 //#region Service calls
 public getWorkflowsList() {
   this.workflowService.getAllWorkflow()
+  .subscribe(
+        data => {
+          this.temp = [...data];
+          this.workflowList=data;   
+          this.updateFilter(); 
+        },
+        error=>{
+         
+        }
+  );
+}
+public getAllWorkflowByProcess(processId:number) {
+  this.workflowService.getAllWorkflowByProcess(processId)
   .subscribe(
         data => {
           this.temp = [...data];

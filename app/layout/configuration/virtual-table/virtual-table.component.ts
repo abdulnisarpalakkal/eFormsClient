@@ -1,4 +1,4 @@
-import { Component, OnInit,ViewChild, ViewChildren,AfterViewInit,QueryList,ChangeDetectorRef, TemplateRef   } from '@angular/core';
+import { Component, OnInit,ViewChild, ViewChildren,AfterViewInit,QueryList,ChangeDetectorRef, TemplateRef, Input   } from '@angular/core';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import {DatatableComponent} from '@swimlane/ngx-datatable';
 
@@ -17,6 +17,7 @@ import { VirtualTableFieldsConstraintDto } from '../../../model/Virtual-table-fi
 })
 export class VirtualTableComponent implements OnInit {
 //#region  Variables
+@Input() processId:number;
 virtualTableList:VirtualTable[]=[];
 processList:Process[]=[];
 virtualTableFieldsList: VirtualTableFields[]=[];
@@ -47,22 +48,16 @@ isNew :boolean=false;
   constructor(private processService: ProcessService,private virtualTableService: VirtualTableService,private modalService: NgbModal, private handler:Handler,private changeDetector : ChangeDetectorRef) { }
 
   ngOnInit() {
-    this.getVirtualTableList();
+    if(this.processId)
+      this.getVirtualTableListByProcess(this.processId);
+    else
+      this.getVirtualTableList();
     this.getProcessList();
     this.getDataTypesList();
     
     this.filter_VirtualTable=new VirtualTable();
   }
-  // public ngAfterViewInit(): void
-  //   {
-
-  //       this.modalTables.changes.subscribe((tables: QueryList <VirtualTableModalComponent>) =>
-  //       {
-  //           this.virtualTableModal = tables.first;
-  //       });
-
-
-  //   }
+  
   //#region Filters 
 updateFilterEvent(event) {
   this.updateFilter();
@@ -84,6 +79,23 @@ updateFilter(){
 //#endregion
 
 //#region Service calls
+public getVirtualTableListByProcess(processId:number) {
+  this.virtualTableService.getByProcess(this.processId)
+  .subscribe(
+        data => {
+          this.temp = [...data];
+          this.virtualTableList=data;   
+          this.updateFilter(); 
+        },
+        error=>{
+          
+          // this.success=false;
+          // this.msg_class="danger";
+          
+          // this.msg=error.error?error.error.message:error.message; 
+        }
+  );
+}
 public getVirtualTableList() {
   this.virtualTableService.get()
   .subscribe(
@@ -93,7 +105,7 @@ public getVirtualTableList() {
           this.updateFilter(); 
         },
         error=>{
-         
+          
           // this.success=false;
           // this.msg_class="danger";
           

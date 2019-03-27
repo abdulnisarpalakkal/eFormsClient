@@ -1,5 +1,5 @@
 <div [@routerTransition]>
-  <app-page-header [heading]="'Process'" [icon]="'fa-file-o'"></app-page-header>
+  <app-page-header  [heading]="'Process'" [icon]="'fa-file-o'"></app-page-header>
   <div class="row"> 
         <div class="col col-xl-2 ">
                 
@@ -8,7 +8,7 @@
             </div>
         </div>
       </div>
-  
+      <!-- <router-outlet></router-outlet> -->
   <!-- <br /> -->
   <div class="row">
           <div class="col col-xl-12 col-lg-12">
@@ -58,6 +58,12 @@
                           </ng-template>
                          
                       </ngx-datatable-column>
+                      <ngx-datatable-column [width]="50" name="Det">
+                        <ng-template  let-process="row"  ngx-datatable-cell-template>
+                            <a [routerLink]="['/process-det',process.id,process.processName]" ><i class="fa fa-fw fa-expand"></i></a>
+                        </ng-template>
+                       
+                    </ngx-datatable-column>
                       <ngx-datatable-column [width]="50" name="Delete" >
                           <ng-template #deleteBtn let-process="row"  ngx-datatable-cell-template>
                               <a [routerLink]="" (click)="deleteUser(process)"><i class="fa fa-fw fa-remove"></i></a>

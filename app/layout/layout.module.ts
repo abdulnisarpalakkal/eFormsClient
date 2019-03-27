@@ -11,7 +11,6 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { HeaderComponent } from './components/header/header.component';
 
 
-
 @NgModule({
     imports: [
         CommonModule,
@@ -22,6 +21,7 @@ import { HeaderComponent } from './components/header/header.component';
       
     ],
     declarations: [LayoutComponent, SidebarComponent, HeaderComponent]
+    // exports:[ProcessDetailsComponent]
     
 })
 export class LayoutModule {}

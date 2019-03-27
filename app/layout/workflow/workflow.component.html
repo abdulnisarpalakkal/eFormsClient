@@ -1,5 +1,5 @@
 <div [@routerTransition]>
-  <app-page-header [heading]="'Workflow'" [icon]="'fa-file-o'"></app-page-header>
+  <app-page-header *ngIf="!processId" [heading]="'Workflow'" [icon]="'fa-file-o'"></app-page-header>
   <div class="row"> 
     <div class="col col-xl-2 ">
             
