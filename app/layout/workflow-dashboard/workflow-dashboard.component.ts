@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { Subject, Observable } from "rxjs";
 
 import { routerTransition } from '../../router.animations';
 import {WorkflowService, Handler} from '../../shared';
@@ -9,8 +10,6 @@ import { FormMaster } from '../../model/form-master.model';
 import { FormDesign } from '../../model/form-design.model';
 import { WorkflowNode } from '../../model/workflow-node.model';
 import { WorkflowTrackDet } from '../../model/workflow-track-det';
-import { MsgInterface } from '../interface/msg-interface';
-import { UserMsg } from '../../model/user-msg.model';
 
 @Component({
   selector: 'app-workflow-dashboard',
@@ -28,6 +27,7 @@ export class WorkflowDashboardComponent implements OnInit {
   form:FormMaster;  
   formDesignList:FormDesign[];
   workflowTrackList:WorkflowTrackDet[];
+  
 
 submitted = false;
 
@@ -77,6 +77,7 @@ submitted = false;
   .subscribe(data=>{
       this.closeModal();
       this.getAllOpenWorkflow();
+      this.getAllWorkflowTrackDetByUser();
   },error=>{
   });
  }

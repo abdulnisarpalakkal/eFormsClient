@@ -8,6 +8,7 @@ import { WorkflowDashboardComponent } from './workflow-dashboard.component';
 import { WorkflowDashboardRoutingModule } from './workflow-dashboard-routing.module';
 import { PageHeaderModule,MsgViewModule } from '../../shared';
 import { WorkflowFormViewComponent } from './workflow-form-view/workflow-form-view.component';
+import {WorkflowTrackModule} from './../workflow-track/workflow-track.module';
 
 @NgModule({
   imports: [
@@ -16,7 +17,8 @@ import { WorkflowFormViewComponent } from './workflow-form-view/workflow-form-vi
     WorkflowDashboardRoutingModule,
     PageHeaderModule,
     MsgViewModule,
-    NgxDatatableModule
+    NgxDatatableModule,
+    WorkflowTrackModule
   ],
   declarations: [WorkflowDashboardComponent, WorkflowFormViewComponent]
 })

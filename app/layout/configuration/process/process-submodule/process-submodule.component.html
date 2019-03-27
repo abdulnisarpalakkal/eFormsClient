@@ -27,7 +27,14 @@
                                     <app-workflow [processId]="processId"></app-workflow>
                             </ng-template>
                         </ngb-tab>
-                       
+                        <ngb-tab>
+                            <ng-template ngbTabTitle>Workflow Tracks</ng-template>
+                            <ng-template ngbTabContent>
+                                    <br />
+                                    <app-workflow-track [processId]="processId"></app-workflow-track>
+                            </ng-template>
+                        </ngb-tab>
+                        
                     </ngb-tabset>
                 
             <!-- </div> -->

@@ -132,5 +132,8 @@ export class WorkflowService {
 public getAllWorkflowTrackDetByUser(): Observable<any> {
   return this.http.get(this.workflowRunDetUrl+"/user");
 }
+public getAllWorkflowTrackDetByProcess(processId:number): Observable<any> {
+  return this.http.get(this.workflowRunDetUrl+"/process/"+processId);
+}
 //#endregion workflow track det
 }

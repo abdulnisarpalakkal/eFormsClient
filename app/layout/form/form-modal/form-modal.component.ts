@@ -36,7 +36,7 @@ export class FormModalComponent implements OnInit,OnChanges {
     this.updated.emit(this.form);
   }
   onLoad(){
-    this._userRoleSelectedIds=this.form.accessGroups.map(u =>u.id);
+    this._userRoleSelectedIds=this.form.accessGroups?this.form.accessGroups.map(u =>u.id):[];
   }
   ngOnChanges(changes: SimpleChanges ){
     // console.log(changes);

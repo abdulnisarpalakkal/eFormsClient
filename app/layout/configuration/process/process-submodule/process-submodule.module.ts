@@ -10,6 +10,7 @@ import { PageHeaderModule } from './../../../../shared';
 import {VirtualTableModule} from './../../virtual-table/virtual-table.module';
 import {FormModule} from './../../../form/form.module';
 import {WorkflowModule} from './../../../workflow/workflow.module';
+import {WorkflowTrackModule} from './../../../workflow-track/workflow-track.module';
 
 
 
@@ -22,7 +23,8 @@ import {WorkflowModule} from './../../../workflow/workflow.module';
     NgbModule.forRoot(),
     FormModule,
     VirtualTableModule,
-    WorkflowModule
+    WorkflowModule,
+    WorkflowTrackModule
   ]
 })
 export class ProcessSubmoduleModule { }

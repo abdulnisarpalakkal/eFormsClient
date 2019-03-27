@@ -8,7 +8,7 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 import { AuthGuard,Interceptor,TokenStorage,AdministrationService,CategoryService
     ,ProcessService,GlobalData,Handler,VirtualTableService,FormService,WorkflowService
-    , WorkflowActionService,MessageService }
+    , WorkflowActionService,MessageService,RefreshService }
  from './shared';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -51,6 +51,7 @@ export function createTranslateLoader(http: HttpClient) {
              WorkflowService,
              WorkflowActionService,
              MessageService,
+             RefreshService,
              AuthGuard,
              TokenStorage,
             {
