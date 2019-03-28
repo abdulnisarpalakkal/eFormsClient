@@ -53,6 +53,12 @@
                       </ng-template>
                      
                   </ngx-datatable-column>
+                  <ngx-datatable-column  [minWidth]="50" [maxWidth]="70" name="Data">
+                    <ng-template  let-row="row"  ngx-datatable-cell-template>
+                        <a [routerLink]="" (click)="OnClickViewData(content2,row)"><i class="fa fa-fw fa-eye"></i></a>
+                    </ng-template>
+                   
+                </ngx-datatable-column>
                   <ngx-datatable-column  [minWidth]="50" [maxWidth]="70" name="Del." >
                       <ng-template #deleteBtn let-row="row"  ngx-datatable-cell-template>
                           <a [routerLink]="" (click)="delete(row)"><i class="fa fa-fw fa-remove"></i></a>
@@ -84,3 +90,18 @@
   <button type="button" class="btn btn-secondary" (click)="c('Close click')">Close</button>
 </div>
 </ng-template>
+<ng-template #content2 let-c="close" let-d="dismiss">
+    <div class="modal-header">
+      <h4 class="modal-title">Virtual Table Data</h4>
+      <button type="button" class="close" aria-label="Close" (click)="d('Close click')">
+          <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+        <app-virtual-table-record [tableId]="tableId"></app-virtual-table-record>
+     
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" (click)="c('Close click')">Close</button>
+    </div>
+    </ng-template>

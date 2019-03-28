@@ -15,6 +15,7 @@ export class VirtualTableService {
   private virtualTableUrl:string = '';
   private virtualTableFieldUrl:string = '';
   private virtualTableConstraintUrl:string = '';
+ 
 
   constructor(private http:HttpClient,private _configuration: GlobalData) { 
     this.virtualTableUrl =  'virtualTableMaster';
@@ -82,4 +83,9 @@ public getTableFieldTypes(): Observable<any> {
   return this.http.get(this.virtualTableFieldUrl+'/types');
 }
 
+//#region  records
+public getDataRecordsByTable(tableId): Observable<any> {
+  return this.http.get(this.virtualTableUrl+"/records/"+tableId);
+}
+//#endregion 
 }

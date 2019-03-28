@@ -14,6 +14,7 @@ import { WorkflowDesignComponent } from './workflow-design/workflow-design.compo
 import { WorkflowNodePropertiesDirComponent } from './directives/workflow-node-properties-dir/workflow-node-properties-dir.component';
 import { WorkflowLinkPropertiesDirComponent } from './directives/workflow-link-properties-dir/workflow-link-properties-dir.component';
 import { ActionEventPropertiesComponent, NgbdModalConfirm } from './directives/action-event-properties/action-event-properties.component';
+import { WorkflowTrackComponent } from './workflow-track/workflow-track.component';
 
 @NgModule({
   imports: [
@@ -26,8 +27,8 @@ import { ActionEventPropertiesComponent, NgbdModalConfirm } from './directives/a
     NgxDatatableModule,
     MsgViewModule
   ],
-  declarations: [WorkflowComponent, WorkflowModalComponent, WorkflowDesignComponent, WorkflowNodePropertiesDirComponent, WorkflowLinkPropertiesDirComponent, ActionEventPropertiesComponent,NgbdModalConfirm]
+  declarations: [WorkflowComponent, WorkflowModalComponent, WorkflowDesignComponent, WorkflowNodePropertiesDirComponent, WorkflowLinkPropertiesDirComponent, ActionEventPropertiesComponent,NgbdModalConfirm,WorkflowTrackComponent]
   ,entryComponents: [NgbdModalConfirm],
-  exports:[WorkflowComponent]
+  exports:[WorkflowComponent,WorkflowTrackComponent]
 })
 export class WorkflowModule { }

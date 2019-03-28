@@ -23,6 +23,7 @@ processList:Process[]=[];
 virtualTableFieldsList: VirtualTableFields[]=[];
 virtualTableConstraintList: VirtualTableConstraintType[]=[];
 dataTypes: String[]=[];
+tableId:number;
 // virtualTableFieldsConstraintDto:VirtualTableFieldsConstraintDto;
 
 temp = [];
@@ -192,6 +193,11 @@ open(content,virtualTable:VirtualTable,isNew) {
   });
   this.changeDetector.detectChanges();
 }
+openViewData(content) {
+  
+  this.modalService.open(content,{ size: 'lg', backdrop: 'static', windowClass:'modal-xl' });
+ 
+}
 closeModal() {
   this.modalReference.close();
 
@@ -211,6 +217,10 @@ private getDismissReason(reason: any): string {
 //#region Event listeners
 OnClickSubmit(){
   this.update();
+}
+OnClickViewData(content,virtualTable:VirtualTable){
+  this.tableId=virtualTable.id;
+  this.openViewData(content);
 }
 //#endregion
 

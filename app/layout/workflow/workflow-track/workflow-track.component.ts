@@ -1,7 +1,7 @@
 import { Component, OnInit,OnDestroy, Input } from '@angular/core';
 
-import { WorkflowTrackDet } from '../../model/workflow-track-det';
-import {WorkflowService,RefreshService} from '../../shared';
+import { WorkflowTrackDet } from './../../../model/workflow-track-det';
+import {WorkflowService,RefreshService} from './../../../shared';
 import { Subscription } from 'rxjs';
 
 

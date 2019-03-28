@@ -11,6 +11,7 @@ import { VirtualTableModalComponent } from './virtual-table-modal/virtual-table-
 import { VirtualTableFieldsComponent } from './virtual-table-modal/virtual-table-fields/virtual-table-fields.component';
 import { VirtualTableConstraintsComponent } from './virtual-table-modal/virtual-table-constraints/virtual-table-constraints.component';
 import {SharedPipesModule} from './../../../shared/pipes/shared-pipes.module';
+import { VirtualTableRecordComponent } from './virtual-table-record/virtual-table-record.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -22,7 +23,7 @@ import {SharedPipesModule} from './../../../shared/pipes/shared-pipes.module';
     ,SharedPipesModule
     ,MsgViewModule
   ],
-  declarations: [VirtualTableComponent, VirtualTableModalComponent, VirtualTableFieldsComponent, VirtualTableConstraintsComponent],
-  exports:[VirtualTableComponent]
+  declarations: [VirtualTableComponent, VirtualTableModalComponent, VirtualTableFieldsComponent, VirtualTableConstraintsComponent, VirtualTableRecordComponent],
+  exports:[VirtualTableComponent,VirtualTableRecordComponent]
 })
 export class VirtualTableModule { }
