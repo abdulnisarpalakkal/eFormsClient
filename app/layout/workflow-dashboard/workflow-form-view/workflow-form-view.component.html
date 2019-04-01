@@ -13,7 +13,7 @@
                           <select  [(ngModel)]="formDesign.componentValue" class="form-control input-underline form-control-sm " name="{{formDesign.componentName}}" >
                               
                                   <option  disabled selected > >item</option>
-                                  <option  *ngFor="let refValueOb of formDesign.componentRefValues" > {{refValueOb.refValue}}</option>
+                                  <option  *ngFor="let refValueOb of formDesign.componentRefValues" [value]="refValueOb.refKey"> {{refValueOb.refValue}}</option>
                               
                           </select>
                       </div>

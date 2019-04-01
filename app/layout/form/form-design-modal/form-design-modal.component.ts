@@ -8,6 +8,7 @@ import { FormMaster } from '../../../model/form-master.model';
 import {VirtualTableFields} from '../../../model/virtual-table-fields.model';
 import {FormComponentEnum} from '../../../model/form-component.enum';
 import { UserMsg } from '../../../model/user-msg.model';
+import { FormComponentRefValue } from '../../../model/form-component-ref-value.model';
 
 @Component({
   selector: 'app-form-design-modal',
@@ -18,6 +19,7 @@ export class FormDesignModalComponent implements OnInit {
   @Input() form: FormMaster;
   @Input() formDesignList: FormDesign[]=[];
   @Input() virtualTableFieldsList: VirtualTableFields[]=[];
+  @Input() refTableMap:any;
   @Output() updated = new EventEmitter<FormMaster>();
   
   @Input() msgOb:UserMsg=new UserMsg();
@@ -54,10 +56,18 @@ export class FormDesignModalComponent implements OnInit {
             const component:FormDesign=new FormDesign();
             component.componentName=field.fieldName;
             component.componentLabel=field.fieldName;
-            component.componentType=FormComponentEnum.TEXT;
             component.alignOrder=index+1;
             component.formMaster=this.form;
             component.virtualTableField=field;
+            if(this.refTableMap.has(component.virtualTableField.fieldName) && !this.formDesign.componentRefValues){
+              this.formDesign.componentRefValues=[];
+              this.formDesign.componentRefValues.push(new FormComponentRefValue());
+              component.componentType=FormComponentEnum.COMPO;
+            }
+            else{
+              component.componentType=FormComponentEnum.TEXT;
+
+            }
             this.formDesignList.push(component);
           });
         }
@@ -81,6 +91,8 @@ export class FormDesignModalComponent implements OnInit {
       editComponent(formDesign:FormDesign){
         this.formDesign=formDesign;
         this.formDesign.virtualTableField=this.virtualTableFieldsList.find(x=>x.fieldName==this.formDesign.virtualTableField.fieldName);
+       
+
       }
 
       listOrderChanged(formDesignList){

@@ -53,7 +53,7 @@
 </nav>
 
 <section class="main-container" data-spy="scroll">
-        
+        <!-- {{refTableMap|json}} -->
         <app-msg-view [msgOb]="msgOb"></app-msg-view> 
         <!-- <form role="form" #formDesignForm="ngForm" (ngSubmit)="onUpdate(formForm)"> -->
                 <div class="form-content ">
@@ -82,7 +82,7 @@
         <!-- </form> -->
 </section>
 <nav class="sidebar-right"  >
-        <app-component-properties-dir *ngIf="formDesign"  [virtualTableFieldsList]="virtualTableFieldsList" [formDesign]="formDesign" ></app-component-properties-dir>
+        <app-component-properties-dir *ngIf="formDesign"  [virtualTableFieldsList]="virtualTableFieldsList" [formDesign]="formDesign" [refTableMap]="refTableMap" ></app-component-properties-dir>
 </nav>
 
 

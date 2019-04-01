@@ -62,6 +62,9 @@ public getTableFields(): Observable<any> {
 public getTableFieldsByTable(tableId): Observable<any> {
   return this.http.get(this.virtualTableFieldUrl+"/table/"+tableId);
 }
+public getTableFieldNamesByTable(tableId): Observable<any> {
+  return this.http.get(this.virtualTableFieldUrl+"/table/fieldNames/"+tableId);
+}
 
 public deleteTableFields(virtualTableField) {
   return this.http.delete(this.virtualTableFieldUrl + "/"+ virtualTableField.id);

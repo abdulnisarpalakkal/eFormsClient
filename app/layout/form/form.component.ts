@@ -9,8 +9,7 @@ import {VirtualTable} from '../../model/virtual-table.model';
 import {VirtualTableFields} from '../../model/virtual-table-fields.model';
 import {FormDesign} from '../../model/form-design.model';
 import { UserRoles } from '../../model/user-roles.model';
-import { MsgInterface } from '../interface/msg-interface';
-import { UserMsg } from '../../model/user-msg.model';
+import { VirtualTableConstraintType } from '../../model/virtual-table-constraints-type.model';
 
 
 
@@ -30,6 +29,7 @@ formList:FormMaster[]=[];
 formDesignList:FormDesign[]=[];
 formComponentTypes: String[]=[];
 userRoles:UserRoles[];
+refTableMap:any;
 
 temp = [];
 modalform: FormMaster;
@@ -210,7 +210,28 @@ public getVirtualTableFieldList(table:VirtualTable) {
   this.virtualTableService.getTableFieldsByTable(table.id)
   .subscribe(
         data => {
-          this.virtualTableFieldsList=data;   
+          this.virtualTableFieldsList=data; 
+          this.refTableMap=new Map();
+          this.virtualTableFieldsList.forEach(field=>{
+            if(field.fieldConstraintList){ //checking the field is having constraint
+              field.fieldConstraintList.forEach(constraint=>{
+                if(constraint.constraintType==VirtualTableConstraintType.FOREIGN_KEY) //checking whether constraint is foreign contraint or not
+                    this.getRefTableFieldNamesList(field.fieldName,constraint.foreignConstraint.virtualTableField.virtualTableMaster.id); //get all field names of referenced table
+              });
+            }
+            
+          })  
+          
+        },
+        error=>{
+        }
+  );
+}
+public getRefTableFieldNamesList(fieldName:string,tableId:number) {
+  this.virtualTableService.getTableFieldNamesByTable(tableId)
+  .subscribe(
+        data => {
+            this.refTableMap.set(fieldName,data); 
         },
         error=>{
         }
