@@ -166,3 +166,14 @@
 @include media-breakpoint-up(lg) {
   .modal-lg { max-width: $modal-lg; }
 }
+
+.modal-xl .modal-lg {
+    
+  max-width:90%;
+    
+}
+.modal-full .modal-lg {
+
+  max-width:100%;
+  margin: 0;
+  }

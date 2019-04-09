@@ -199,7 +199,7 @@ private getDismissReason(reason: any): string {
 //#region Modal2
 openDesignModal(content,workflow:WorkflowMaster) {
   this.modalWorkflow=workflow;
-  this.modalReference2=this.modalService.open(content,{ size: 'lg', backdrop:"static", windowClass:'modal-xl custom_modal_dialog custom_modal_content' });
+  this.modalReference2=this.modalService.open(content,{ size: 'lg', backdrop:"static", windowClass:'modal-full custom_modal_dialog custom_modal_content' });
   
   this.modalReference2.result.then((result) => {
       this.closeResult2 = `Closed with: ${result}`;
