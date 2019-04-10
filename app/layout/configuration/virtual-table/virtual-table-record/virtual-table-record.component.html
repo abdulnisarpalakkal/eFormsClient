@@ -3,12 +3,31 @@
   <ngx-datatable class="ngx-datatable bootstrap"
   #table
   [rows]="rows"
-  [columns]="columns"
+  
   [columnMode]="'force'"
   [headerHeight]="50"
   [footerHeight]="50"
   [rowHeight]="'auto'"
   [limit]="10"
   >
-  </ngx-datatable>
+  
+  <ngx-datatable-column prop="{{column.fieldName}}.stringValue" name="{{column.fieldName}}"  *ngFor="let column of columns" ></ngx-datatable-column>
+  
+  <ngx-datatable-column  [minWidth]="50" [maxWidth]="70" name="Del." >
+    <ng-template #deleteBtn let-row="row" let-rowIndex="rowIndex"  ngx-datatable-cell-template>
+        <a [routerLink]="" (click)="delete(row)"><i class="fa fa-fw fa-remove"></i></a>
+    </ng-template>
+  </ngx-datatable-column>
+</ngx-datatable>
+</div>
+
+<div class="form-content row ml-1">
+  <div *ngFor="let recordMap of newRecordMap | keyvalue" class="form-group form-group-sm m-2">
+    <label class="form-control-label" for="{{recordMap.key}}">{{recordMap.key}}</label>
+    <input type="text" class="form-control input-underline form-control-sm " [(ngModel)]="recordMap.value.stringValue" id="{{recordMap.key}}"   name="{{recordMap.key}}">
+  </div>
+  <div >
+      <br >
+      <button type="button" class="btn btn-secondary mt-2" (click)="addRecord()">Add</button>
+  </div>
 </div>

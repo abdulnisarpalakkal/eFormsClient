@@ -87,8 +87,14 @@ public getTableFieldTypes(): Observable<any> {
 }
 
 //#region  records
+public createNewRowData(newRecordMap) {
+  return this.http.post(this.virtualTableUrl+"/records/",newRecordMap);
+}
 public getDataRecordsByTable(tableId): Observable<any> {
   return this.http.get(this.virtualTableUrl+"/records/"+tableId);
+}
+public deleteDataRecordsByTableAndPkValue(tableId,pkValue): Observable<any> {
+  return this.http.delete(this.virtualTableUrl+"/records/"+tableId+"/"+pkValue);
 }
 //#endregion 
 }

@@ -1,5 +1,5 @@
 import { NgModule,forwardRef, ErrorHandler } from '@angular/core';
-import { CommonModule,HashLocationStrategy, LocationStrategy } from '@angular/common';
+import { CommonModule,HashLocationStrategy, LocationStrategy,KeyValuePipe } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule, HttpClient,HttpHandler,HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -64,7 +64,8 @@ export function createTranslateLoader(http: HttpClient) {
             Handler,
             {
                 provide: LocationStrategy, useClass: HashLocationStrategy
-            }
+            },
+            KeyValuePipe
             // ,
             // {
             //     provide:ErrorHandler,

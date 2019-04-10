@@ -92,16 +92,14 @@
 </ng-template>
 <ng-template #content2 let-c="close" let-d="dismiss">
     <div class="modal-header">
-      <h4 class="modal-title">Virtual Table Data</h4>
+      <h4 class="modal-title">{{selectedVirtualTable.tableName}}</h4>
       <button type="button" class="close" aria-label="Close" (click)="d('Close click')">
           <span aria-hidden="true">&times;</span>
       </button>
     </div>
     <div class="modal-body">
-        <app-virtual-table-record [tableId]="tableId"></app-virtual-table-record>
+        <app-virtual-table-record [selectedVirtualTable]="selectedVirtualTable"></app-virtual-table-record>
      
     </div>
-    <div class="modal-footer">
-      <button type="button" class="btn btn-secondary" (click)="c('Close click')">Close</button>
-    </div>
+  
     </ng-template>

@@ -23,7 +23,7 @@ processList:Process[]=[];
 virtualTableFieldsList: VirtualTableFields[]=[];
 virtualTableConstraintList: VirtualTableConstraintType[]=[];
 dataTypes: String[]=[];
-tableId:number;
+selectedVirtualTable:VirtualTable;
 // virtualTableFieldsConstraintDto:VirtualTableFieldsConstraintDto;
 
 temp = [];
@@ -219,7 +219,7 @@ OnClickSubmit(){
   this.update();
 }
 OnClickViewData(content,virtualTable:VirtualTable){
-  this.tableId=virtualTable.id;
+  this.selectedVirtualTable=virtualTable;
   this.openViewData(content);
 }
 //#endregion
