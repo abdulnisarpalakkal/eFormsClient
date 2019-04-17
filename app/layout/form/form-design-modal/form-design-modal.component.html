@@ -53,8 +53,7 @@
 </nav>
 
 <section class="main-container" data-spy="scroll">
-        <!-- {{refTableMap|json}} -->
-        <app-msg-view [msgOb]="msgOb"></app-msg-view> 
+     
         <!-- <form role="form" #formDesignForm="ngForm" (ngSubmit)="onUpdate(formForm)"> -->
                 <div class="form-content ">
                  
@@ -62,8 +61,8 @@
                         <app-form-component-dir [formDesign]="formDesign" (deleteComponentEmit)="deleteComponent($event)" (editComponentEmit)="editComponent($event)"></app-form-component-dir>
                     </div> -->
                 
-                        <div class="example-list" cdkDropList (cdkDropListDropped)="drop($event)">
-                            <div class="example-box" *ngFor="let formDesign of formDesignList" cdkDrag >
+                        <div *ngIf="formDesignDto!=null" class="example-list" cdkDropList (cdkDropListDropped)="drop($event)">
+                            <div class="example-box"  *ngFor="let formDesign of formDesignDto.formDesigns" cdkDrag >
                                         <div class="example-handle" cdkDragHandle>
                                                 <svg width="24px" fill="currentColor" viewBox="0 0 24 24">
                                                         <path d="M10 9h4V6h3l-5-5-5 5h3v3zm-1 1H6V7l-5 5 5 5v-3h3v-4zm14 2l-5-5v3h-3v4h3v3l5-5zm-9 3h-4v3H7l5 5 5-5h-3v-3z"></path>
@@ -82,7 +81,29 @@
         <!-- </form> -->
 </section>
 <nav class="sidebar-right"  >
-        <app-component-properties-dir *ngIf="formDesign"  [virtualTableFieldsList]="virtualTableFieldsList" [formDesign]="formDesign" [refTableMap]="refTableMap" ></app-component-properties-dir>
+        
+                <ngb-tabset #tabs>
+                      
+                        <ngb-tab id="rules">
+                                        <ng-template ngbTabTitle>Rules</ng-template>
+                                        <ng-template ngbTabContent>
+                                                <br />
+                                                <app-form-rules-dir  [formRules]="formDesignDto.formRules" [formRuleTypes]="formDesignDto.formRuleTypes"></app-form-rules-dir>
+                                                
+                                        </ng-template>
+                                        
+                                </ngb-tab>
+                                <ngb-tab id="component">
+                                                <ng-template ngbTabTitle>Properties</ng-template>
+                                                <ng-template ngbTabContent>
+                                                        <br />
+                                                        <app-component-properties-dir *ngIf="formDesign"  [virtualTableFieldsList]="virtualTableFieldsList" [formDesign]="formDesign" [refTableMap]="refTableMap" [formRules]="formDesignDto.formRules" ></app-component-properties-dir>
+                                                        
+                                                </ng-template>
+                                                
+                                        </ngb-tab>
+                </ngb-tabset>
+        
 </nav>
 
 

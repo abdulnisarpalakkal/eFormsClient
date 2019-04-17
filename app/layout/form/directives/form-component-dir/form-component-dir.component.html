@@ -3,13 +3,13 @@
     
             <a [routerLink]="" [class.remove]="true"  (click)="deleteComponent()"  ><i class="fa fa-fw fa-remove"  ></i></a>
          
-            <a [routerLink]="" [class.hide]="true"  (click)="formDesign.hide=!formDesign.hide"  ><i  class="fa fa-fw" [class.fa-eye]="formDesign.hide" [class.fa-eye-slash]="!formDesign.hide" ></i></a>
+            <a *ngIf="formDesign.formRules && formDesign.formRules.length!=0" [routerLink]="" [class.hide]="true"  ><i  class="fa fa-fw" [class.fa-eye]="formDesign.hide" [class.fa-eye-slash]="!formDesign.hide" ></i></a>
             <div  >
                 
                 <label *ngIf="formDesign.componentType!=checkComponent" class="form-control-label" for="formName">{{formDesign.componentLabel}}</label>
                 <p *ngIf="formDesign.componentType==labelComponent else select_content"  class="form-control-static">{{formDesign.componentValue}}</p>
                 <ng-template #select_content>
-                    <select  *ngIf="formDesign.componentType==selectComponent else radio_content" class="form-control input-underline form-control-sm "  >
+                    <select  *ngIf="formDesign.componentType==selectComponent else radio_content" class="form-control input-underline form-control-sm " readonly >
                         <option value="" disabled selected > >item</option>
                         <option value="" *ngFor="let refValueOb of formDesign.componentRefValues" > {{refValueOb.refValue}}</option>
                         
@@ -19,7 +19,7 @@
                         <div *ngIf="formDesign.componentType==radioComponent else check_content"  >
                                 <div  *ngFor="let refValueOb of formDesign.componentRefValues; let j=index"  class="radio">
                                     <label>
-                                        <input type="radio" name="optionsRadios" id="optionsRadios{{j}}" value="{{refValueOb.refValue}}" checked="">{{refValueOb.refValue}}
+                                        <input type="radio" name="optionsRadios" id="optionsRadios{{j}}" value="{{refValueOb.refValue}}" checked="" readonly>{{refValueOb.refValue}}
                                     </label>
                                 </div>
                             </div>
@@ -29,14 +29,14 @@
                         <!-- <div  *ngFor="let refValueOb of formDesign.componentRefValues; " class="form-check"> -->
                                
                             <label  class="form-check-label">
-                                    <input type="checkbox" class="form-check-input"    >{{formDesign.componentLabel}}
+                                    <input type="checkbox" class="form-check-input"   readonly >{{formDesign.componentLabel}}
                             </label>
                             
                         <!-- </div> -->
                     </div>
                 </ng-template>
                 <ng-template #other_content>
-                    <input  type="{{formDesign.componentType}}" class="form-control input-underline form-control-sm " value="{{formDesign.componentValue}}"  >
+                    <input  type="{{formDesign.componentType}}" class="form-control input-underline form-control-sm " value="{{formDesign.componentValue}}" readonly >
                 </ng-template>
             </div>
            

@@ -1,4 +1,4 @@
-import { Component, OnInit,ViewChild,ViewEncapsulation, Input } from '@angular/core';
+import { Component, OnInit,ViewChild,ViewEncapsulation, Input, ViewChildren } from '@angular/core';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import {DatatableComponent} from '@swimlane/ngx-datatable';
 
@@ -10,6 +10,7 @@ import {VirtualTableFields} from '../../model/virtual-table-fields.model';
 import {FormDesign} from '../../model/form-design.model';
 import { UserRoles } from '../../model/user-roles.model';
 import { VirtualTableConstraintType } from '../../model/virtual-table-constraints-type.model';
+import { FormDesignDto } from '../../model/form-design-dto.model';
 
 
 
@@ -26,7 +27,7 @@ export class FormComponent implements OnInit {
 virtualTableList:VirtualTable[]=[];
 virtualTableFieldsList: VirtualTableFields[]=[];
 formList:FormMaster[]=[];
-formDesignList:FormDesign[]=[];
+formDesignDto:FormDesignDto;
 formComponentTypes: String[]=[];
 userRoles:UserRoles[];
 refTableMap:any;
@@ -41,6 +42,7 @@ closeResult2: string;
 isNew :boolean=false;
 
 @ViewChild(DatatableComponent) table: DatatableComponent;
+@ViewChild("content2") designContent:any;
 
 //#endregion
   constructor(private formService: FormService,private virtualTableService: VirtualTableService,private modalService: NgbModal, private handler:Handler,private administrationService:AdministrationService) { }
@@ -174,9 +176,10 @@ public getFormDesignList (formId) {
   this.formService.getAllFormDesignByFormId(formId)
   .subscribe(
         data => {
-          this.formDesignList=data;   
-          if(this.formDesignList!=null){
-            this.formDesignList=this.formDesignList.sort((design1,design2):number=>{
+
+          this.formDesignDto=data;   
+          if(this.formDesignDto!=null && this.formDesignDto.formDesigns!=null){
+            this.formDesignDto.formDesigns=this.formDesignDto.formDesigns.sort((design1,design2):number=>{
               return design1.alignOrder<design2.alignOrder?-1:1;
             });
           }
@@ -292,11 +295,12 @@ onUpdated(form: FormMaster) {
 
 }
 onUpdatedDesign() {
-  this.formService.updateDesign(this.formDesignList)
+  this.formService.updateDesign(this.formDesignDto)
     .subscribe(
         data => {
           this.closeModal();
-          this.getFormsList();
+          this.openDesignPage();
+          // this.getFormsList();
         },
         error=>{
         }
@@ -305,11 +309,17 @@ onUpdatedDesign() {
 //#endregion
 //#region event listeners
 public designClick(content,form:FormMaster){
-  this.getVirtualTableFieldList(form.virtualTableMaster);
-  this.getFormDesignList(form.id);
-  this.openDesignModal(content,form);
+  this.modalform=form;
+  // this.getVirtualTableFieldList(form.virtualTableMaster);
+  // this.getFormDesignList(form.id);
+  // this.openDesignModal(content,form);
+  this.openDesignPage();
 }
 
 //#endregion event listeners
-
+  public openDesignPage(){
+    this.getVirtualTableFieldList(this.modalform.virtualTableMaster);
+    this.getFormDesignList(this.modalform.id);
+    this.openDesignModal(this.designContent,this.modalform);
+  }
 }

@@ -14,6 +14,7 @@ import { FormDesignModalComponent } from './form-design-modal/form-design-modal.
 import { FormComponentDirComponent,NgbdModalConfirm } from './directives/form-component-dir/form-component-dir.component';
 import { ComponentPropertiesDirComponent } from './directives/component-properties-dir/component-properties-dir.component';
 import { FormPreviewComponent } from './form-preview/form-preview.component';
+import { FormRulesDirComponent } from './directives/form-rules-dir/form-rules-dir.component';
 
 @NgModule({
   imports: [
@@ -26,7 +27,7 @@ import { FormPreviewComponent } from './form-preview/form-preview.component';
     ,DragDropModule
     ,MsgViewModule
   ],
-  declarations: [FormComponent, FormModalComponent, FormDesignModalComponent, FormComponentDirComponent, ComponentPropertiesDirComponent,NgbdModalConfirm, FormPreviewComponent],
+  declarations: [FormComponent, FormModalComponent, FormDesignModalComponent, FormComponentDirComponent, ComponentPropertiesDirComponent,NgbdModalConfirm, FormPreviewComponent, FormRulesDirComponent],
   entryComponents: [NgbdModalConfirm],
   exports:[FormComponent]
 })

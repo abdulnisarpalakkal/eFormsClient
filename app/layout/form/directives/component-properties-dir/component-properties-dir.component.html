@@ -1,7 +1,5 @@
 <div class="card ">
-    <div class="card-header">
-      Properties
-    </div>
+   
     <div class="card-body">
         <form >
       <div class="form-content ">
@@ -95,6 +93,22 @@
                 <option *ngFor="let virtualTableField of virtualTableFieldsList" [ngValue]="virtualTableField">{{virtualTableField.fieldName}}</option>
               </select>
          </div>
+         <div class="card">
+           <div class="card-body">
+              <span class="badge  badge-light mr-1" *ngFor="let formRule of formDesign.formRules">{{formRule.formRuleName}}
+                <a [routerLink]="" (click)="removeFormRule(formRule)">
+                  <i  class="fa fa-fw fa-times" aria-hidden="true" ></i>
+                </a>
+              </span>
+              <select *ngIf="showRulesCompo"  id="formRule" name="formRule" class="form-control input-underline form-control-sm "  ngModel  (ngModelChange)="onChangeFormRule($event)" >
+                <option value="" disabled selected>>select rule</option>
+                <option *ngFor="let formRule of formRules" [ngValue]="formRule">{{formRule.formRuleName}}</option>
+              </select>     
+              <a [routerLink]="" (click)="addNewRule()">
+                  <i  class="fa fa-fw fa-plus" ></i>
+              </a>
+           </div>
+        </div>
      </div>
      
       </form>

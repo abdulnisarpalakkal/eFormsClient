@@ -2,6 +2,7 @@ import {FormMaster} from './form-master.model';
 import {VirtualTableFields} from './virtual-table-fields.model';
 import {FormComponentEnum} from './form-component.enum';
 import { FormComponentRefValue } from './form-component-ref-value.model';
+import { FormRule } from './form-rule';
 export class FormDesign {
     public  id: number;
   
@@ -15,4 +16,5 @@ export class FormDesign {
     public componentRefValues:FormComponentRefValue[];
     public formMaster: FormMaster;
     public virtualTableField: VirtualTableFields;
+    public formRules:FormRule[]=[];
 }

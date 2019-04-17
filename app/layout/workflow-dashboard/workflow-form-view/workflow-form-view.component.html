@@ -3,7 +3,8 @@
   
       <div class="form-content "  >
        
-            <div class="form-group" [hidden]="formDesign.hide" *ngFor="let formDesign of formDesignList; let i = index" >
+            <div class="form-group"  *ngFor="let formDesign of formDesignList; let i = index" >
+                <div *ngIf="validateRule(formDesign)">
                     <label *ngIf="formDesign.componentType!=checkComponent" class="form-control-label" for="{{formDesign.componentName}}">{{formDesign.componentLabel}}</label>
       
                     <p *ngIf="formDesign.componentType==labelComponent else select_content"  class="form-control-static font-italic">{{formDesign.componentValue}}</p>
@@ -38,14 +39,14 @@
                                 
                             <!-- </div> -->
                         </div>
-                </ng-template>
+                    </ng-template>
                     <ng-template #other_content>
                         <input  type="{{formDesign.componentType}}" [(ngModel)]="formDesign.componentValue" name="{{formDesign.componentName}}" class="form-control input-underline form-control-sm "  >
                     </ng-template>
-      
+        
                     <!-- <input type="text" [(ngModel)]="formDesign.componentValue" class="form-control input-underline input-lg " id="{{formDesign.componentName}}"   name="{{formDesign.componentName}}"> -->
-                    
-                </div>
+                </div>       
+            </div>
         
       </div>
       <!-- [(ngModel)]="{{formDesign.componentName}}" -->

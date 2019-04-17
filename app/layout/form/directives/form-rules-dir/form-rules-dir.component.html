@@ -1,0 +1,41 @@
+<div *ngFor="let rule of formRules">
+    <!-- <div class="row">
+      <div class="col-xl-10"> -->
+        <a class="list-group-item ml-2 mr-2 mt-1" [routerLink]="" (click)="editRule(rule)" >
+            <a [routerLink]="" [class.remove]="true"  (click)="deleteRule(rule)"  ><i class="fa fa-fw fa-remove"  ></i></a>
+            <span>{{rule.formRuleName}}</span>
+        </a>
+      <!-- </div>
+      <div class="col-xl-2"> -->
+        <!-- <a [routerLink]="" (click)="addNewRule()">
+            <i  class="fa fa-fw fa-times" aria-hidden="true" ></i>
+        </a> -->
+    <!-- </div> -->
+<!-- </div> -->
+</div>
+<a [routerLink]="" (click)="addNewRule()">
+    <i  class="fa fa-fw fa-plus" ></i>
+</a>
+<form *ngIf="formRule!=null" >
+    <div class="form-content " >
+        <div class="form-group  form-group-sm mb-2">
+            <label class="form-control-label mb-1" for="formRuleName">Rule name</label>
+            <input type="text" class="form-control input-underline form-control-sm  " id="formRuleName"  [(ngModel)]="formRule.formRuleName" name="formRuleName">
+        </div>
+
+        <div class="form-group form-group-sm mb-2">
+            <label class="form-control-label mb-1" for="componentType">Rule type</label>
+            <select  id="ruleType" name="ruleType" [(ngModel)]="_ruleTypeId" class="form-control input-underline form-control-sm " (ngModelChange)="onChange($event)" >
+              <option value="" disabled selected>>select a type</option>
+              <option *ngFor="let formRuleType of formRuleTypes" [value]="formRuleType.id" >{{formRuleType.ruleTypeName}}</option>
+            </select>
+           
+        </div>
+        <div class="form-group form-group-sm mb-2" *ngFor="let parameterValue of formRule.formRuleParameterValues; let i=index">
+            <label class="form-control-label mb-1" for="ParameterLabel">{{parameterValue.formRuleTypeParameter.parameterLabel}}</label>
+            <input type="text" class="form-control input-underline form-control-sm " id="formRuleParameterValue{{i}}"  [(ngModel)]="parameterValue.formRuleParameterValue" name="formRuleParameterValue{{i}}">
+        </div>
+    </div>
+    <!-- <button type="button" class="btn btn-secondary" (click)="saveRule()">Add</button> -->
+    <!-- <button type="button" class="btn btn-secondary" (click)="clearRule()">Clear</button> -->
+</form>

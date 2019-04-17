@@ -5,6 +5,7 @@ import {VirtualTableFields} from '../../../../model/virtual-table-fields.model';
 import { FormComponentRefValue } from '../../../../model/form-component-ref-value.model';
 import { VirtualTableConstraints } from '../../../../model/virtual-table-constraints.model';
 import { VirtualTableConstraintType } from '../../../../model/virtual-table-constraints-type.model';
+import { FormRule } from '../../../../model/form-rule';
 
 @Component({
   selector: 'app-component-properties-dir',
@@ -14,10 +15,12 @@ export class ComponentPropertiesDirComponent implements OnInit {
   @Input() formDesign: FormDesign;
   @Input() virtualTableFieldsList: VirtualTableFields[]=[];
   @Input() refTableMap:any;
+  @Input() formRules:FormRule[]=[];
   componentTypeList:String[]=[];
   _virtualFieldId:number;
   selectComponent:FormComponentEnum=FormComponentEnum.COMPO;
   radioComponent:FormComponentEnum=FormComponentEnum.RADIO;
+  showRulesCompo:boolean;
   // foreignConstraint:VirtualTableConstraints;
   constructor() { }
 
@@ -57,5 +60,22 @@ export class ComponentPropertiesDirComponent implements OnInit {
       refValues.splice(index, 1);
     }
   }
-  
+  addNewRule(){
+    this.showRulesCompo=true;
+    
+  }
+  onChangeFormRule(formRule:FormRule){
+    this.showRulesCompo=false;
+    if(!this.formDesign.formRules)
+      this.formDesign.formRules=[];
+    this.formDesign.formRules.push(formRule);
+    
+  }
+  removeFormRule(formRule:FormRule){
+    const index = this.formDesign.formRules.indexOf(formRule, 0);
+    if (index > -1) {
+      this.formDesign.formRules.splice(index, 1);
+    }
+  }
+
 }

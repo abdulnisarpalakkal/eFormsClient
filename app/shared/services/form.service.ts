@@ -13,10 +13,15 @@ const httpOptions = {
 export class FormService {
   private formUrl:string = '';
   private formDesignUrl:string = '';
+  private formRuleTypeUrl:string = '';
+  private formRuleUrl:string = '';
 
   constructor(private http:HttpClient,private _configuration: GlobalData) { 
     this.formUrl =  'formMaster';
     this.formDesignUrl = 'formDesign';
+    this.formRuleTypeUrl = 'formRuleType/formRuleTypes';
+    this.formRuleUrl = 'formRule/formRules';
+    
   }
   
   //#region formMaster
@@ -41,8 +46,8 @@ export class FormService {
   public update(formMaster) {
     return this.http.put(this.formUrl,formMaster);
   }
-  public updateDesign(formDesigns) {
-    return this.http.put(this.formUrl+"/design",formDesigns);
+  public updateDesign(formDesignDto) {
+    return this.http.put(this.formUrl+"/design",formDesignDto);
   }
  //#endregion
 
@@ -60,6 +65,10 @@ export class FormService {
   public getAllFormDesignByFormId(formId): Observable<any> {
     return this.http.get(this.formDesignUrl+ "/form/"+ formId);
   }
+  public getAllFormComponentsByFormId(formId): Observable<any> {
+    return this.http.get(this.formDesignUrl+ "/components/form/"+ formId);
+  }
+  
   public getOneFormDesign(formDesign): Observable<any> {
     return this.http.get(this.formDesignUrl+ "/"+ formDesign.id);
   }
@@ -72,6 +81,16 @@ export class FormService {
   }
   public getAllFormComponentTypes(): Observable<any> {
     return this.http.get(this.formDesignUrl+"/types");
+  }
+  //#endregion
+  //#region formRuleType
+  public getFormRuleTypes(): Observable<any> {
+    return this.http.get(this.formRuleTypeUrl);
+  }
+  //#endregion
+  //#region formRuleType
+  public getFormRules(): Observable<any> {
+    return this.http.get(this.formRuleUrl);
   }
   //#endregion
 

@@ -3,7 +3,7 @@
            
       <div class="form-content "  >
        
-          <div class="form-group" [hidden]="formDesign.hide" *ngFor="let formDesign of formDesignList; let i = index" >
+          <div class="form-group" [hidden]="formDesign.hide" *ngFor="let formDesign of formDesignDto.formDesigns; let i = index" >
               <label *ngIf="formDesign.componentType!=checkComponent"  class="form-control-label" for="{{formDesign.componentName}}">{{formDesign.componentLabel}}</label>
 
               <p *ngIf="formDesign.componentType==labelComponent else select_content"  class="form-control-static">{{formDesign.componentValue}}</p>

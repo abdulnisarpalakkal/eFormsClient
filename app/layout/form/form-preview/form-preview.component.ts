@@ -4,6 +4,7 @@ import { NgForm } from '@angular/forms';
 import {FormDesign} from '../../../model/form-design.model';
 import { FormMaster } from '../../../model/form-master.model';
 import { FormComponentEnum } from '../../../model/form-component.enum';
+import { FormDesignDto } from '../../../model/form-design-dto.model';
 
 @Component({
   selector: 'app-form-preview',
@@ -12,7 +13,7 @@ import { FormComponentEnum } from '../../../model/form-component.enum';
 })
 export class FormPreviewComponent implements OnInit {
   @Input() form: FormMaster;
-  @Input() formDesignList: FormDesign[]=[];
+  @Input() formDesignDto: FormDesignDto;
   selectComponent:FormComponentEnum=FormComponentEnum.COMPO;
   labelComponent:FormComponentEnum=FormComponentEnum.LABEL;
   radioComponent:FormComponentEnum=FormComponentEnum.RADIO;
@@ -23,7 +24,7 @@ export class FormPreviewComponent implements OnInit {
   ngOnInit() {
     this.selectComponent= FormComponentEnum.COMPO;
     this.labelComponent= FormComponentEnum.LABEL;
-    this.formDesignList=this.formDesignList.sort((design1,design2):number=>{
+    this.formDesignDto.formDesigns=this.formDesignDto.formDesigns.sort((design1,design2):number=>{
       return design1.alignOrder<design2.alignOrder?-1:1;
     });
   }
