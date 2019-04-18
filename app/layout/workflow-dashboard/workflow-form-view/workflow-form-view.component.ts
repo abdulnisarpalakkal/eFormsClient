@@ -8,6 +8,7 @@ import { UserMsg } from '../../../model/user-msg.model';
 import { Operator } from '../../../model/operator.enum';
 import { FormRulesDirComponent } from '../../form/directives/form-rules-dir/form-rules-dir.component';
 import { FormRuleParameterValue } from '../../../model/form-rule-parameter-value';
+import { FormComponentRefValue } from '../../../model/form-component-ref-value.model';
 
 
 @Component({
@@ -63,7 +64,8 @@ export class WorkflowFormViewComponent implements OnInit {
     formDesign.formRules.forEach(rule=>{
       if(rule.formRuleType.ruleTypeName=='SHOW'){
         var conditionalString=this.getParameterValue(rule.formRuleParameterValues)
-        isValid=isValid && this.validateCondition(Operator.OR,conditionalString)
+       if(conditionalString)
+          isValid=isValid && this.validateCondition(Operator.OR,conditionalString.toUpperCase())
 
       }
     });
@@ -72,7 +74,7 @@ export class WorkflowFormViewComponent implements OnInit {
   }
   validateCondition(op:Operator,conditionString:string):boolean{
     var returnValue:boolean=false;
-    conditionString=conditionString.toUpperCase();
+    
     switch(op){
       case Operator.OR:
         if(conditionString.indexOf(Operator.OR)!=-1){
@@ -122,7 +124,7 @@ export class WorkflowFormViewComponent implements OnInit {
       case Operator.EQ:
         if(conditionString.indexOf(Operator.EQ)!=-1){
           var EQ_Split:string[]=this.conditionSplit(Operator.EQ,conditionString);
-          // console.log(this.getVariableValueFromOperand(EQ_Split[0])+"=="+this.getVariableValueFromOperand(EQ_Split[1]));
+          console.log(this.getVariableValueFromOperand(EQ_Split[0])+"=="+this.getVariableValueFromOperand(EQ_Split[1]));
           returnValue=this.getVariableValueFromOperand(EQ_Split[0]) == this.getVariableValueFromOperand(EQ_Split[1]);
         }
         else{
@@ -155,7 +157,7 @@ export class WorkflowFormViewComponent implements OnInit {
   }
   getVariableValueFromOperand(operand:string){
     operand=operand.trim();
-    if(operand.indexOf('{')==0 && operand.indexOf('}')==operand.length-1){
+    if(operand.indexOf('{')==0 && operand.indexOf('}')==operand.length-1){ //get component name if string is enclosed b/w {}
       return this.getFieldValueFromVaraibale(operand.substring(1,operand.length-1));
     }
     else
@@ -163,14 +165,25 @@ export class WorkflowFormViewComponent implements OnInit {
 
   }
   getFieldValueFromVaraibale(variable:string){
-    var formDesign=this.formDesignList.find(design=>{
+    
+    var formDesign:FormDesign=this.formDesignList.find(design=>{ //find the reference form component
       const name:string=design.componentName.toUpperCase();
       if(name==variable)
         return true;
     });
-    if(formDesign)
-      return formDesign.componentValue?formDesign.componentValue.trim().toUpperCase():"";
-    return null;
+
+    var refFieldValue=null;
+    if(formDesign){
+      refFieldValue=formDesign.componentValue?formDesign.componentValue.trim().toUpperCase():null; // get reference value form reference form component
+      if(refFieldValue!=null && formDesign.componentType==FormComponentEnum.COMPO){
+        var formComponentRefValue:FormComponentRefValue=formDesign.componentRefValues.find(refValue=>{ //find the corresponding record from collection if component type is compo
+          if(refValue.refKey.toUpperCase()==refFieldValue) 
+            return true;
+        });
+        refFieldValue=formComponentRefValue?formComponentRefValue.refValue.toUpperCase():null;
+      }
+    }
+    return refFieldValue;
   }
   getParameterValue(parameterValues:FormRuleParameterValue[]){
     return parameterValues[0].formRuleParameterValue;

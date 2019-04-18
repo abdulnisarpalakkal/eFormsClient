@@ -10,7 +10,7 @@
                     <p *ngIf="formDesign.componentType==labelComponent else select_content"  class="form-control-static font-italic">{{formDesign.componentValue}}</p>
                     <ng-template #select_content>
                         <div *ngIf="formDesign.componentType==selectComponent else radio_content" >
-                            
+                            <!-- {{formDesign.componentRefValues|json}} -->
                           <select  [(ngModel)]="formDesign.componentValue" class="form-control input-underline form-control-sm " name="{{formDesign.componentName}}" >
                               
                                   <option  disabled selected > >item</option>
