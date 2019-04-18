@@ -168,12 +168,14 @@ convertWorkflowNodesToGraphNodes(workflowNodeList:WorkflowNode[]){
 //#region Modal 1
 open(content,workflow:WorkflowMaster,isNew) {
   this.isNew=isNew;
-  if(!isNew)
-  {
+  if(!isNew) {
     this.modalWorkflow=workflow;
   }
-  else
+  else{
     this.modalWorkflow=new WorkflowMaster();
+    if(this.processId)
+      this.modalWorkflow.process=this.processList.find(process=>process.id==this.processId);
+  }
   this.modalReference=this.modalService.open(content,{ size: 'lg', backdrop:"static" });
   
   this.modalReference.result.then((result) => {

@@ -183,7 +183,11 @@ open(content,virtualTable:VirtualTable,isNew) {
     // this.getConstraintsByTableId(virtualTable.id);
   }
   else
-  this.modalVirtualTableFieldsConstraintDto.virtualTable=new VirtualTable();
+  {
+    this.modalVirtualTableFieldsConstraintDto.virtualTable=new VirtualTable();
+    if(this.processId)
+      this.modalVirtualTableFieldsConstraintDto.virtualTable.process=this.processList.find(process=>process.id==this.processId);
+  }
   this.modalReference=this.modalService.open(content,{ size: 'lg', backdrop: 'static' });
   
   this.modalReference.result.then((result) => {

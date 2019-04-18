@@ -189,7 +189,9 @@ public getFormDesignList (formId) {
   );
 }
 public getVirtualTableList() {
-  this.virtualTableService.get()
+  const getTablesCall=this.processId?this.virtualTableService.getByProcess(this.processId)
+                        :this.virtualTableService.get();
+  getTablesCall
   .subscribe(
         data => {
           this.virtualTableList=data;   
