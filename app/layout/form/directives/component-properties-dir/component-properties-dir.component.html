@@ -50,14 +50,14 @@
                   <!-- <button type="button" class="btn rounded-btn" (click)="addForeignKey()" >+</button> -->
               </div>
               <div *ngIf="refTableMap.get(formDesign.virtualTableField.fieldName)">
-                  <div class="form-group form-group-sm mb-2">
+                  <!-- <div class="form-group form-group-sm mb-2">
                     <label class="form-control-label mb-1" for="refKey">ref. Key</label>
                    
                     <select  id="refKey" name="refKey" [(ngModel)]="formDesign.componentRefValues[0].refKey" class="form-control input-underline form-control-sm " >
                       <option value="" disabled selected>>select a key</option>
                       <option *ngFor="let item of refTableMap.get(formDesign.virtualTableField.fieldName)" >{{item}}</option>
                     </select>
-                  </div>
+                  </div> -->
                   <div class="form-group form-group-sm mb-2">
                       <label class="form-control-label mb-1" for="refValue">ref. Value</label>
                       <select  id="refValue" name="refValue" [(ngModel)]="formDesign.componentRefValues[0].refValue" class="form-control input-underline form-control-sm " >
