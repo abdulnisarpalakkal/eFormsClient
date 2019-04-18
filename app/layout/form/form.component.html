@@ -90,11 +90,26 @@
 </ng-template>
 
 <ng-template #content2 let-c="close" let-d="dismiss">
-    <div class="modal-header">
-      <h6 class="modal-title">{{modalform.formName}}</h6>
-      <button type="button" class="close" aria-label="Close" (click)="d('Close click')">
-          <span aria-hidden="true">&times;</span>
-      </button>
+    <div class="modal-header" style="display:block">
+      
+      <div class="row">
+        <!-- <div class="col-xl-10"> -->
+          <div class="col-xl-6">
+            <h6 class="modal-title">{{modalform.formName}}</h6>
+          </div>
+          <div class="col-xl-6 ">
+            <button type="button" title="close" class="close" aria-label="Close" (click)="d('Close click')">
+                <span aria-hidden="true"><i class="fa fa-fw fa-close"></i></span>
+            </button>
+            <button type="button" title="Save" class="close" aria-label="Save" (click)="onUpdatedDesign()">
+              <span aria-hidden="true"><i class="fa fa-fw fa-save"></i></span>
+            </button>
+            <button type="button" title="Preview" class="close" aria-label="Preview" (click)="openPreview(content3,content2)">
+              <span aria-hidden="true"><i class="fa fa-fw fa-eye"></i></span>
+            </button>
+          </div>
+        </div>
+      
     </div>
     <div class="modal-body" >
         
@@ -102,11 +117,10 @@
           >   </app-form-design-modal>
      
     </div>
-    <div class="modal-footer">
+    <!-- <div class="modal-footer">
             <button type="button" class="btn rounded-btn" (click)="openPreview(content3,content2)"  >Preview</button>
             <button type="button" class="btn rounded-btn" (click)="onUpdatedDesign()"  >{{!isNew ? 'Update' : 'Save'}}</button>
-        <!-- <button type="button" class="btn btn-secondary" (click)="c('Close click')">Close</button> -->
-      </div>
+      </div> -->
 </ng-template>
 <ng-template #content3 let-c="close" let-d="dismiss">
     <div class="modal-header">
