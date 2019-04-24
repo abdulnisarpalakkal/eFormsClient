@@ -4,6 +4,7 @@ import { VirtualTableService } from '../../../../shared';
 import { VirtualTableFields } from '../../../../model/virtual-table-fields.model';
 import { VirtualTableRecords } from '../../../../model/virtual-table-records.model';
 import { VirtualTable } from '../../../../model/virtual-table.model';
+import { FormDesign } from '../../../../model/form-design.model';
 
 @Component({
   selector: 'app-virtual-table-record',
@@ -15,6 +16,7 @@ export class VirtualTableRecordComponent implements OnInit {
   rows:Map<string,VirtualTableRecords>;
   columns:VirtualTableFields[] = [];
   newRecordMap:Map<string,VirtualTableRecords>=new Map();
+  formDesigns:FormDesign[]=[];
   constructor(private virtualTableService:VirtualTableService,private keyValuePipe:KeyValuePipe) { }
 
   ngOnInit() {
@@ -24,6 +26,7 @@ export class VirtualTableRecordComponent implements OnInit {
     this.virtualTableService.getDataRecordsByTable(tableId).subscribe(data=>{
       this.rows=data.records;
       this.columns=data.columns;
+      this.formDesigns=data.formDesigns;
       this.setNewRecordMap();
       // this.columns=data.columns.map(column=>this.getColumnObject(column));
 

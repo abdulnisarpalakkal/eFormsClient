@@ -6,7 +6,7 @@ import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 
 import { WorkflowDashboardComponent } from './workflow-dashboard.component';
 import { WorkflowDashboardRoutingModule } from './workflow-dashboard-routing.module';
-import { PageHeaderModule,MsgViewModule } from '../../shared';
+import { PageHeaderModule,MsgViewModule,FormDesignModule } from '../../shared';
 import { WorkflowFormViewComponent } from './workflow-form-view/workflow-form-view.component';
 import { WorkflowModule } from '../workflow/workflow.module';
 
@@ -18,8 +18,10 @@ import { WorkflowModule } from '../workflow/workflow.module';
     PageHeaderModule,
     MsgViewModule,
     NgxDatatableModule,
-    WorkflowModule
+    WorkflowModule,
+    FormDesignModule
   ],
   declarations: [WorkflowDashboardComponent, WorkflowFormViewComponent]
+
 })
 export class WorkflowDashboardModule { }

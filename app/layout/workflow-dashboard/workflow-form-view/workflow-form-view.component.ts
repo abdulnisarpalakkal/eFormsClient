@@ -19,29 +19,6 @@ import { FormComponentRefValue } from '../../../model/form-component-ref-value.m
 export class WorkflowFormViewComponent implements OnInit {
   @Input() form: FormMaster;
   @Input() formDesignList: FormDesign[]=[];
-  selectComponent:FormComponentEnum=FormComponentEnum.COMPO;
-  labelComponent:FormComponentEnum=FormComponentEnum.LABEL;
-  radioComponent:FormComponentEnum=FormComponentEnum.RADIO;
-  checkComponent:FormComponentEnum=FormComponentEnum.CHECKBOX;;
-  dateComponent:FormComponentEnum=FormComponentEnum.DATE;
-
-  rules:any = [
-    [{ // AND conditions:
-        "field": "active",
-        "compare": "eq",
-        "target": 1
-    }, {
-        "field": "span",
-        "compare": "gt",
-        "target": 5
-    }], // Next array will be OR'ed
-    [{
-        "field": "name",
-        "compare": "less",
-        "target": "'literal'"
-    }]
-];
-
 
   constructor() { }
 

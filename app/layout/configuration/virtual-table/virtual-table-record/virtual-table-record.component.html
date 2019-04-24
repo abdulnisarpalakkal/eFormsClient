@@ -22,10 +22,13 @@
 </div>
 
 <div class="form-content row ml-1">
-  <div *ngFor="let recordMap of newRecordMap | keyvalue" class="form-group form-group-sm m-2">
+  <!-- <div *ngFor="let recordMap of newRecordMap | keyvalue" class="form-group form-group-sm m-2">
     <label class="form-control-label" for="{{recordMap.key}}">{{recordMap.key}}</label>
     <input type="text" class="form-control input-underline form-control-sm " [(ngModel)]="recordMap.value.stringValue" id="{{recordMap.key}}"   name="{{recordMap.key}}">
-  </div>
+  </div> -->
+  <div class="form-group form-group-sm m-2"  *ngFor="let formDesign of formDesigns; let i = index" >
+        <app-form-design [formDesign]="formDesign"></app-form-design>
+</div>
   <div >
       <br >
       <button type="button" class="btn btn-secondary mt-2" (click)="addRecord()">Add</button>
