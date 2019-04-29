@@ -7,3 +7,4 @@ export * from './workflow.service';
 export * from './workflow-action.service';
 export * from './message-service';
 export * from './refresh-service';
+export * from './file.service';

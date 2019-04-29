@@ -6,7 +6,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import {DragDropModule} from '@angular/cdk/drag-drop';
 
-import { PageHeaderModule,MsgViewModule } from '../../shared';
+import { PageHeaderModule,MsgViewModule, FormDesignModule } from '../../shared';
 import { FormRoutingModule } from './form-routing.module';
 import { FormComponent } from './form.component';
 import { FormModalComponent } from './form-modal/form-modal.component';
@@ -26,6 +26,7 @@ import { FormRulesDirComponent } from './directives/form-rules-dir/form-rules-di
     ,FormRoutingModule
     ,DragDropModule
     ,MsgViewModule
+    ,FormDesignModule
   ],
   declarations: [FormComponent, FormModalComponent, FormDesignModalComponent, FormComponentDirComponent, ComponentPropertiesDirComponent,NgbdModalConfirm, FormPreviewComponent, FormRulesDirComponent],
   entryComponents: [NgbdModalConfirm],

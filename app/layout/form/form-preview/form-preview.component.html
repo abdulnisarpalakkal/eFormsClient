@@ -4,7 +4,8 @@
       <div class="form-content "  >
        
           <div class="form-group" [hidden]="formDesign.hide" *ngFor="let formDesign of formDesignDto.formDesigns; let i = index" >
-              <label *ngIf="formDesign.componentType!=checkComponent"  class="form-control-label" for="{{formDesign.componentName}}">{{formDesign.componentLabel}}</label>
+            <app-form-design [formDesign]="formDesign"></app-form-design>
+            <!-- <label *ngIf="formDesign.componentType!=checkComponent"  class="form-control-label" for="{{formDesign.componentName}}">{{formDesign.componentLabel}}</label>
 
               <p *ngIf="formDesign.componentType==labelComponent else select_content"  class="form-control-static">{{formDesign.componentValue}}</p>
               <ng-template #select_content>
@@ -30,23 +31,18 @@
             </ng-template>
             <ng-template #check_content>
                     <div *ngIf="formDesign.componentType==checkComponent else other_content" class="form-check form-check-inline mb3">
-                        <!-- <div *ngFor="let refValueOb of formDesign.componentRefValues; let j=index" class="form-check"> -->
                               
                             <label  class="form-check-label">
                                     <input type="checkbox" class="form-check-input"  name="{{formDesign.componentName}}" [(ngModel)]="formDesign.componentValue"   >{{formDesign.componentLabel}}
                             </label>
-                            
-                        <!-- </div> -->
                     </div>
             </ng-template>
               <ng-template #other_content>
                   <input  type="{{formDesign.componentType}}" [(ngModel)]="formDesign.componentValue" name="{{formDesign.componentName}}" class="form-control input-underline form-control-sm "  >
               </ng-template>
-
-              <!-- <input type="text" [(ngModel)]="formDesign.componentValue" class="form-control input-underline input-lg " id="{{formDesign.componentName}}"   name="{{formDesign.componentName}}"> -->
-              
+-->
           </div>
-        
+         
       </div>
       <!-- [(ngModel)]="{{formDesign.componentName}}" -->
      

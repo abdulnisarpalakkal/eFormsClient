@@ -5,7 +5,7 @@
        
             <div class="form-group"  *ngFor="let formDesign of formDesignList; let i = index" >
                 <div *ngIf="validateRule(formDesign)">
-                    <app-form-design [formDesign]="formDesign"></app-form-design>
+                    <app-form-design [formDesign]="formDesign" [isFormForExecution]="true"></app-form-design>
                   
                 </div>       
             </div>

@@ -90,6 +90,10 @@ public getTableFieldTypes(): Observable<any> {
 public createNewRowData(newRecordMap) {
   return this.http.post(this.virtualTableUrl+"/records/",newRecordMap);
 }
+public createNewRowDataFromForm(form) {
+  return this.http.post(this.virtualTableUrl+"/records/form",form);
+}
+
 public getDataRecordsByTable(tableId): Observable<any> {
   return this.http.get(this.virtualTableUrl+"/records/"+tableId);
 }

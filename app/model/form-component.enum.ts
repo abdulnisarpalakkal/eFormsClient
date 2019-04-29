@@ -4,5 +4,7 @@ export enum FormComponentEnum {
     CHECKBOX = "CHECKBOX",
     COMPO = "COMPO",
     DATE="DATE",
-    LABEL="LABEL"
+    LABEL="LABEL",
+    FILE="FILE",
+    IMG="IMG"
 }
