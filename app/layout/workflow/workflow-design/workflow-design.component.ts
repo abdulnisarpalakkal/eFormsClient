@@ -35,7 +35,7 @@ export class WorkflowDesignComponent implements OnInit {
   
   @Input()  nodes: WorkflowNode[]=[] ;
   @Input() links: WorkflowLink[] = [];
-  
+  @Input() childWokflowList:WorkflowMaster[]=[];
 
   curve: any = shape.curveLinear;
   view: any[];
@@ -57,7 +57,7 @@ export class WorkflowDesignComponent implements OnInit {
   nodeSeq:number=0;
   nodeSelected:boolean=false;
   linkSelected:boolean=false;
-
+  childWorkflowEnum:WorkflowNodeType=WorkflowNodeType.CHILD_WORKFLOW;
   // colorScheme: any = {
   //   domain: ['#E00804','#069625','#8e7319','#D5D5C9']
   // };
@@ -100,6 +100,7 @@ export class WorkflowDesignComponent implements OnInit {
     this.linkSelected=false;
     this.node=this.nodes.find(x=>x.id==selectedNode.id);
     this.node.formMaster=this.node.formMaster?this.workflowFormsList.find(x=>x.id==this.node.formMaster.id):null; //for getting same object
+    this.node.workflowMaster=this.node.workflowMaster?this.childWokflowList.find(x=>x.id==this.node.workflowMaster.id):null; //for getting same object
     
     // this.node.actionEventObjects.push(this.node.actionEventObjects?this.actionEventList.find(x=>x.id==this.node.a.id):null);
   }
@@ -175,6 +176,12 @@ export class WorkflowDesignComponent implements OnInit {
         this.node.label="Action";
         this.node.color="#ef8f8f";
         this.node.actionEventObjects=[];
+        
+        break;
+      case WorkflowNodeType.CHILD_WORKFLOW:
+        this.node.label="Workflow";
+        this.node.color="#56f442";
+        this.node.workflowMaster=new WorkflowMaster();
         
         break;
       default:

@@ -33,6 +33,11 @@
                                                     <span>Action</span>
                                     </a>
                             </li>
+                            <li >
+                              <a class="list-group-item" [routerLink]="" (click)="open(nodeContent,childWorkflowEnum)" >
+                                              <span>Child Workflow</span>
+                              </a>
+                      </li>
                     </ul>
             </li>
       </div>
@@ -167,7 +172,7 @@
     </button>
   </div>
   <div class="modal-body">
-    <app-workflow-node-properties-dir  [node]="node" [formList]="workflowFormsList" [actionEventList]="actionEventList"  [users]="users" [userGroups]="userGroups"  >
+    <app-workflow-node-properties-dir  [node]="node" [formList]="workflowFormsList" [childWokflowList]="childWokflowList" [actionEventList]="actionEventList"  [users]="users" [userGroups]="userGroups"  >
   </app-workflow-node-properties-dir>
    
   </div>

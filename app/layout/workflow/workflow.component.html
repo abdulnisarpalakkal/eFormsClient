@@ -113,7 +113,7 @@
       <div class="modal-body" >
           
         <app-workflow-design [workflow]="modalWorkflow" [nodes]="workflowNodeList" [links]="workflowLinkList"  [actionEventList]="actionEventList"  [workflowFormsList]="workflowFormsList"  
-       (nodeUpdated)="onNodeUpdated($event)" (linkUpdated)="onLinkUpdated($event)" [users]="users" [userGroups]="userGroups"  >   </app-workflow-design>
+       (nodeUpdated)="onNodeUpdated($event)" (linkUpdated)="onLinkUpdated($event)" [users]="users" [userGroups]="userGroups" [childWokflowList]="childWokflowList" >   </app-workflow-design>
        
       </div>
       <!-- <div class="modal-footer">

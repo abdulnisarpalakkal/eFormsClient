@@ -11,5 +11,6 @@ export class WorkflowMaster {
     public published:boolean;
     public workflowNodeList:WorkflowNode[];
     public workflowLinkList:WorkflowLink[];
+    public child:boolean;
 
 }

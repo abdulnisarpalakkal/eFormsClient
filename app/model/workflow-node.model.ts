@@ -12,6 +12,7 @@ export class WorkflowNode {
 
         public label: String;
         public formMaster: FormMaster;
+        public childWorkflow:WorkflowMaster;
         public color:String;
 
         public width:number;

@@ -38,6 +38,7 @@ workflowFormsList:FormMaster[]=[];
 processList:Process[]=[];
 users:User[];
 userGroups:UserRoles[];
+childWokflowList:WorkflowMaster[]=[];
 // nodes: WorkflowNode[] = [];
 // links: any[] = [];
 
@@ -258,6 +259,20 @@ public getWorkflowsList() {
         }
   );
 }
+public getPublishedChildWokflowList(processId) {
+  const service=this.workflowService.getAllPublishedChildWorkflowsByProcess(processId);
+  service
+  .subscribe(
+        data => {
+          this.childWokflowList=data;   
+        },
+        error=>{
+         
+        }
+  );
+}
+
+
 public getWorkflowNodeList (workflowId) {
   this.workflowService.getAllWorkflowNodeByWorkflow(workflowId)
   .subscribe(
@@ -455,6 +470,7 @@ public designClick(content,workflow:WorkflowMaster){
   this.getActionEventList(); //parameters are saved inside this object
   this.getUserList();
   this.getUserRoleList();
+  this.getPublishedChildWokflowList(workflow.process.id);
   // this.getActionEventParamList();
   this.openDesignModal(content,workflow);
   

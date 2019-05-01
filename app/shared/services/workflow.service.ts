@@ -48,6 +48,9 @@ export class WorkflowService {
   public getAllPublishedWorkflow(): Observable<any> {
     return this.http.get(this.workflowUrl+"/published");
   }
+  public getAllPublishedChildWorkflowsByProcess(processId:number): Observable<any> {
+    return this.http.get(this.workflowUrl+"/published/child/"+processId);
+  }
   public getOneWorkflow(workflow): Observable<any> {
     return this.http.get(this.workflowUrl+ "/"+ workflow.id);
   }

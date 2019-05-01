@@ -7,6 +7,8 @@ import { User } from '../../../../model/user.model';
 import { UserRoles } from '../../../../model/user-roles.model';
 import { ActionEventParam } from '../../../../model/action-event-param.model';
 import { ActionEventParamObject } from '../../../../model/action-event-param-object.model';
+import { WorkflowMaster } from '../../../../model/workflow-master.model';
+import { WorkflowNodeType } from '../../../../model/workflow-node-type.enum';
 
 @Component({
   selector: 'app-workflow-node-properties-dir',
@@ -15,9 +17,11 @@ import { ActionEventParamObject } from '../../../../model/action-event-param-obj
 export class WorkflowNodePropertiesDirComponent implements OnInit {
   @Input() node: WorkflowNode;
   @Input() formList: FormMaster[] ;
+  @Input() childWokflowList: WorkflowMaster[] ;
   @Input() actionEventList: ActionEvent[] ;
   @Input() users:User[];
   @Input() userGroups:UserRoles[];
+  childWorkflowEnum:WorkflowNodeType=WorkflowNodeType.CHILD_WORKFLOW;
   // @Input() actionEventParamList:ActionEventParam[];
 
   constructor() { }
@@ -32,6 +36,9 @@ export class WorkflowNodePropertiesDirComponent implements OnInit {
   onChangeForm(form:FormMaster){
    
     this.node.formMaster=form; 
+  }
+  onChangeworkflow(workflow:WorkflowMaster){
+    this.node.workflowMaster=workflow; 
   }
   onChangeAction(action:ActionEvent){
     const actionEventObject=new ActionEventObject();
