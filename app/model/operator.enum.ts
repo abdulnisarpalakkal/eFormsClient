@@ -1,6 +1,6 @@
 export enum Operator {
-    OR = "OR",
-    AND = "AND",
+    OR = " OR ",
+    AND = " AND ",
     GT = ">",
     LT = "<",
     GE=">=",
