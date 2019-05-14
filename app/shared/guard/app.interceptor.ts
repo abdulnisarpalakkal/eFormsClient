@@ -51,7 +51,8 @@ export class Interceptor implements HttpInterceptor {
           if (err.status === 401) {
             // redirect to the login route
             // or show a modal
-            this.router.navigate(['/login']);
+            this.token.signOut();
+            // this.router.navigate(['/login/tenantId1']);
           }
          
         }

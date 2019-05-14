@@ -20,8 +20,8 @@ export class AdministrationService {
   }
   
 
-  attemptAuth(ussername: string, password: string): Observable<any> {
-    const credentials = {username: ussername, password: password};
+  attemptAuth(ussername: string, password: string,tentantId:String): Observable<any> {
+    const credentials = {username: ussername, password: password,tenantId:tentantId};
     
     return this.http.post(this.userUrl+'token/generate-token', credentials);
   }

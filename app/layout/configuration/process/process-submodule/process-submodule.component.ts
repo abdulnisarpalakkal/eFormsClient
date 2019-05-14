@@ -4,7 +4,7 @@ import { routerTransition } from './../../../../router.animations';
 
 @Component({
   selector: 'app-process-submodule',
-  templateUrl: './process-submodule.component.html',
+  templateUrl: './process-submodule.component.html',  
   styleUrls: ['./process-submodule.component.scss'],
   animations:[routerTransition()]
 })

@@ -3,7 +3,8 @@ import { NgForm } from '@angular/forms';
 
 import { routerTransition } from '../router.animations';
 import {User} from '../model/user.model';
-import {AdministrationService} from '../shared';
+import {AdministrationService,TokenStorage} from '../shared';
+
 
 
 @Component({
@@ -17,12 +18,13 @@ export class SignupComponent implements OnInit {
     signupForm;
     // msg      : string;
   
-    constructor(private administrationService: AdministrationService) {
+    constructor(private administrationService: AdministrationService,private token: TokenStorage) {
         
     }
 
     ngOnInit() {}
     onSignup(signupForm:NgForm) {
+        this.user.tenantId=this.token.getTenantId();
         this.administrationService.createUser(this.user)
         .subscribe(
            
@@ -35,6 +37,10 @@ export class SignupComponent implements OnInit {
               
               }
         );
+    }
+    onLoggedout() {
+        // localStorage.removeItem('isLoggedin');
+        this.token.signOut();
     }
    
 }

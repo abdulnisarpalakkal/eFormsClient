@@ -9,4 +9,5 @@ export class User {
         public lastName: string;
         public email: string;
         public userRoles:UserRoles[]=[];
+        public tenantId:string;
   }
