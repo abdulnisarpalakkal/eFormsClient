@@ -2,7 +2,7 @@
   
   <ngx-datatable class="ngx-datatable bootstrap"
   #table
-  [rows]="rows"
+  [rows]="rowRecords"
   
   [columnMode]="'force'"
   [headerHeight]="50"
@@ -11,8 +11,12 @@
   [limit]="10"
   >
   
-  <ngx-datatable-column prop="{{column.fieldName}}.stringValue" name="{{column.fieldName}}"  *ngFor="let column of columns" ></ngx-datatable-column>
-  
+  <!-- <ngx-datatable-column prop="records.stringValue" name="{{column.fieldName}}"  *ngFor="let column of columns" ></ngx-datatable-column> -->
+  <ngx-datatable-column   name="{{column.fieldName}}"  *ngFor="let column of columns; let i=index" >
+    <ng-template let-row="row" let-rowIndex="rowIndex"  ngx-datatable-cell-template>
+      <span>{{row.records[i].stringValue}}</span>
+    </ng-template>
+  </ngx-datatable-column>
   <ngx-datatable-column  [minWidth]="50" [maxWidth]="70" name="Del." >
     <ng-template #deleteBtn let-row="row" let-rowIndex="rowIndex"  ngx-datatable-cell-template>
         <a [routerLink]="" (click)="delete(row)"><i class="fa fa-fw fa-remove"></i></a>

@@ -6,6 +6,7 @@ import { VirtualTableRecords } from '../../../../model/virtual-table-records.mod
 import { VirtualTable } from '../../../../model/virtual-table.model';
 import { FormDesign } from '../../../../model/form-design.model';
 import { FormMaster } from '../../../../model/form-master.model';
+import { VirtualRowRecordsDto } from '../../../../model/virtual-row-records-dto.model';
 
 @Component({
   selector: 'app-virtual-table-record',
@@ -14,7 +15,7 @@ import { FormMaster } from '../../../../model/form-master.model';
 })
 export class VirtualTableRecordComponent implements OnInit {
   @Input() selectedVirtualTable:VirtualTable;
-  rows:Map<string,VirtualTableRecords>;
+  rowRecords:VirtualRowRecordsDto[];
   columns:VirtualTableFields[] = [];
   newRecordMap:Map<string,VirtualTableRecords>=new Map();
   formDesigns:FormDesign[]=[];
@@ -26,7 +27,7 @@ export class VirtualTableRecordComponent implements OnInit {
   }
   public getVirtualTableRecords(tableId:number){
     this.virtualTableService.getDataRecordsByTable(tableId).subscribe(data=>{
-      this.rows=data.records;
+      this.rowRecords=data.rowRecords;
       this.columns=data.columns;
       this.formDesigns=data.formDesigns;
       this.setNewRecordMap();
@@ -63,10 +64,10 @@ export class VirtualTableRecordComponent implements OnInit {
     });
     return recordList;
   }
-  delete(row){
+  delete(row:VirtualRowRecordsDto){
     console.log(row[this.columns[0].fieldName]);
   
-    this.virtualTableService.deleteDataRecordsByTableAndPkValue(this.selectedVirtualTable.id, row[this.columns[0].fieldName].pkValue).subscribe(data=>{
+    this.virtualTableService.deleteDataRecordsByTableAndPkValue(this.selectedVirtualTable.id, row.pkValue).subscribe(data=>{
       this.getVirtualTableRecords(this.selectedVirtualTable.id);
     });
   }
