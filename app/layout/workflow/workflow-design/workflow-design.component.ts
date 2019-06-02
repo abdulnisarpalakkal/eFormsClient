@@ -100,8 +100,8 @@ export class WorkflowDesignComponent implements OnInit {
     this.linkSelected=false;
     this.node=this.nodes.find(x=>x.id==selectedNode.id);
     this.node.formMaster=this.node.formMaster?this.workflowFormsList.find(x=>x.id==this.node.formMaster.id):null; //for getting same object
-    this.node.workflowMaster=this.node.workflowMaster?this.childWokflowList.find(x=>x.id==this.node.workflowMaster.id):null; //for getting same object
-    
+    this.node.childWorkflow=this.node.childWorkflow?this.childWokflowList.find(x=>x.id==this.node.childWorkflow.id):null; //for getting same object
+   
     // this.node.actionEventObjects.push(this.node.actionEventObjects?this.actionEventList.find(x=>x.id==this.node.a.id):null);
   }
   linkClicked(selectedLink){
