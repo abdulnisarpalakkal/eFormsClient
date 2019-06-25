@@ -11,19 +11,24 @@ import { Subscription } from 'rxjs';
 })
 export class WorkflowTrackComponent implements OnInit,OnDestroy {
   @Input() processId:number;
+  @Input() workflowTrackMasterId:number;
   subscription: Subscription;
   workflowTrackList:WorkflowTrackDet[];
   constructor(private workflowService:WorkflowService,private refreshService:RefreshService) { }
 
   ngOnInit() {
     this.getAllWorkflowTrackDet();
-    this.subscription=this.refreshService.getRefreshObservable().subscribe(message=>{
-      this.getAllWorkflowTrackDet();
-    });
+    // this.subscription=this.refreshService.getRefreshObservable().subscribe(message=>{
+    //   this.getAllWorkflowTrackDet();
+    // });
   }
   getAllWorkflowTrackDet(){
-    const service=this.processId
-    ?this.workflowService.getAllWorkflowTrackDetByProcess(this.processId):this.workflowService.getAllWorkflowTrackDetByUser();
+    var service=this.workflowService.getAllWorkflowTrackDetByUser();
+    if(this.workflowTrackMasterId)
+      service=this.workflowService.getAllWorkflowTrackDetByWorkflowTrackMaster(this.workflowTrackMasterId);
+    else if(this.processId)
+      service=this.workflowService.getAllWorkflowTrackDetByProcess(this.processId)
+   
     service
     .subscribe(data=>{
           this.workflowTrackList=data;
@@ -32,7 +37,7 @@ export class WorkflowTrackComponent implements OnInit,OnDestroy {
     })
   }
   ngOnDestroy(){
-    this.subscription.unsubscribe();
+    // this.subscription.unsubscribe();
   }
 
 }

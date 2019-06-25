@@ -19,8 +19,9 @@ export class WorkflowService {
   private workflowUrl:string = '';
   private workflowNodeUrl:string = '';
   private workflowLinkUrl:string = '';
-  private workflowRunUrl:string = '';
-  private workflowRunDetUrl:string = '';
+  private workflowTrackUrl:string = '';
+  private workflowTrackDetUrl:string = '';
+  private workflowTrackMasterUrl:string = '';
 
   constructor(private http:HttpClient,private _configuration: GlobalData) { 
     
@@ -28,8 +29,9 @@ export class WorkflowService {
     this.workflowUrl =  'workflow/workflows';
     this.workflowLinkUrl = 'workflowLink/workflowLinks';
     this.workflowNodeUrl =  'workflowNode/workflowNodes';
-    this.workflowRunUrl =  'workflowTrackMaster/workflowTrackMasters';
-    this.workflowRunDetUrl =  'workflowTrackDet/workflowTrackDets';
+    this.workflowTrackUrl =  'workflowTrackMaster/workflowTrackMasters';
+    this.workflowTrackDetUrl =  'workflowTrackDet/workflowTrackDets';
+    this.workflowTrackMasterUrl =  'workflowTrackMaster/workflowTrackMasters';
   }
  
   //#region workflow
@@ -122,22 +124,38 @@ export class WorkflowService {
   //#region workflowExecution
 
    public getAllOpenWorkflow(): Observable<any> {
-    return this.http.get(this.workflowRunUrl+"/openWorkflows");
+    return this.http.get(this.workflowTrackUrl+"/openWorkflows");
   }
   public runWorkflow(workflowStage:WorkflowStage): Observable<any>  {
-    return this.http.post(this.workflowRunUrl+"/execute",workflowStage);
+    return this.http.post(this.workflowTrackUrl+"/execute",workflowStage);
   }
   public submitActionWorkflow(workflowStage:WorkflowStage): Observable<any>  {
-    return this.http.post(this.workflowRunUrl+"/action",workflowStage);
+    return this.http.post(this.workflowTrackUrl+"/action",workflowStage);
   }
  
   //#endregion workflowExcecution
 //#region workflow track det
 public getAllWorkflowTrackDetByUser(): Observable<any> {
-  return this.http.get(this.workflowRunDetUrl+"/user");
+  return this.http.get(this.workflowTrackDetUrl+"/user");
 }
 public getAllWorkflowTrackDetByProcess(processId:number): Observable<any> {
-  return this.http.get(this.workflowRunDetUrl+"/process/"+processId);
+  return this.http.get(this.workflowTrackDetUrl+"/process/"+processId);
+}
+public getAllWorkflowTrackDetByWorkflowTrackMaster(trackMasterId:number): Observable<any> {
+  return this.http.get(this.workflowTrackDetUrl+"/workflowTrackMaster/"+trackMasterId);
+}
+//#endregion workflow track det
+
+//#region workflow track master
+public getAllWorkflowTrackMasterByUser(): Observable<any> {
+  return this.http.get(this.workflowTrackMasterUrl+"/user");
+}
+public getAllWorkflowTrackMasterByWorkflow(workflowId:number): Observable<any> {
+  return this.http.get(this.workflowTrackMasterUrl+"/workflow/"+workflowId);
+}
+public getAllWorkflowTrackMasterByProcess(processId:number): Observable<any> {
+  console.log(this.workflowTrackMasterUrl+"/process/"+processId);
+  return this.http.get(this.workflowTrackMasterUrl+"/process/"+processId);
 }
 //#endregion workflow track det
 }

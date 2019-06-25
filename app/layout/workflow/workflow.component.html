@@ -62,7 +62,8 @@
                     </ngx-datatable-column>
                     <ngx-datatable-column  [minWidth]="50" [maxWidth]="70" name="publish" >
                       <ng-template #deleteBtn let-row="row"  ngx-datatable-cell-template>
-                          <a [routerLink]="" title="publish" (click)="onPublishClick(row)"><i class="fa fa-fw fa-upload"></i></a>
+                            <!-- published -->
+                          <a [routerLink]="" title="publish" (click)="onPublishClick(row)"><i class="fa fa-fw fa-upload" [class.published]="row.published"></i></a>
                       </ng-template>
                      </ngx-datatable-column>
                     

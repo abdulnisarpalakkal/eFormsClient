@@ -2,9 +2,9 @@
 <div class="row" *ngIf="workflowTrackList && workflowTrackList.length!=0">
     <div class="col col-xl-12 col-lg-12">
         <div class="card mb-3">
-            <div class="card-header">
+            <!-- <div class="card-header">
                 Workflow Tracks
-            </div>
+            </div> -->
            <div class="card-body table-responsive">
          
             <ngx-datatable class="ngx-datatable bootstrap"
@@ -12,10 +12,10 @@
                 [rows]="workflowTrackList"
                 
                 [columnMode]="'force'"
-                [headerHeight]="50"
-                [footerHeight]="50"
+                
+               
                 [rowHeight]="'auto'"
-                [limit]="10"
+               
                 >
                 <ngx-datatable-column [width]="50" name="#">
                     <ng-template let-rowIndex="rowIndex"  ngx-datatable-cell-template>
@@ -23,8 +23,10 @@
                     </ng-template>
                    
                 </ngx-datatable-column>
-                <ngx-datatable-column prop="workflowNode.label" name="Action"  ></ngx-datatable-column>
-                <ngx-datatable-column prop="workflowTrackMaster.workflowMaster.workflowName" name="Workflow"  ></ngx-datatable-column>
+                <ngx-datatable-column prop="workflowFormNode.label" name="Form"  ></ngx-datatable-column>
+                <ngx-datatable-column prop="workflowActionNode.label" name="Action"  ></ngx-datatable-column>
+                <ngx-datatable-column prop="childWorkflowTrackMaster.id" name="Child workflow id"  ></ngx-datatable-column>
+                <ngx-datatable-column prop="accessUser.username" name="User"  ></ngx-datatable-column>
                 <!-- <ngx-datatable-column prop="accessDate" name="Date"  ></ngx-datatable-column> -->
                 
                 <ngx-datatable-column name="accessDate" > 

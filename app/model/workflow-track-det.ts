@@ -5,7 +5,8 @@ export class WorkflowTrackDet {
     public  id: number;
   
     public workflowTrackMaster: WorkflowTrackMaster;
-    public workflowNode: WorkflowNode;
+    public workflowActionNode: WorkflowNode;
+    public workflowFormNode: WorkflowNode;
     public dataId: number;
     public open:boolean;
 
