@@ -14,7 +14,7 @@
   <!-- <ngx-datatable-column prop="records.stringValue" name="{{column.fieldName}}"  *ngFor="let column of columns" ></ngx-datatable-column> -->
   <ngx-datatable-column   name="{{column.fieldName}}"  *ngFor="let column of columns; let i=index" >
     <ng-template let-row="row" let-rowIndex="rowIndex"  ngx-datatable-cell-template>
-      <span>{{row.records[i].stringValue}}</span>
+      <span>{{getStringValue(row,column)}}</span>
     </ng-template>
   </ngx-datatable-column>
   <ngx-datatable-column  [minWidth]="50" [maxWidth]="70" name="Del." >

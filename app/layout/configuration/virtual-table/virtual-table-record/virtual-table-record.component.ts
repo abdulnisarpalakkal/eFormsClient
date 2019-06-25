@@ -71,4 +71,11 @@ export class VirtualTableRecordComponent implements OnInit {
       this.getVirtualTableRecords(this.selectedVirtualTable.id);
     });
   }
+  getStringValue(row:VirtualRowRecordsDto,column:VirtualTableFields){
+    const record=row.records.find(record=>record.virtualTableFields.id==column.id);
+    if(record!=null)
+      return record.stringValue;
+    return "";
+
+  }
 }
