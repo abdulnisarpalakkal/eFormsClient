@@ -18,6 +18,8 @@ export class WorkflowModalComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    if(!this.workflow)
+      this.workflow=new WorkflowMaster();
     this._processId=this.workflow.process?this.workflow.process.id:0;
   }
   onUpdate(virtualTableForm:NgForm) {

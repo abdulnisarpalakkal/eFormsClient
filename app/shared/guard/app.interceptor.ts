@@ -1,20 +1,20 @@
 import { Injectable } from '@angular/core';
 import {HttpInterceptor, HttpRequest, HttpHandler, HttpSentEvent, HttpHeaderResponse, HttpProgressEvent,
   HttpResponse, HttpEvent, HttpErrorResponse, HttpUserEvent} from '@angular/common/http';
-import { Observable } from 'rxjs/Observable';
-import { of } from 'rxjs/observable/of';
+import { Observable, pipe } from 'rxjs';
+import { of } from 'rxjs';
 import { Router } from '@angular/router';
 import {TokenStorage} from './token.storage';
-import 'rxjs/add/operator/do';
- import 'rxjs/add/operator/catch';
-import 'rxjs/add/observable/throw';
+// import 'rxjs/add/operator/do';
+//  import 'rxjs/add/operator/catch';
+// import 'rxjs/add/observable/throw';
 import {MessageService} from '../services';
 import { environment } from '../../../environments/environment';
 
 
 
 // import {  throwError } from 'rxjs';
-import { retry, catchError } from 'rxjs/operators';
+import { tap, catchError } from 'rxjs/operators';
 import { UserMsg } from '../../model/user-msg.model';
 // import { Observable, throwError } from 'rxjs';
 const TOKEN_HEADER_KEY = 'Authorization';
@@ -40,7 +40,7 @@ export class Interceptor implements HttpInterceptor {
     console.log(authReq.url);
       return next.handle(authReq)
       
-      .do((event: HttpEvent<any>) => {
+      .pipe(tap((event: HttpEvent<any>) => {
         if (event instanceof HttpResponse) {
           // do stuff with response if you want
           if(authReq.method!='GET')
@@ -56,7 +56,7 @@ export class Interceptor implements HttpInterceptor {
           }
          
         }
-      })
+      }))
       .pipe(catchError((error, caught) => {
         //intercept the respons error and displace it to the console
         

@@ -1,52 +1,72 @@
+ <!-- only for getting style to the page -->
+ <mdb-checkbox [hidden]="true"></mdb-checkbox> 
+
 <!-- <div class="form-group"> -->
-<label *ngIf="formDesign.componentType!=checkComponent" class="form-control-label" for="{{formDesign.componentName}}">{{formDesign.componentLabel}}</label>
-      
-  <p *ngIf="formDesign.componentType==labelComponent else select_content"  class="form-control-static font-italic">{{formDesign.componentValue}}</p>
+<label *ngIf="formDesign.componentType==imgComponent || formDesign.componentType==fileUploadComponent 
+|| formDesign.componentType==labelComponent || formDesign.componentType==radioComponent" class="form-control-label" for="{{formDesign.componentName}}">{{formDesign.formComponent.componentLabel}}</label>
+<div *ngIf="formDesign.componentType==labelComponent else select_content" class="d-flex p-1">
+    {{formDesign.formComponent.componentValue}}
+</div>
+  <!-- <p   class="form-control-static font-italic">{{formDesign.formComponent.componentValue}}</p> -->
   <ng-template #select_content>
       <div *ngIf="formDesign.componentType==selectComponent else radio_content" >
           <!-- {{formDesign.componentRefValues|json}} -->
-        <select  [(ngModel)]="formDesign.componentValue" [disabled]="isDisableComponent" class="form-control input-underline form-control-sm " name="{{formDesign.componentName}}" >
+        <select  [(ngModel)]="formDesign.formComponent.componentValue" [disabled]="isDisableComponent" class="browser-default form-control input-underline form-control-sm " name="{{formDesign.componentName}}" >
             
                 <option  disabled selected > >item</option>
-                <option  *ngFor="let refValueOb of formDesign.componentRefValues" [value]="refValueOb.refKey"> {{refValueOb.refValue}}</option>
+                <option  *ngFor="let refValueOb of formDesign.formComponent.componentRefValues" [value]="refValueOb.refKey"> {{refValueOb.refValue}}</option>
             
         </select>
     </div>
   </ng-template>
   <ng-template #radio_content>
         <div *ngIf="formDesign.componentType==radioComponent else check_content"  >
-            
-            <div *ngFor="let refValueOb of formDesign.componentRefValues; let j=index"  class="radio">
+            <div class="form-check" *ngFor="let refValueOb of formDesign.formComponent.componentRefValues; let j=index">
+                <input type="radio" class="form-check-input" [disabled]="isDisableComponent" id="optionsRadios{{j}}"  name="{{formDesign.componentName}}" [(ngModel)]="formDesign.formComponent.componentValue" value="{{refValueOb.refValue}}" checked="" mdbInput>
+                <label class="form-check-label" for="optionsRadios{{j}}">{{refValueOb.refValue}}</label>
+              </div>
+            <!-- <div *ngFor="let refValueOb of formDesign.formComponent.componentRefValues; let j=index"  class="radio">
                     <label>
-                        <input type="radio" [disabled]="isDisableComponent" name="{{formDesign.componentName}}" id="optionsRadios1" [(ngModel)]="formDesign.componentValue" value="{{refValueOb.refValue}}" checked=""> {{refValueOb.refValue}}
+                        <input type="radio" [disabled]="isDisableComponent" name="{{formDesign.componentName}}" id="optionsRadios1" [(ngModel)]="formDesign.formComponent.componentValue" value="{{refValueOb.refValue}}" checked=""> {{refValueOb.refValue}}
                     </label>
-                </div>
+                </div> -->
         </div>
 </ng-template>
 <ng-template #check_content>
-      <div *ngIf="formDesign.componentType==checkComponent else file_upload_content" class="form-check form-check-inline mb3">
-          <!-- <div *ngFor="let refValueOb of formDesign.componentRefValues; let j=index" class="form-check"> -->
+      <div *ngIf="formDesign.componentType==checkComponent else file_upload_content" class="form-group">
+        <!-- {{formDesign.formComponent.componentValue}} -->
+            <!-- <mdb-checkbox [disabled]="isDisableComponent" id="{{formDesign.componentName}}" name="{{formDesign.componentName}}" [(ngModel)]="formDesign.formComponent.componentValue" >{{formDesign.formComponent.componentLabel}}</mdb-checkbox> -->
+           
+            <div class="checkbox">
                 
-              <label  class="form-check-label">
-                      <input type="checkbox" [disabled]="isDisableComponent" class="form-check-input"  name="{{formDesign.componentName}}" [(ngModel)]="formDesign.componentValue"   >{{formDesign.componentLabel}}
-              </label>
+                <input  type="checkbox" [disabled]="isDisableComponent" class="form-control form-check-input" id="{{formDesign.componentName}}" name="{{formDesign.componentName}}"  [(ngModel)]="formDesign.formComponent.componentValue">
+                
+                <label for="{{formDesign.componentName}}" class="form-check-label">{{formDesign.formComponent.componentLabel}} </label>
+          </div>
+            
+            <!-- <label  class="form-check-label">
+                      <input type="checkbox" [disabled]="isDisableComponent" class="form-check-input"  name="{{formDesign.componentName}}" [(ngModel)]="formDesign.formComponent.componentValue"   >
+                      {{formDesign.formComponent.componentLabel}}
+              </label> -->
               
-          <!-- </div> -->
       </div>
   </ng-template>
   <ng-template #file_upload_content>
     <div *ngIf="formDesign.componentType==fileUploadComponent else img_content" >
-        <input type="file" [disabled]="isDisableComponent" class="form-control-file" id="{{formDesign.componentName}}"  name="{{formDesign.componentName}}" [(ngModel)]="formDesign.componentValue" (change)="fileChangeEvent($event)">
+        <input type="file" [disabled]="isDisableComponent" class="form-control-file" id="{{formDesign.componentName}}"  name="{{formDesign.componentName}}" [(ngModel)]="formDesign.formComponent.componentValue" (change)="fileChangeEvent($event)">
     </div>
 </ng-template>
 <ng-template #img_content>
     <div *ngIf="formDesign.componentType==imgComponent else other_content" >
            
-        <img  [src]="getImageFromString(formDesign.componentValue)" class="rounded mx-auto d-block img-thumbnail" alt="{{formDesign.componentLabel}}" >
+        <img  [src]="getImageFromString(formDesign.formComponent.componentValue)" class="rounded mx-auto d-block img-thumbnail" alt="{{formDesign.formComponent.componentLabel}}" >
             
     </div>
 </ng-template>
   <ng-template #other_content>
-      <input [disabled]="isDisableComponent"  type="{{formDesign.componentType}}" [(ngModel)]="formDesign.componentValue" name="{{formDesign.componentName}}" class="form-control input-underline form-control-sm "  >
-  </ng-template>
+    <div class="md-form">
+      <input mdbInput  [disabled]="isDisableComponent"  type="{{formDesign.componentType}}" [(ngModel)]="formDesign.formComponent.componentValue" name="{{formDesign.componentName}}" class="form-control"  >
+      <label  for="{{formDesign.componentName}}">{{formDesign.formComponent.componentLabel}}</label>
+    </div>
+</ng-template>
 <!-- </div> -->

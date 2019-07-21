@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import {Observable} from 'rxjs/Observable';
+import {Observable} from 'rxjs';
 
 import { GlobalData } from '../configuration';
 import { WorkflowTrackMaster } from '../../model/workflow-track-master';
@@ -53,8 +53,8 @@ export class WorkflowService {
   public getAllPublishedChildWorkflowsByProcess(processId:number): Observable<any> {
     return this.http.get(this.workflowUrl+"/published/child/"+processId);
   }
-  public getOneWorkflow(workflow): Observable<any> {
-    return this.http.get(this.workflowUrl+ "/"+ workflow.id);
+  public getOneWorkflow(workflowId): Observable<any> {
+    return this.http.get(this.workflowUrl+ "/"+ workflowId);
   }
 
   public deleteWorkflow(workflow) {

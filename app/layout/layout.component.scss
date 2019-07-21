@@ -1,27 +1,22 @@
-.main-container {
-    margin-top: 56px;
-    margin-left: 235px;
-    padding: 15px;
-    -ms-overflow-x: hidden;
-    overflow-x: hidden;
-    overflow-y: scroll;
-    position: relative;
-    overflow: hidden;
-}
-@media screen and (max-width: 992px) {
-    .main-container {
-        margin-left: 0px !important;
-    }
-}
-.msgModalClass .modal-lg{
-    max-width:100%;
-    width: 100%;
-    margin: 0;
-    position: absolute;
-    bottom: 0;
-}
-.msgModalClass .modal-content{
-   background-color: transparent;
-   border: 0;
-   
-}
+:host {
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+    min-height:100vh;
+  }
+  
+  main {
+      flex: 1 0 auto;
+  }
+  
+  :host ::ng-deep div.mydp.picker {
+    z-index: 98;
+  }
+  
+  :host ::ng-deep .mydp.picker.picker--opened {
+    z-index: 1000;
+  }
+  
+  :host ::ng-deep mdb-select {
+    z-index: 99;
+  }

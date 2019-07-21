@@ -1,42 +1,45 @@
 
       <form >
     <div class="form-content ">
-        <div class="form-group form-group-sm mb-2  row">
-            <label for="nodeType" class="col-sm-5 col-form-label">Node type</label>
-            <div class="col-sm-4">
-              <input type="text" readonly class="form-control-plaintext" id="nodeType" value="{{node.nodeType}}">
-            </div>
-          </div>
+      <div class="md-form">
+               
+              <input mdbInput type="text" readonly class="form-control" id="nodeType" value="{{node.nodeType}}">
+              <label for="nodeType">Node type</label>
+           
+      </div>
       
-      <div class="form-group form-group-sm mb-2">
-        <label class="form-control-label mb-1" for="nodeLabel">Node label</label>
-        <input type="text" class="form-control input-underline form-control-sm " id="nodeLabel"  [(ngModel)]="node.label" name="nodeLabel">
+      <div class="md-form">
+       
+        <input mdbInput type="text" class="form-control" id="nodeLabel"  [(ngModel)]="node.label" name="nodeLabel">
+        <label  for="nodeLabel">Node label</label>
       </div>
       <!-- {{node|json}} -->
       <!-- {{componentTypeList}} -->
 
       
       <div class="form-group form-group-sm mb-2" *ngIf="node.nodeType=='FORM'" >
-          <label class="form-control-label mb-1" for="formMaster">Node Form</label>
-          <select  id="formMaster" name="formMaster" [(ngModel)]="node.formMaster" class="form-control input-underline form-control-sm " (ngModelChange)="onChangeForm($event)">
+          <label class="form-control-label" for="formMaster">Node Form</label>
+          <select  id="formMaster" name="formMaster" [(ngModel)]="node.formMaster" class="browser-default form-control input-underline form-control-sm " (ngModelChange)="onChangeForm($event)">
             <option value="" disabled selected>>select a Form</option>
             <option *ngFor="let form of formList" [ngValue]="form" >{{form.formName}}</option>
           </select>
       </div>
-      <div class="form-group form-group-sm mb-2" *ngIf="node.nodeType==childWorkflowEnum" >
+      <div class="form-group form-group-sm" *ngIf="node.nodeType==childWorkflowEnum" >
         <label class="form-control-label mb-1" for="childWorkflow">Node Workflow</label>
-        <select  id="childWorkflow" name="childWorkflow" [(ngModel)]="node.childWorkflow" class="form-control input-underline form-control-sm " (ngModelChange)="onChangeworkflow($event)">
+        <select  id="childWorkflow" name="childWorkflow" [(ngModel)]="node.childWorkflow" class="browser-default form-control input-underline form-control-sm " (ngModelChange)="onChangeworkflow($event)">
           <option value="" disabled selected>>select a Workflow</option>
           <option *ngFor="let workflow of childWokflowList" [ngValue]="workflow" >{{workflow.workflowName}}</option>
         </select>
      </div>
-      <div class="form-group form-group-sm mb-4" *ngIf="node.nodeType=='ACTION'" >
-        <div class="card mb-3">
-          <div class="card-header">Action Events</div>
-          <div class="card-body" >
+      <div class="form-group form-group-sm " *ngIf="node.nodeType=='ACTION'" >
+        <mdb-card>
+         
+          <mdb-card-body>
+              <mdb-card-title>
+                  <h6>Action Events</h6>
+                </mdb-card-title>
               <p >
                   <button *ngFor="let actionEvent of actionEventList"  type="button" class="btn btn-sm btn-info mr-2" (click)="OnAddEventClick(actionEvent)">{{actionEvent.actionName}}</button>
-                <!-- <button *ngFor="let actionEvent of actionEventList" type="button" class="btn btn-secondary" (click)="addEvent(actionEvent)">{{actionEvent.actionName}}</button> -->
               </p>
             <div *ngFor="let actionEventObject of node.actionEventObjects">
               
@@ -45,9 +48,10 @@
             <div *ngIf="node.actionEventObjects.length==0">
               No events attached
             </div>
-          </div>
+          </mdb-card-body>
+        </mdb-card>
       </div>
-      </div>
+      
    </div>
    
     </form>

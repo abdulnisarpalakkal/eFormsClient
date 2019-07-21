@@ -1,0 +1,74 @@
+<!-- Sidebar navigation -->
+<!-- <mdb-sidenav> -->
+    
+
+        <mdb-sidenav>
+            </mdb-sidenav>
+   
+<!-- <div class="design"> -->
+    <links class="side-nav  mt-5">
+      
+     
+      <!-- Side navigation links -->
+      <li>
+        <ul class="collapsible collapsible-accordion" >
+            <mdb-squeezebox [multiple]="false" aria-multiselectable="false">
+
+                <mdb-item>
+                    <mdb-item-head mdbWavesEffect>
+                        <mdb-icon fas icon="tachometer-alt" class="mr-1"></mdb-icon> Nodes
+                    </mdb-item-head>
+                    <mdb-item-body>
+                        <ul>
+                            <li>
+                                <a  class="waves-effect" (click)="open(startNodeType)" mdbWavesEffect>Start</a>
+                            </li>
+                            <li>
+                                <a  class="waves-effect" (click)="open(stopNodeType)" mdbWavesEffect>Stop</a>
+                            </li>
+                            <li>
+                                <a  class="waves-effect" (click)="open(formNodeType)" mdbWavesEffect>Form</a>
+                            </li>
+                            <li>
+                                <a  class="waves-effect" (click)="open(actionNodeType)" mdbWavesEffect>Action</a>
+                            </li>
+                            <li>
+                                <a  class="waves-effect" (click)="open(childWorkflowNodeType)" mdbWavesEffect>Child Workflow</a>
+                            </li>
+                        </ul>
+                    </mdb-item-body>
+                </mdb-item>
+                <mdb-item>
+                    <mdb-item-head mdbWavesEffect>
+                        <mdb-icon fas icon="camera" class="mr-1"></mdb-icon> Links
+                    </mdb-item-head>
+                    <mdb-item-body>
+                        <ul>
+                            <li>
+                                <a  class="waves-effect" (click)="openLinkPop('SUCCESS')" mdbWavesEffect>Success</a>
+                            </li>
+                            <li>
+                                <a  class="waves-effect" (click)="openLinkPop('FAIL')" mdbWavesEffect>Fail</a>
+                            </li>
+                            <li>
+                                <a  class="waves-effect" (click)="openLinkPop('ACTION')" mdbWavesEffect>Action</a>
+                            </li>
+                            <li>
+                                <a  class="waves-effect" (click)="openLinkPop('FORM')" mdbWavesEffect>Form</a>
+                            </li>
+                           
+                        </ul>
+                    </mdb-item-body>
+                </mdb-item>
+               
+              </mdb-squeezebox>
+        </ul>
+      </li>
+      <!--/. Side navigation links -->
+    </links>
+    <div class="sidenav-bg mask-strong"></div>
+    
+  <!-- </div> -->
+  <!-- </mdb-side-nav> -->
+  <!--/. Sidebar navigation -->
+<!-- </mdb-sidenav>  -->

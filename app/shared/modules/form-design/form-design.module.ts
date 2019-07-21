@@ -3,12 +3,14 @@ import { CommonModule } from '@angular/common';
 import { FormsModule   }   from '@angular/forms';
 
 import { FormDesignComponent } from './form-design.component';
+import { MDBBootstrapModulesPro } from 'ng-uikit-pro-standard';
 
 @NgModule({
   declarations: [FormDesignComponent],
   imports: [
     CommonModule,
-    FormsModule
+    FormsModule,
+    MDBBootstrapModulesPro.forRoot()
   ],
   exports:[FormDesignComponent]
 })

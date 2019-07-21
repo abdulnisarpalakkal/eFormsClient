@@ -18,22 +18,24 @@
 </a>
 <form *ngIf="formRule!=null" >
     <div class="form-content " >
-        <div class="form-group  form-group-sm mb-2">
-            <label class="form-control-label mb-1" for="formRuleName">Rule name</label>
-            <input type="text" class="form-control input-underline form-control-sm  " id="formRuleName"  [(ngModel)]="formRule.formRuleName" name="formRuleName">
+        <div class="md-form form-sm">
+            <input type="text" class="form-control" id="formRuleName"  [(ngModel)]="formRule.formRuleName" name="formRuleName">
+            <label  for="formRuleName">Rule name</label>
+
         </div>
 
         <div class="form-group form-group-sm mb-2">
             <label class="form-control-label mb-1" for="componentType">Rule type</label>
-            <select  id="ruleType" name="ruleType" [(ngModel)]="_ruleTypeId" class="form-control input-underline form-control-sm " (ngModelChange)="onChange($event)" >
+            <select  id="ruleType" name="ruleType" [(ngModel)]="_ruleTypeId" class="browser-default form-control input-underline form-control-sm " (ngModelChange)="onChange($event)" >
               <option value="" disabled selected>>select a type</option>
               <option *ngFor="let formRuleType of formRuleTypes" [value]="formRuleType.id" >{{formRuleType.ruleTypeName}}</option>
             </select>
            
         </div>
-        <div class="form-group form-group-sm mb-2" *ngFor="let parameterValue of formRule.formRuleParameterValues; let i=index">
-            <label class="form-control-label mb-1" for="ParameterLabel">{{parameterValue.formRuleTypeParameter.parameterLabel}}</label>
-            <input type="text" class="form-control input-underline form-control-sm " id="formRuleParameterValue{{i}}"  [(ngModel)]="parameterValue.formRuleParameterValue" name="formRuleParameterValue{{i}}">
+        <div class="md-form form-sm" *ngFor="let parameterValue of formRule.formRuleParameterValues; let i=index">
+            <input mdbInputDirective type="text" class="form-control" id="formRuleParameterValue{{i}}"  [(ngModel)]="parameterValue.formRuleParameterValue" name="formRuleParameterValue{{i}}">
+            <label for="ParameterLabel">{{parameterValue.formRuleTypeParameter.parameterLabel}}</label>
+       
         </div>
     </div>
     <!-- <button type="button" class="btn btn-secondary" (click)="saveRule()">Add</button> -->

@@ -151,9 +151,9 @@ export class WorkflowFormViewComponent implements OnInit {
 
     var refFieldValue=null;
     if(formDesign){
-      refFieldValue=formDesign.componentValue?formDesign.componentValue.trim().toUpperCase():null; // get reference value form reference form component
+      refFieldValue=formDesign.formComponent.componentValue?formDesign.formComponent.componentValue.trim().toUpperCase():null; // get reference value form reference form component
       if(refFieldValue!=null && formDesign.componentType==FormComponentEnum.COMPO){
-        var formComponentRefValue:FormComponentRefValue=formDesign.componentRefValues.find(refValue=>{ //find the corresponding record from collection if component type is compo
+        var formComponentRefValue:FormComponentRefValue=formDesign.formComponent.componentRefValues.find(refValue=>{ //find the corresponding record from collection if component type is compo
           if(refValue.refKey.toUpperCase()==refFieldValue) 
             return true;
         });

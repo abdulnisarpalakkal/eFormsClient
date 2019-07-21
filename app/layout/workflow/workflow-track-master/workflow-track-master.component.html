@@ -1,30 +1,27 @@
 
 
-<!-- 
-<div class="accordion" id="accordionExample">
-  <div class="card" *ngFor="let track of workflowTracksList; let i=index">
-    <div class="card-header" id="headingOne">
-      <h2 class="mb-0">
-        <button class="btn btn-link" type="button" data-toggle="collapse" [attr.data-target]="'#details' + i"  aria-expanded="true" aria-controls="collapseOne">
-          Collapsible Group Item #{{i}}
-        </button>
-      </h2>
-    </div>
 
-    <div id="#details{{i}}" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
-      <div class="card-body">
-        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-      </div>
-    </div>
-  </div>
--->
-<div class="row" *ngIf="workflowTracksList && workflowTracksList.length!=0">
-  <div class="col col-xl-12 col-lg-12">
-      <div class="card mb-3">
-          <div class="card-header">
-              Workflow Tracks
-          </div>
-         <div class="card-body table-responsive">
+    <mdb-card *ngIf="workflowTracksList && workflowTracksList.length!=0" cascade="true" narrower="true" [ngClass]="{'z-depth-0': false }">
+
+        <!--Card image-->
+        <div class="view view-cascade gradient-card-header blue-gradient narrower py-2 mx-4 mb-3 d-flex justify-content-between align-items-center">
+
+              
+            <div>
+              </div>
+                <a href="" class="white-text mx-3">Workflow Tracks</a>
+                <div>
+                  </div>
+                
+
+            </div>
+            <!--/Card image-->
+
+
+    <div class="px-4">
+
+        <div class="table-wrapper">
+
        
           <ngx-datatable class="ngx-datatable bootstrap expandable"
               #myTable
@@ -107,8 +104,8 @@
           </ngx-datatable>
       </div>
   </div>
-</div>
-</div> 
+  </mdb-card>
+ 
 <!-- <ng-template #content let-c="close" let-d="dismiss">
   <div class="modal-header">
     <h4 class="modal-title">Workflow Track Details</h4>

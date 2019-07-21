@@ -1,74 +1,105 @@
 
 <div [@routerTransition]>
 <app-page-header *ngIf="!processId" [heading]="'Virtual Table'" [icon]="'fa-file-o'"></app-page-header>
-<div class="row"> 
-  <div class="col col-xl-2 ">
+
+        <mdb-card class="mb-5">
+                <mdb-card-body class=" py-1">
+                  <div class="row">
           
-      <div class="card mb-2 ">
-          <button type="button" class="btn btn-default" (click)="open(content,null,true)"  >New <i class="fa fa-w fa-folder-o"></i></button>
-      </div>
-  </div>
-</div>
-<div class="row">
-      <div class="col col-xl-12 col-lg-12">
-          <div class="card mb-3">
-              <div class="card-header">
-                  Virtual Table List
-              </div>
-          <div class="card-body table-responsive">
-                  <input
-                  type='text' [(ngModel)]="filter_VirtualTable.tableName"
-                  style='padding:5px;margin:15px auto;'
-                  placeholder='Filter table name...'
-                  (keyup)='updateFilterEvent($event)'
-              />
-              
-             
-              <ngx-datatable class="ngx-datatable bootstrap"
-                  #table
-                  [rows]="virtualTableList"
-                  
-                  [columnMode]="'force'"
-                  [headerHeight]="50"
-                  [footerHeight]="50"
-                  [rowHeight]="'auto'"
-                  [limit]="10"
-                  
-                  
-                  
-                  >
-                  <ngx-datatable-column [minWidth]="50" [maxWidth]="50" name="#">
-                      <ng-template let-rowIndex="rowIndex"  ngx-datatable-cell-template>
-                          {{rowIndex+1}}
-                      </ng-template>
-                     
-                  </ngx-datatable-column>
-                  <ngx-datatable-column prop="tableName" name="Table Name" [minWidth]="200"  ></ngx-datatable-column>
-                  <ngx-datatable-column prop="tableDesc" name="Desc" [minWidth]="100"  ></ngx-datatable-column>
-                  <ngx-datatable-column prop="autoIncr" name="Auto Incr." [minWidth]="100"  ></ngx-datatable-column>
-                  <ngx-datatable-column prop="process.processName" name="process"  ></ngx-datatable-column>                  
-                  <ngx-datatable-column  [minWidth]="50" [maxWidth]="70" name="Edit">
-                      <ng-template  let-row="row"  ngx-datatable-cell-template>
-                          <a [routerLink]="" (click)="open(content,row,false)"><i class="fa fa-fw fa-edit"></i></a>
-                      </ng-template>
-                     
-                  </ngx-datatable-column>
-                  <ngx-datatable-column  [minWidth]="50" [maxWidth]="70" name="Data">
-                    <ng-template  let-row="row"  ngx-datatable-cell-template>
-                        <a [routerLink]="" (click)="OnClickViewData(content2,row)"><i class="fa fa-fw fa-eye"></i></a>
-                    </ng-template>
-                   
-                </ngx-datatable-column>
-                  <ngx-datatable-column  [minWidth]="50" [maxWidth]="70" name="Del." >
-                      <ng-template #deleteBtn let-row="row"  ngx-datatable-cell-template>
-                          <a [routerLink]="" (click)="delete(row)"><i class="fa fa-fw fa-remove"></i></a>
-                      </ng-template>
-                  </ngx-datatable-column>
-                  
-              </ngx-datatable>
-          </div>
-      </div>
-  </div>
+                      <div class="col-xl-3 col-lg-6 col-md-6">
+                                   
+                              <div class="md-form  input-group">
+                                      
+                                  <input class="form-control" type="text" [(ngModel)]="filter_VirtualTable.tableName" 
+                                       id="tableName" name="tableName" (keyup)='updateFilter($event)' mdbInput>
+                                      <label for="type">Filter table name</label>
+                              </div>
+                      </div>
+                      
+          
+                  </div>
+           </mdb-card-body>
+        
+        </mdb-card>
+
+        <mdb-card cascade="true" narrower="true" [ngClass]="{'z-depth-0': false }">
+
+                <!--Card image-->
+                <div class="view view-cascade gradient-card-header blue-gradient narrower py-2 mx-4 mb-3 d-flex justify-content-between align-items-center">
+        
+                        <div>
+                            <button type="button" class="btn btn-outline-white btn-rounded btn-sm px-2" (click)="open(content,null,true)" >
+                                <mdb-icon fas icon="plus" class="mt-0"></mdb-icon>
+                            </button>
+                            <!-- (click)="open(content,null,true)" -->
+                        </div>
+        
+                        <a href="" class="white-text mx-3">Workflow List</a>
+                        <div>
+                            </div>
+                    
+        
+                    </div>
+                    <!--/Card image-->
+        
+        
+            <div class="px-4">
+        
+                <div class="table-wrapper">
+        
+                        <ngx-datatable class="ngx-datatable bootstrap"
+                            #table
+                            [rows]="virtualTableList"
+                            
+                            [columnMode]="'force'"
+                            [headerHeight]="50"
+                            [footerHeight]="50"
+                            [rowHeight]="'auto'"
+                            [limit]="10"
+                            
+                            
+                            
+                            >
+                            <ngx-datatable-column [minWidth]="50" [maxWidth]="50" name="#">
+                                <ng-template let-rowIndex="rowIndex"  ngx-datatable-cell-template>
+                                    {{rowIndex+1}}
+                                </ng-template>
+                                
+                            </ngx-datatable-column>
+                            <ngx-datatable-column prop="tableName" name="Table Name" [minWidth]="200"  ></ngx-datatable-column>
+                            <ngx-datatable-column prop="tableDesc" name="Desc" [minWidth]="100"  ></ngx-datatable-column>
+                            <ngx-datatable-column prop="autoIncr" name="Auto Incr." [minWidth]="100"  ></ngx-datatable-column>
+                            <ngx-datatable-column prop="process.processName" name="process"  ></ngx-datatable-column>      
+                            
+                            <ngx-datatable-column  [minWidth]="200" [maxWidth]="200" name="Actions"  >
+                                <ng-template #deleteBtn let-row="row"  ngx-datatable-cell-template>
+                                        <div>
+                                            
+        
+                                            <a [routerLink]="" (click)="open(content,row,false)" class="ml-0">
+                                                <mdb-icon fas icon="pencil-alt" class="mt-0"></mdb-icon>
+                                            </a>
+                                            <a [routerLink]="" (click)="delete(row)" class="ml-3">
+                                                <mdb-icon fas icon="trash-alt" class="mt-0"></mdb-icon>
+                                            </a>
+                                         
+                                            <a [routerLink]="" title="View" (click)="OnClickViewData(content2,row)" class="ml-3">
+                                                    <i class="fa fa-fw fa-eye"></i>
+                                            </a>
+                                        </div>
+                                    
+                                </ng-template>
+                            </ngx-datatable-column>
+
+                          
+                            
+                        </ngx-datatable>
+                    </div>
+                </div>
+        </mdb-card>
+</div>   
+    
+
 
 
 

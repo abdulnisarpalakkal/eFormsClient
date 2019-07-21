@@ -35,7 +35,8 @@ const MODALS = {
 
 @Component({
   selector: 'app-form-component-dir',
-  templateUrl: './form-component-dir.component.html'
+  templateUrl: './form-component-dir.component.html',
+  styleUrls:['./form-component-dir.component.scss']
 })
 export class FormComponentDirComponent implements OnInit {
   @Input() formDesign: FormDesign;

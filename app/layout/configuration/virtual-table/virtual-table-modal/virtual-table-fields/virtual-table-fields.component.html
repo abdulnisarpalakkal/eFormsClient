@@ -25,9 +25,19 @@
     
     <div class="col-xl-1 text-xs-center mt-2 " >
      
-        <div class="form-check">
-          <input type="radio" class="form-check-input" id="pk"  [checked]="virtualTableFieldsConstraintDto.pkConstraint.virtualTableField.fieldName!=null && virtualTableFieldsConstraintDto.pkConstraint.virtualTableField.fieldName==virtualTableField.fieldName  "   name="pk{{i}}"  (change)="handleChange($event,virtualTableField)" >
+        <!-- <div class="custom-control custom-radio">
+          <input type="radio" class="custom-control-input" id="pk"  
+          [checked]="virtualTableFieldsConstraintDto.pkConstraint.virtualTableField.fieldName!=null
+           && virtualTableFieldsConstraintDto.pkConstraint.virtualTableField.fieldName==virtualTableField.fieldName  "   
+           name="pk{{i}}"  (change)="handleChange($event,virtualTableField)" mdbInput >
           
+        </div> -->
+        <div class="form-check" style="padding-left: 0" >
+            <input type="radio" class="form-check-input"  id="pk{{i}}"  name="pk{{i}}" 
+            [checked]="virtualTableFieldsConstraintDto.pkConstraint.virtualTableField.fieldName!=null
+            && virtualTableFieldsConstraintDto.pkConstraint.virtualTableField.fieldName==virtualTableField.fieldName  " 
+            (change)="handleChange($event,virtualTableField)" mdbInput>
+            <label class="form-check-label" for="pk{{i}}"></label>
         </div>
     </div>  
     <!-- [checked]="pkConstraint.virtualTableField.fieldName==virtualTableField.fieldName" -->
@@ -51,12 +61,16 @@
       </div>
       <div class="col-xl-1 text-xs-center mt-2">
             <a [routerLink]="" (click)="toggleRemoveField(virtualTableField)">
-              <i  class="fa fa-fw " [class.fa-remove]="!virtualTableField.deleted"  [class.fa-undo]="virtualTableField.deleted"></i>
+                <mdb-icon *ngIf="!virtualTableField.deleted" far icon="trash-alt"></mdb-icon>
+                <!-- <mdb-icon *ngIf="virtualTableField.deleted" far icon="trash-alt"></mdb-icon> -->
+                <i *ngIf="virtualTableField.deleted" class="fa fa-fw fa-undo"   ></i> 
             </a>
       </div>
       
       
   </div>
-  <button type="button" class="btn rounded-btn" (click)="addField()" >+</button>
-
+  <!-- <button type="button" class="btn rounded-btn" (click)="addField()" >+</button> -->
+  <a [routerLink]="" (click)="addField()">
+      <i  class="fa fa-fw fa-plus" ></i>
+  </a>
 </div>

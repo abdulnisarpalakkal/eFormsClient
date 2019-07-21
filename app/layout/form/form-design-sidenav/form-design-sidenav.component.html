@@ -1,0 +1,74 @@
+<!-- Sidebar navigation -->
+
+
+   
+        <mdb-sidenav class="p-0 m-0"> 
+            </mdb-sidenav>
+   
+<!-- <div class="design"> -->
+    <links class="side-nav  mt-5">
+      
+     
+      <!-- Side navigation links -->
+      <li>
+        <ul class="collapsible collapsible-accordion" >
+            <mdb-squeezebox [multiple]="true" aria-multiselectable="false">
+
+                <mdb-item>
+                    <mdb-item-head mdbWavesEffect>
+                        <!-- <mdb-icon fas icon="tachometer-alt" class="mr-1"></mdb-icon>  -->
+                        <mdb-icon fab icon="wpforms" class="mr-1"></mdb-icon>
+                        Form Action
+                    </mdb-item-head>
+                    <mdb-item-body>
+                        <ul>
+                            <li>
+                                <a  class="waves-effect" (click)="autoGenerateComponents()" mdbWavesEffect>Auto generate</a>
+                            </li>
+                            <li>
+                                <a  class="waves-effect" (click)="createNewComponent()" mdbWavesEffect>Component</a>
+                            </li>
+                           
+                        </ul>
+                    </mdb-item-body>
+                </mdb-item>
+                <mdb-item>
+                    <mdb-item-head mdbWavesEffect>
+                        <!-- <mdb-icon fas icon="camera" class="mr-1"></mdb-icon>  -->
+                        <mdb-icon fas icon="table" class="mr-1"></mdb-icon>
+                        Tables
+                    </mdb-item-head>
+                    <mdb-item-body>
+                        <ul>
+                            <li>
+                                <mdb-item>
+                                    <mdb-item-head mdbWavesEffect>
+                                        <!-- <mdb-icon fas icon="camera" class="mr-1 ml-1"></mdb-icon>  -->
+                                        <mdb-icon fas icon="table" class="mr-1 ml-1"></mdb-icon>
+                                        {{designform.virtualTableMaster.tableName}}
+                                    </mdb-item-head>
+                                    <mdb-item-body>
+                                            <ul>
+                                                    <li *ngFor="let virtualTableField of virtualTableFieldsList; let i = index">
+                                                            <a routerLink="pages/register" class="waves-effect" mdbWavesEffect>{{virtualTableField.fieldName}}</a>
+                                                    </li>
+                                                   
+                                            </ul>
+                                    </mdb-item-body>
+                                </mdb-item>
+                            </li>
+                            
+                           
+                        </ul>
+                    </mdb-item-body>
+                </mdb-item>
+               
+              </mdb-squeezebox>
+        </ul>
+      </li>
+      <!--/. Side navigation links -->
+    </links>
+    <div class="sidenav-bg mask-strong"></div>
+  <!-- </div> -->
+  <!-- </mdb-side-nav> -->
+  <!--/. Sidebar navigation -->

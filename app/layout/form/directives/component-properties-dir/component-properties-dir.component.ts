@@ -27,9 +27,9 @@ export class ComponentPropertiesDirComponent implements OnInit {
   ngOnInit() {
     if(this.formDesign==null){
       this.formDesign=new FormDesign();
-      this.formDesign.virtualTableField=new VirtualTableFields();
+      this.formDesign.formComponent.virtualTableField=new VirtualTableFields();
     }
-    this._virtualFieldId=this.formDesign.virtualTableField?this.formDesign.virtualTableField.id:0;
+    this._virtualFieldId=this.formDesign.formComponent.virtualTableField?this.formDesign.formComponent.virtualTableField.id:0;
     // this.foreignConstraint=this.formDesign.virtualTableField.fieldConstraintList
     // && this.formDesign.virtualTableField.fieldConstraintList.find(contraint=>contraint.constraintType==VirtualTableConstraintType.FOREIGN_KEY);
     this.componentTypeList=Object.values(FormComponentEnum);
@@ -39,19 +39,20 @@ export class ComponentPropertiesDirComponent implements OnInit {
   onChange(field:VirtualTableFields){
     // const field=this.virtualTableFieldsList.find(x=>x.id==id);
     // const fieldString=JSON.stringify(field)
-    this.formDesign.virtualTableField=field; 
+    this.formDesign.formComponent.virtualTableField=field; 
     this.formDesign.componentName=field.fieldName; 
-    this.formDesign.componentLabel=field.fieldName; 
-    if(this.refTableMap.has(this.formDesign.virtualTableField.fieldName) && !this.formDesign.componentRefValues){
-      this.formDesign.componentRefValues=[];
-      this.formDesign.componentRefValues.push(new FormComponentRefValue());
+    this.formDesign.formComponent.componentLabel=field.fieldName; 
+    if(this.refTableMap.has(this.formDesign.formComponent.virtualTableField.fieldName) && !this.formDesign.formComponent.componentRefValues){
+      this.formDesign.formComponent.componentRefValues=[];
+      this.formDesign.formComponent.componentRefValues.push(new FormComponentRefValue());
       this.formDesign.componentType=FormComponentEnum.COMPO; 
     }
     else{
-      this.formDesign.componentRefValues=[];
+      this.formDesign.formComponent.componentRefValues=[];
     }
   }
   OnAddRefValue(refValues:FormComponentRefValue[]){
+    
     refValues.push(new FormComponentRefValue());
   }
   OnRemoveRefValue(refValues:FormComponentRefValue[],refValue:FormComponentRefValue){

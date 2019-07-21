@@ -35,7 +35,7 @@ export class FormDesignComponent implements OnInit {
       var uploadFile:File=fileInput.target.files[0];
       if(this.isFormForExecution){
         this.fileService.uploadFile(uploadFile,this.prevFileName).subscribe(data=>{
-          this.formDesign.componentValue=uploadFile.name;
+          this.formDesign.formComponent.componentValue=uploadFile.name;
           this.prevFileName=uploadFile.name;
         },error=>{
           

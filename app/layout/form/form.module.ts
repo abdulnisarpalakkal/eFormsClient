@@ -15,6 +15,8 @@ import { FormComponentDirComponent,NgbdModalConfirm } from './directives/form-co
 import { ComponentPropertiesDirComponent } from './directives/component-properties-dir/component-properties-dir.component';
 import { FormPreviewComponent } from './form-preview/form-preview.component';
 import { FormRulesDirComponent } from './directives/form-rules-dir/form-rules-dir.component';
+import { MDBBootstrapModulesPro } from 'ng-uikit-pro-standard';
+import { FormDesignSidenavComponent } from './form-design-sidenav/form-design-sidenav.component';
 
 @NgModule({
   imports: [
@@ -22,14 +24,15 @@ import { FormRulesDirComponent } from './directives/form-rules-dir/form-rules-di
     ,CommonModule,FormsModule
     ,NgxDatatableModule
     ,PageHeaderModule
-    ,NgbModule.forRoot()
+    ,NgbModule
     ,FormRoutingModule
     ,DragDropModule
     ,MsgViewModule
     ,FormDesignModule
+    ,MDBBootstrapModulesPro.forRoot()
   ],
-  declarations: [FormComponent, FormModalComponent, FormDesignModalComponent, FormComponentDirComponent, ComponentPropertiesDirComponent,NgbdModalConfirm, FormPreviewComponent, FormRulesDirComponent],
+  declarations: [FormComponent, FormModalComponent, FormDesignModalComponent, FormComponentDirComponent, ComponentPropertiesDirComponent,NgbdModalConfirm, FormPreviewComponent, FormRulesDirComponent,FormDesignSidenavComponent],
   entryComponents: [NgbdModalConfirm],
-  exports:[FormComponent]
+  exports:[FormComponent,FormDesignModalComponent]
 })
 export class FormModule { }

@@ -1,94 +1,81 @@
-<div class="card ">
+<!-- <div class="card "> -->
    
-    <div class="card-body">
+    <!-- <div class="card-body"> -->
         <form >
       <div class="form-content ">
-        <div class="form-group  form-group-sm mb-2">
-            <label class="form-control-label mb-1" for="componentName">Component name</label>
-            <input type="text" class="form-control input-underline form-control-sm  " id="componentName"  [(ngModel)]="formDesign.componentName" name="componentName">
+        <div class="md-form form-sm">
+            
+            <input mdbInputDirective type="text" class="form-control " id="componentName"  [(ngModel)]="formDesign.componentName" name="componentName">
+            <label  for="componentName">Component name</label>
         </div>
-        <div class="form-group form-group-sm mb-2">
-          <label class="form-control-label mb-1" for="componentLabel">Component label</label>
-          <input type="text" class="form-control input-underline form-control-sm " id="componentLabel"  [(ngModel)]="formDesign.componentLabel" name="componentLabel">
+        <div class="md-form form-sm">
+          <input mdbInputDirective type="text" class="form-control" id="componentLabel"  [(ngModel)]="formDesign.formComponent.componentLabel" name="componentLabel">
+          <label for="componentLabel">Component label</label>
         </div>
-        <div class="form-group form-group-sm mb-2">
-            <label class="form-control-label mb-1" for="componentValue">Component value</label>
-            <input type="text" class="form-control input-underline form-control-sm " id="componentValue"  [(ngModel)]="formDesign.componentValue" name="componentValue">
+        <div class="md-form form-sm">
+            <input mdbInputDirective type="text" class="form-control" id="componentValue"  [(ngModel)]="formDesign.formComponent.componentValue" name="componentValue">
+            <label for="componentValue">Component value</label>
+         
           </div>
-        <!-- {{formDesign.componentType}}{{componentTypeList}} -->
+        <!-- {{formDesign|json}} -->
         
-        <div class="form-group form-group-sm mb-2">
-            <label class="form-control-label mb-1" for="componentType">Component type</label>
-            <select  id="componentType" name="componentType" [(ngModel)]="formDesign.componentType" class="form-control input-underline form-control-sm " >
+        <div class="form-group">
+            <label class="form-control-label " for="componentType">Component type</label>
+            <select  id="componentType" name="componentType" [(ngModel)]="formDesign.componentType" class="browser-default form-control input-underline form-control-sm  " >
               <option value="" disabled selected>>select a type</option>
               <option *ngFor="let item of componentTypeList" >{{item}}</option>
             </select>
-           
+            <!-- <mdb-select [options]="componentTypeList" placeholder="Choose your option"></mdb-select> -->
         </div>
         
         <!-- <ng-template #ref_values_content> -->
         <div class="card" *ngIf="formDesign.componentType==radioComponent || formDesign.componentType==selectComponent ">
             <div class="card-body">
                 
-              <div *ngIf="!refTableMap.get(formDesign.virtualTableField.fieldName)" class="form-group form-group-sm mb-2">
-                  <label class="form-control-label mb-1" for="componentType">Ref Values</label>
-                  <div class="row mb-2" *ngFor="let componentRefValue of formDesign.componentRefValues;let i=index">
-                    <div class="col-xl-10">
-                        <input type="text" name="refValue{{i}}" [(ngModel)]="componentRefValue.refValue" class="form-control input-underline form-control-sm ">
+              <div  *ngIf="!refTableMap.get(formDesign.formComponent.virtualTableField.fieldName)" >
+                
+                 
+                  <div class="row" *ngFor="let componentRefValue of formDesign.formComponent.componentRefValues;let i=index" >
+                    <div class="md-form form-sm col-10 m-0">
+                        <input mdbInput  type="text" id="refValue{{i}}" name="refValue{{i}}" [(ngModel)]="componentRefValue.refValue" class="form-control">
+                        <label  for="refValue{{i}}">Ref Value {{i}}</label>
                     </div>
-                    <div class="col-xl-2">
-                        <a [routerLink]="" (click)="OnRemoveRefValue(formDesign.componentRefValues,componentRefValue)">
-                            <i  class="fa fa-fw fa-remove" ></i>
+                    <div class="col-2 m-0">
+                        <a  (click)="OnRemoveRefValue(formDesign.formComponent.componentRefValues,componentRefValue)">
+                            <mdb-icon fas icon="times"></mdb-icon>
                           </a>
                       </div>
                     
                   </div>
-                  <a [routerLink]="" (click)="OnAddRefValue(formDesign.componentRefValues)">
+                  <a  (click)="OnAddRefValue(formDesign.formComponent.componentRefValues)">
                       <i  class="fa fa-fw fa-plus" ></i>
                     </a>
                   
-                  <!-- <button type="button" class="btn rounded-btn" (click)="addForeignKey()" >+</button> -->
+                
               </div>
-              <div *ngIf="refTableMap.get(formDesign.virtualTableField.fieldName)">
-                  <!-- <div class="form-group form-group-sm mb-2">
-                    <label class="form-control-label mb-1" for="refKey">ref. Key</label>
-                   
-                    <select  id="refKey" name="refKey" [(ngModel)]="formDesign.componentRefValues[0].refKey" class="form-control input-underline form-control-sm " >
-                      <option value="" disabled selected>>select a key</option>
-                      <option *ngFor="let item of refTableMap.get(formDesign.virtualTableField.fieldName)" >{{item}}</option>
-                    </select>
-                  </div> -->
-                  <div class="form-group form-group-sm mb-2">
-                      <label class="form-control-label mb-1" for="refValue">ref. Value</label>
-                      <select  id="refValue" name="refValue" [(ngModel)]="formDesign.componentRefValues[0].refValue" class="form-control input-underline form-control-sm " >
+              <div *ngIf="refTableMap.get(formDesign.formComponent.virtualTableField.fieldName)">
+         
+                  <div class="form-group">
+                      <label class="form-control-label" for="refValue">ref. Value</label>
+                      <select  id="refValue" name="refValue" [(ngModel)]="formDesign.formComponent.componentRefValues[0].refValue" class="browser-default form-control input-underline form-control-sm  " >
                         <option value="" disabled selected>>select a value</option>
-                        <option *ngFor="let item of refTableMap.get(formDesign.virtualTableField.fieldName)" >{{item}}</option>
+                        <option *ngFor="let item of refTableMap.get(formDesign.formComponent.virtualTableField.fieldName)" >{{item}}</option>
                       </select>
                     </div>
               </div>
             </div>
       </div>
-    <!-- </ng-template> -->
-        <!-- <div class="row form-group form-group-sm mb-2">
-            <div class="card">
-              <div class="card-header">
-                Ref Values
-              </div>
-              <div class="card-body">
-                  <input type="text" class="form-control input-underline form-control-sm ">
-              </div>
-            </div>
-            
-        </div> -->
-        <div class="form-group form-group-sm mb-2">
-          <label class="form-control-label mb-1" for="alignOrder">Align order</label>
-          <input type="text" class="form-control input-underline form-control-sm " id="alignOrder"  [(ngModel)]="formDesign.alignOrder" name="alignOrder">
+ 
+        <div class="md-form form-sm">
+          
+          <input mdbInputDirective type="text" class="form-control " id="alignOrder"  [(ngModel)]="formDesign.alignOrder" name="alignOrder">
+          <label for="alignOrder">Align order</label>
         </div>
         <!-- {{formDesign.virtualTableField|json}} -->
         <!-- {{virtualTableFieldsList|json}} -->
-        <div class="form-group form-group-sm mb-4">
-            <label class="form-control-label mb-1" for="alignOrder">Table field</label>
-            <select  id="virtualTableField" name="virtualTableField" class="form-control input-underline form-control-sm "  [(ngModel)]="formDesign.virtualTableField"  (ngModelChange)="onChange($event)" >
+        <div class="form-group">
+            <label class="form-control-label" for="alignOrder">Table field</label>
+            <select  id="virtualTableField" name="virtualTableField" class="browser-default form-control input-underline form-control-sm  "  [(ngModel)]="formDesign.formComponent.virtualTableField"  (ngModelChange)="onChange($event)" >
                 <option value="" disabled selected>>select a field</option>
                 <option *ngFor="let virtualTableField of virtualTableFieldsList" [ngValue]="virtualTableField">{{virtualTableField.fieldName}}</option>
               </select>
@@ -100,7 +87,7 @@
                   <i  class="fa fa-fw fa-times" aria-hidden="true" ></i>
                 </a>
               </span>
-              <select *ngIf="showRulesCompo"  id="formRule" name="formRule" class="form-control input-underline form-control-sm "  ngModel  (ngModelChange)="onChangeFormRule($event)" >
+              <select *ngIf="showRulesCompo"  id="formRule" name="formRule" class="browser-default form-control input-underline form-control-sm "  ngModel  (ngModelChange)="onChangeFormRule($event)" >
                 <option value="" disabled selected>>select rule</option>
                 <option *ngFor="let formRule of formRules" [ngValue]="formRule">{{formRule.formRuleName}}</option>
               </select>     
@@ -112,5 +99,5 @@
      </div>
      
       </form>
-    </div>
-  </div>
+    <!-- </div> -->
+  <!-- </div> -->

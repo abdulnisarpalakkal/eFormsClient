@@ -1,11 +1,7 @@
 
-<div class="row" *ngIf="workflowTrackList && workflowTrackList.length!=0">
-    <div class="col col-xl-12 col-lg-12">
-        <div class="card mb-3">
-            <!-- <div class="card-header">
-                Workflow Tracks
-            </div> -->
-           <div class="card-body table-responsive">
+<!-- <div class="row" *ngIf="workflowTrackList && workflowTrackList.length!=0"> -->
+    <mdb-card *ngIf="workflowTrackList && workflowTrackList.length!=0" class="mb-5">
+        <mdb-card-body>
          
             <ngx-datatable class="ngx-datatable bootstrap"
                 #table
@@ -39,7 +35,7 @@
               </ngx-datatable-column>
                 
             </ngx-datatable>
-        </div>
-    </div>
-  </div>
-  </div> 
+        </mdb-card-body>
+        </mdb-card>
+  
+  <!-- </div>  -->

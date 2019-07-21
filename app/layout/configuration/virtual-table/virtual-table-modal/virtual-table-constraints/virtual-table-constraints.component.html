@@ -52,12 +52,17 @@
      
       <div class="col-xl-1 text-xs-center mt-2">
             <a [routerLink]="" (click)="removeForeignKey(constraint)">
-              <i  class="fa fa-fw " [class.fa-remove]="!constraint.deleted"  [class.fa-undo]="constraint.deleted"></i>
+              <!-- <i  class="fa fa-fw " [class.fa-remove]="!constraint.deleted"  [class.fa-undo]="constraint.deleted"></i> -->
+              <mdb-icon *ngIf="!constraint.deleted" far icon="trash-alt"></mdb-icon>
+              <!-- <mdb-icon *ngIf="virtualTableField.deleted" far icon="trash-alt"></mdb-icon> -->
+              <i *ngIf="constraint.deleted" class="fa fa-fw fa-undo"   ></i> 
             </a>
       </div>
       
       
   </div>
-  <button type="button" class="btn rounded-btn" (click)="addForeignKey()" >+</button>
-
+  <!-- <button type="button" class="btn rounded-btn" (click)="addForeignKey()" >+</button> -->
+  <a [routerLink]="" (click)="addForeignKey()">
+      <i  class="fa fa-fw fa-plus" ></i>
+  </a>
 </div>

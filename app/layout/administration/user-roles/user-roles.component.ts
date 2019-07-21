@@ -26,7 +26,7 @@ export class UserRolesComponent implements OnInit {
   
   isNew :boolean=false;
   userRolesForm;
-  @ViewChild(DatatableComponent) table: DatatableComponent;
+  @ViewChild(DatatableComponent, {static: false}) table: DatatableComponent;
   constructor(private administrationService: AdministrationService,private modalService: NgbModal, private handler:Handler) { }
 
   ngOnInit() {

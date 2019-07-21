@@ -41,8 +41,8 @@ modalReference2: any;
 closeResult2: string;
 isNew :boolean=false;
 
-@ViewChild(DatatableComponent) table: DatatableComponent;
-@ViewChild("content2") designContent:any;
+@ViewChild(DatatableComponent, {static: false}) table: DatatableComponent;
+@ViewChild("content2", {static: false}) designContent:any;
 
 //#endregion
   constructor(private formService: FormService,private virtualTableService: VirtualTableService,private modalService: NgbModal, private handler:Handler,private administrationService:AdministrationService) { }
@@ -296,18 +296,7 @@ onUpdated(form: FormMaster) {
 
 
 }
-onUpdatedDesign() {
-  this.formService.updateDesign(this.formDesignDto)
-    .subscribe(
-        data => {
-          this.closeModal();
-          this.openDesignPage();
-          // this.getFormsList();
-        },
-        error=>{
-        }
-    );
-}
+
 //#endregion
 //#region event listeners
 public designClick(content,form:FormMaster){

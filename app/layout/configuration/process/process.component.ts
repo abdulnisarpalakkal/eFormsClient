@@ -28,7 +28,7 @@ export class ProcessComponent implements OnInit {
   modalReference: any;
   
   processForm;
-  @ViewChild(DatatableComponent) table: DatatableComponent;
+  @ViewChild(DatatableComponent, {static: false}) table: DatatableComponent;
 
   constructor(private processService: ProcessService,private categoryService: CategoryService
     ,private modalService: NgbModal, private handler:Handler) { }
@@ -78,7 +78,7 @@ export class ProcessComponent implements OnInit {
     // Whenever the filter changes, always go back to the first page
     this.table.offset = 0;
 }
-deleteUser(process:Process){
+delete(process:Process){
     if(!confirm("Are you sure to delete "+process.processName)) {
         return;
     }

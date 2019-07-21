@@ -14,11 +14,11 @@ import {UserModalComponent} from './user/modal/usermodal.component';
 import {NgxDatatableComponent} from './user/table/ngx-datatable-demo';
 import { UserRolesModalComponent } from './user-roles/user-roles-modal/user-roles-modal.component';
 import { UserRoleModalComponent } from './user/user-role-modal/user-role-modal.component';
-
+import { MDBBootstrapModule } from 'ng-uikit-pro-standard';
 
 @NgModule({
     imports: [CommonModule, AdministrationRoutingModule, PageHeaderModule
-        ,FormsModule,NgxDatatableModule,NgbModule,MsgViewModule],
+        ,FormsModule,NgxDatatableModule,NgbModule,MsgViewModule,MDBBootstrapModule.forRoot()],
     declarations: [UserComponent,UserModalComponent,NgxDatatableComponent,AdministrationComponent,
         UserRolesComponent,UserRolesModalComponent, UserRoleModalComponent ]
 })

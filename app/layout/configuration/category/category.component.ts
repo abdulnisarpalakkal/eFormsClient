@@ -25,7 +25,7 @@ export class CategoryComponent implements OnInit {
   modalReference: any;
   
   categoryForm;
-  @ViewChild(DatatableComponent) table: DatatableComponent;
+  @ViewChild(DatatableComponent, {static: false}) table: DatatableComponent;
   
   constructor(private ref: ChangeDetectorRef,private categoryService: CategoryService,private modalService: NgbModal, private handler:Handler,private messageService:MessageService) { }
 

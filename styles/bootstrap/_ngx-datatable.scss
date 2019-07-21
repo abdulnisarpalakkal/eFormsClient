@@ -38,8 +38,9 @@
     color: #FFF;
  }
  .ngx-datatable.bootstrap .datatable-footer {
-    background: #424242;
-    color: #ededed;
+   //  background: #424242;
+   //  color: #ededed;
+   color: #424242;
     margin-top: -1px;
  }
  .ngx-datatable.bootstrap .datatable-footer .page-count {
@@ -58,6 +59,7 @@
  .ngx-datatable.bootstrap .datatable-footer .datatable-pager ul li:not(.disabled):hover a {
     background-color: #545454;
     font-weight: bold;
+    color: #ededed; //newly added
  }
  .ngx-datatable.bootstrap .datatable-footer .datatable-pager a {
     height: 22px;
@@ -70,7 +72,8 @@
     vertical-align: top;
     text-decoration: none;
     vertical-align: bottom;
-    color: #ededed;
+    color: #424242;
+   //  color: #ededed;
  }
  .ngx-datatable.bootstrap .datatable-footer .datatable-pager .datatable-icon-left,
  .ngx-datatable.bootstrap .datatable-footer .datatable-pager .datatable-icon-skip,

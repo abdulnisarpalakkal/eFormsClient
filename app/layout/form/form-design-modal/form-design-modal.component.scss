@@ -1,4 +1,14 @@
-
+.main-head{
+    position: relative;
+    margin-left: 118px;
+    margin-right: 183px;
+    background-color: #37474f;
+    color:#fff !important; 
+    border: 1px solid;
+}
+.action-icon{
+    color:#fff !important; 
+}
 .main-container {
     margin-top: 0px;
     margin-left: 235px;
@@ -9,7 +19,7 @@
     overflow-x: hidden;
     overflow-y: scroll;
     position: relative;
-    min-height: 55rem;
+    // min-height: 55rem;
     
 }
 
@@ -24,7 +34,7 @@ $topnav-background-color: rgb(54, 54, 54);
 .sidebar {
     border-radius: 0;
     position: fixed;
-    z-index: 1000;
+    z-index: -10;
     top: 70px;
     left: 240px;
     width: 235px;
@@ -32,7 +42,7 @@ $topnav-background-color: rgb(54, 54, 54);
     margin-bottom: 70px;
     // border-right: 0.2px solid gray;
     border-radius: 0;
-    overflow-y: auto;
+    overflow-y: scroll;
     // background-color: $topnav-background-color;
     bottom: 0;
     overflow-x: hidden;
@@ -184,21 +194,22 @@ $topnav-background-color: rgb(54, 54, 54);
 }
 
 .sidebar-right {
+    
     border-radius: 0;
     position: fixed;
     z-index: 1000;
-    top: 70px;
+    top: 0;
     // left: 240px;
     width: 300px;
     margin-right: 5px;
-    margin-bottom: 70px;
+    // margin-bottom: 70px;
     // border-right: 0.2px solid gray;
     border-radius: 0;
-    overflow-y: auto;
+    overflow-y: scroll;
     // background-color: $topnav-background-color;
-    bottom: 0;
+    // bottom: 0;
     overflow-x: hidden;
-    padding-bottom: 10px;
+    // padding-bottom: 10px;
     -webkit-transition: all 0.2s ease-in-out;
     -moz-transition: all 0.2s ease-in-out;
     -ms-transition: all 0.2s ease-in-out;
@@ -206,7 +217,8 @@ $topnav-background-color: rgb(54, 54, 54);
     transition: all 0.2s ease-in-out;
     left: auto !important;
     right: 0 !important;
-    
+     height: 90% !important;
+    // min-height: 1200px
     // direction: ltr;
 }
 .example-list {
@@ -266,3 +278,25 @@ $topnav-background-color: rgb(54, 54, 54);
     width: 24px;
     height: 24px;
   }
+  .double-nav,
+main,
+footer {
+    padding-left: 0!important;
+}
+
+.hm-white-light .mask, .hm-white-light .full-bg-img {
+    background-color: rgba(255, 255, 255, 0);
+}
+
+h1 {
+    letter-spacing: 8px;
+}
+
+h5 {
+    letter-spacing: 3px;
+}
+
+.hr-light {
+    border-top: 3px solid #fff;
+    width: 80px;
+}

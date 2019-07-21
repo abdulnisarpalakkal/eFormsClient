@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import {Observable} from 'rxjs/Observable';
+import {Observable} from 'rxjs';
 
 import { GlobalData } from '../configuration';
 
@@ -36,8 +36,8 @@ export class FormService {
   public getAllUnderProcess(processId): Observable<any> {
     return this.http.get(this.formUrl+"/process/"+processId);
   }
-  public getOne(formMaster): Observable<any> {
-    return this.http.get(this.formUrl+ "/"+ formMaster.id);
+  public getOne(formId:number): Observable<any> {
+    return this.http.get(this.formUrl+ "/"+ formId);
   }
 
   public delete(formMaster) {

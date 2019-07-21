@@ -37,7 +37,7 @@ closeResult: string;
 modalReference: any;
 isNew :boolean=false;
 
-@ViewChild(DatatableComponent) table: DatatableComponent;
+@ViewChild(DatatableComponent, {static: false}) table: DatatableComponent;
 
 
 
@@ -188,7 +188,7 @@ open(content,virtualTable:VirtualTable,isNew) {
     if(this.processId)
       this.modalVirtualTableFieldsConstraintDto.virtualTable.process=this.processList.find(process=>process.id==this.processId);
   }
-  this.modalReference=this.modalService.open(content,{ size: 'lg', backdrop: 'static' });
+  this.modalReference=this.modalService.open(content,{ size: 'lg', backdrop: 'static', scrollable:true });
   
   this.modalReference.result.then((result) => {
       this.closeResult = `Closed with: ${result}`;

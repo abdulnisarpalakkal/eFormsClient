@@ -9,6 +9,8 @@ import { WorkflowDashboardRoutingModule } from './workflow-dashboard-routing.mod
 import { PageHeaderModule,MsgViewModule,FormDesignModule } from '../../shared';
 import { WorkflowFormViewComponent } from './workflow-form-view/workflow-form-view.component';
 import { WorkflowModule } from '../workflow/workflow.module';
+import { MDBBootstrapModulesPro } from 'ng-uikit-pro-standard';
+import { SharedComponentsModule } from '../../shared/components/shared-components.module';
 
 @NgModule({
   imports: [
@@ -19,7 +21,9 @@ import { WorkflowModule } from '../workflow/workflow.module';
     MsgViewModule,
     NgxDatatableModule,
     WorkflowModule,
-    FormDesignModule
+    FormDesignModule,
+    MDBBootstrapModulesPro.forRoot(),
+    SharedComponentsModule
   ],
   declarations: [WorkflowDashboardComponent, WorkflowFormViewComponent]
 

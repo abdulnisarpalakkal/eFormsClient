@@ -12,6 +12,7 @@ import { VirtualTableFieldsComponent } from './virtual-table-modal/virtual-table
 import { VirtualTableConstraintsComponent } from './virtual-table-modal/virtual-table-constraints/virtual-table-constraints.component';
 import {SharedPipesModule} from './../../../shared/pipes/shared-pipes.module';
 import { VirtualTableRecordComponent } from './virtual-table-record/virtual-table-record.component';
+import { MDBBootstrapModulesPro } from 'ng-uikit-pro-standard';
 
 @NgModule({
   imports: [
@@ -20,10 +21,11 @@ import { VirtualTableRecordComponent } from './virtual-table-record/virtual-tabl
     CommonModule,FormsModule
     ,NgxDatatableModule
     ,PageHeaderModule
-    ,NgbModule.forRoot()
+    ,NgbModule
     ,SharedPipesModule
     ,MsgViewModule
     ,FormDesignModule
+    ,MDBBootstrapModulesPro.forRoot()
   ],
   declarations: [VirtualTableComponent, VirtualTableModalComponent, VirtualTableFieldsComponent, VirtualTableConstraintsComponent, VirtualTableRecordComponent],
   exports:[VirtualTableComponent,VirtualTableRecordComponent]

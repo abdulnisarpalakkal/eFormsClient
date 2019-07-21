@@ -5,6 +5,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule, HttpClient,HttpHandler,HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { MDBBootstrapModulesPro } from 'ng-uikit-pro-standard';
+
+import { MDBSpinningPreloader } from 'ng-uikit-pro-standard';
 
 import { AuthGuard,Interceptor,TokenStorage,AdministrationService,CategoryService
     ,ProcessService,GlobalData,Handler,VirtualTableService,FormService,WorkflowService
@@ -14,7 +17,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import {MsgViewModule} from './shared/modules';
 import {EqualValidator} from './shared';
-
 
 
 // AoT requires an exported function for factories
@@ -38,10 +40,13 @@ export function createTranslateLoader(http: HttpClient) {
             }
         }),
         AppRoutingModule,
-        MsgViewModule
+        MsgViewModule,
+        MDBBootstrapModulesPro.forRoot()
+        // LayoutModule
         
     ],
-    declarations: [AppComponent,EqualValidator],
+    declarations: [AppComponent,EqualValidator
+    ],
     providers: [
         AdministrationService,
              CategoryService,
@@ -66,7 +71,8 @@ export function createTranslateLoader(http: HttpClient) {
             {
                 provide: LocationStrategy, useClass: HashLocationStrategy
             },
-            KeyValuePipe
+            KeyValuePipe,
+            MDBSpinningPreloader
             // ,
             // {
             //     provide:ErrorHandler,

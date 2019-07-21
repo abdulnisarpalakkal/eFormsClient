@@ -18,6 +18,8 @@ import { UserRoles } from '../../model/user-roles.model';
 import { UserMsg } from '../../model/user-msg.model';
 import { MsgInterface } from '../interface/msg-interface';
 import { ProcessRoutingModule } from '../configuration/process/process-routing.module';
+import { MDBModalRef, ModalDirective } from 'ng-uikit-pro-standard';
+import { FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-workflow',
@@ -27,13 +29,13 @@ import { ProcessRoutingModule } from '../configuration/process/process-routing.m
   animations: [routerTransition()]
 })
 export class WorkflowComponent implements OnInit {
+
   //#region  Variables
 @Input() processId:number;
 workflowList:WorkflowMaster[]=[];
 workflowNodeList:WorkflowNode[]=[];
 workflowLinkList:WorkflowLink[]=[];
 actionEventList:ActionEvent[]=[];
-// actionEventParamList:ActionEvent[]=[];
 workflowFormsList:FormMaster[]=[];
 processList:Process[]=[];
 users:User[];
@@ -52,10 +54,12 @@ modalReference2: any;
 closeResult2: string;
 isNew :boolean=false;
 
-@ViewChild(DatatableComponent) table: DatatableComponent;
+@ViewChild(DatatableComponent, {static: false}) table: DatatableComponent;
+@ViewChild("workflowForm", {static: false}) public workflowForm: ModalDirective;
 
 //#endregion
-  constructor(private workflowActionService: WorkflowActionService,private workflowService: WorkflowService,private processService:ProcessService,private formService:FormService,private administrationService:AdministrationService,private modalService: NgbModal, private handler:Handler) { }
+  constructor(private workflowService: WorkflowService,private processService:ProcessService,private formService:FormService
+    ,private administrationService:AdministrationService,private modalService: NgbModal, private handler:Handler) { }
 
   ngOnInit() {
     this.getWorkflowsList();
@@ -82,87 +86,6 @@ updateFilter(){
 }
 //#endregion
 
-//#region handlers
-
-
-convertGraphNodesToWorkflowNodes(graphNodes:WorkflowNode[]){
-  if(graphNodes==null || graphNodes.length==0)
-    return;
-  // const workflowMaster=this.modalWorkflow;
-  
-  graphNodes.forEach(node => {
-  //  node.nodeId=0;
-  //  node.actionEventObjects.forEach(eventObject=>{
-  //    eventObject.id=0;
-  //    eventObject.actionEventParamObjects.forEach(eventParamObject=>eventParamObject.id=0);
-  //  }
-
-  //  );
-  //  workflowNode.nodeLinkId=node.id;
-  //  workflowNode.nodeType=node.nodeType;
-  //  workflowNode.label=node.label;
-
-  //  workflowNode.formMaster=node.formMaster;
-  //  workflowNode.workflowAction=node.workflowAction;
-  //  workflowNode.workflowMaster=workflowMaster;
-  //  this.workflowNodeList.push(workflowNode);
-
-  });
-}
-convertGraphLinksToWorkflowLinks(graphLinks:WorkflowLink[]){
-  if(graphLinks==null || graphLinks.length==0)
-    return;
-  // const workflowMaster=this.modalWorkflow;
-  // this.workflowLinkList=[];
-  graphLinks.forEach(link => {
-    // const workflowLink=new WorkflowLink();
-    // workflowLink.label=link.label;
-    link.sourceNode=this.workflowNodeList.find(x=>x.id==link.source);
-    link.targetNode=this.workflowNodeList.find(x=>x.id==link.target);
-    // workflowLink.workflowMaster=workflowMaster;
-    // this.workflowLinkList.push(workflowLink);
-   });
-}
-convertWorkflowNodesToGraphNodes(workflowNodeList:WorkflowNode[]){
-  if(workflowNodeList==null || workflowNodeList.length==0)
-    return;
- 
-  workflowNodeList.forEach(workflowNode => {
-    workflowNode.id=""+workflowNode.nodeId;
-   
-    switch(workflowNode.nodeType){
-      case WorkflowNodeType.START:
-      workflowNode.color="#9fef8f";
-        break;
-      case WorkflowNodeType.STOP:
-      workflowNode.color="#ed0b0b";
-        break;
-      case WorkflowNodeType.FORM:
-      workflowNode.color="#8fbaef";
-        break;
-      case WorkflowNodeType.ACTION:
-      workflowNode.color="#ef8f8f";
-        break;
-      default:
-      workflowNode.color="#D5D5C9";
-        break;
-    }
-
-
-   });
-  }
-   convertWorkflowLinksTOGraphLinks(workflowLinks:WorkflowLink[]){
-    
-   
-    workflowLinks.forEach(workflowLink => {
-      
-      workflowLink.source=""+workflowLink.sourceNode.nodeId;
-      workflowLink.target=""+workflowLink.targetNode.nodeId;
-      
-     });
-  }
-
-//#endregion
 
 
 //#region Modal window
@@ -259,64 +182,7 @@ public getWorkflowsList() {
         }
   );
 }
-public getPublishedChildWokflowList(processId) {
-  const service=this.workflowService.getAllPublishedChildWorkflowsByProcess(processId);
-  service
-  .subscribe(
-        data => {
-          this.childWokflowList=data;   
-        },
-        error=>{
-         
-        }
-  );
-}
 
-
-public getWorkflowNodeList (workflowId) {
-  this.workflowService.getAllWorkflowNodeByWorkflow(workflowId)
-  .subscribe(
-        data => {
-          this.workflowNodeList=data; 
-          this.convertWorkflowNodesToGraphNodes(this.workflowNodeList);
-        },
-        error=>{
-        }
-  );
-}
-public getWorkflowLinkList (workflowId) {
-  this.workflowService.getAllWorkflowLinkByWorkflow(workflowId)
-  .subscribe(
-        data => {
-          this.workflowLinkList=data;   
-          this.convertWorkflowLinksTOGraphLinks(this.workflowLinkList);
-        },
-        error=>{
-        }
-  );
-}
-public getActionEventList() {
-  this.workflowActionService.getAllEvent()
-  .subscribe(
-        data => {
-          this.actionEventList=data;   
-        },
-        error=>{
-        }
-  );
-}
-// public getActionEventParamList() {
-//   this.workflowActionService.getAllEventParam()
-//   .subscribe(
-//         data => {
-//           this.success=true;
-//           this.actionEventParamList=data;   
-//         },
-//         error=>{
-//           this.errorHandler(error);
-//         }
-//   );
-// }
 public getProcessList() {
   this.processService.get()
   .subscribe(
@@ -327,36 +193,7 @@ public getProcessList() {
         }
   );
 }
-public getWorkflowFormList(processId) {
-  this.formService.getAllUnderProcess(processId)
-  .subscribe(
-        data => {
-          this.workflowFormsList=data;   
-        },
-        error=>{
-        }
-  );
-}
-public getUserList() {
-  this.administrationService.getUsers()
-  .subscribe(
-        data => {
-          this.users=data;   
-        },
-        error=>{
-        }
-  );
-}
-public getUserRoleList() {
-  this.administrationService.getUserRoles()
-  .subscribe(
-        data => {
-          this.userGroups=data;   
-        },
-        error=>{
-        }
-  );
-}
+
 delete(workflow:WorkflowMaster){
   if(!confirm("Are you sure to delete "+workflow.workflowName)) {
       return;
@@ -417,64 +254,10 @@ publishWorkflow(workflow: WorkflowMaster) {
         }
     );
  }
-createNodes(){
-  this.workflowService.createWorkflowDesign(this.modalWorkflow)
-    .subscribe(
-        data => {
-          // if(this.workflowLinkList.length>0)
-          //   this.createLinks();
-          this.closeDesignModal();
-          this.getWorkflowsList();
-        },
-        error=>{
-        }
-    );
-}
-createLinks(){
-  this.workflowService.createAllWorkflowLink(this.workflowLinkList)
-  .subscribe(
-      data => {
-        this.closeModal();
-        this.getWorkflowsList();
-      },
-      error=>{
-      }
-  );
-}
-onUpdatedDesign(nodes) {
-  
-  this.convertGraphNodesToWorkflowNodes(this.workflowNodeList);
-  this.convertGraphLinksToWorkflowLinks(this.workflowLinkList);
-  if(this.workflowNodeList.length!=0)
-  {
-    this.modalWorkflow.workflowNodeList=this.workflowNodeList;
-    this.modalWorkflow.workflowLinkList=this.workflowLinkList;
 
-    this.createNodes();
-  }
-  // if(this.workflowLinkList.length!=0)
-  //   this.createLinks();
- 
-}
 //#endregion
 //#region event listeners
-public designClick(content,workflow:WorkflowMaster){
-  this.workflowNodeList=[];
-  this.workflowLinkList=[];
-  
-  this.getWorkflowNodeList(workflow.id);
-  this.getWorkflowLinkList(workflow.id);
-  
-  
-  this.getWorkflowFormList(workflow.process.id);
-  this.getActionEventList(); //parameters are saved inside this object
-  this.getUserList();
-  this.getUserRoleList();
-  this.getPublishedChildWokflowList(workflow.process.id);
-  // this.getActionEventParamList();
-  this.openDesignModal(content,workflow);
-  
-}
+
 onNodeUpdated(workflowNodeList) {
   this.workflowNodeList=workflowNodeList;
 }

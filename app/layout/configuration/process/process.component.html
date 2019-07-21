@@ -1,79 +1,107 @@
 <div [@routerTransition]>
   <app-page-header  [heading]="'Process'" [icon]="'fa-file-o'"></app-page-header>
-  <div class="row"> 
-        <div class="col col-xl-2 ">
+  <mdb-card class="mb-5">
+        <mdb-card-body class=" py-1">
+          <div class="row">
+  
+              <div class="col-xl-3 col-lg-6 col-md-6">
+                           
+                      <div class="md-form  input-group">
+                              
+                          <input class="form-control" type="text" [(ngModel)]="filter_Process.processName"
+                               id="processName" name="processName" (keyup)='updateFilter($event)' mdbInput>
+                              <label for="processName">Filter process name</label>
+                      </div>
+              </div>
+              <div class="col-xl-3 col-lg-6 col-md-6">
+                           
+                    <div class="md-form  input-group">
+                            
+                        <select [(ngModel)]="_filter_categoryId" id="category" name="category" class="browser-default custom-select border-bottom"
+                             (change)='updateFilter($event)' >
+                            <option value="0" disabled selected>filter a category</option>
+                            <option value="0">All</option>
+                            <option *ngFor="let item of categories" [value]="item.id">{{item.categoryName}}</option>
+                          </select>
+                    </div>
+              </div>
+  
+          </div>
+   </mdb-card-body>
+
+</mdb-card>
+
+<mdb-card cascade="true" narrower="true" [ngClass]="{'z-depth-0': false }">
+
+        <!--Card image-->
+        <div class="view view-cascade gradient-card-header blue-gradient narrower py-2 mx-4 mb-3 d-flex justify-content-between align-items-center">
+
+                <div>
+                    <button type="button" class="btn btn-outline-white btn-rounded btn-sm px-2" (click)="open(content,null,true)" >
+                        <mdb-icon fas icon="plus" class="mt-0"></mdb-icon>
+                    </button>
+                    <!-- (click)="open(content,null,true)" -->
+                </div>
+
+                <a href="" class="white-text mx-3">Process List</a>
+                <div>
+                    </div>
+            
+
+            </div>
+            <!--/Card image-->
+
+
+    <div class="px-4">
+
+        <div class="table-wrapper">
+
+                <ngx-datatable class="ngx-datatable bootstrap"
+                #table
+                [rows]="processes"
                 
-            <div class="card mb-2 ">
-                <button type="button" class="btn btn-default" (click)="open(content,null,true)"  >New &nbsp; <i class="fa fa-w fa-file-o"></i></button>
+                [columnMode]="'force'"
+                [headerHeight]="50"
+                [footerHeight]="50"
+                [rowHeight]="'auto'"
+                [limit]="5"
+                >
+                <ngx-datatable-column [width]="50" name="#">
+                    <ng-template let-rowIndex="rowIndex"  ngx-datatable-cell-template>
+                        {{rowIndex+1}}
+                    </ng-template>
+                   
+                </ngx-datatable-column>
+               
+                <ngx-datatable-column prop="processName" name="Process Name"  ></ngx-datatable-column>
+                <ngx-datatable-column prop="processDesc" name="Desc"  ></ngx-datatable-column>
+                <ngx-datatable-column prop="category.categoryName" name="Category"  ></ngx-datatable-column>
+                
+                <ngx-datatable-column  [minWidth]="200" [maxWidth]="200" name="Actions"  >
+                        <ng-template #deleteBtn let-row="row"  ngx-datatable-cell-template>
+                                <div>
+                                    
+
+                                        <a [routerLink]="" (click)="open(content,row,false)" class="ml-0">
+                                            <mdb-icon fas icon="pencil-alt" class="mt-0"></mdb-icon>
+                                        </a>
+                                        <a [routerLink]="" (click)="delete(row)" class="ml-3">
+                                                <mdb-icon fas icon="trash-alt" class="mt-0"></mdb-icon>
+                                            </a>
+                                        <a [routerLink]="['/process-det',row.id,row.processName]" class="ml-3" >
+                                            <i class="fa fa-fw fa-expand"></i>
+                                        </a>
+                                       
+                                    </div>
+                          
+                        </ng-template>
+                    </ngx-datatable-column>
+
+              
+            </ngx-datatable>
             </div>
         </div>
-      </div>
-      <!-- <router-outlet></router-outlet> -->
-  <!-- <br /> -->
-  <div class="row">
-          <div class="col col-xl-12 col-lg-12">
-              <div class="card mb-3">
-                  <div class="card-header">
-                      Process List
-                  </div>
-                 <div class="card-body table-responsive">
-                
-                  <input
-                      type='text' [(ngModel)]="filter_Process.processName"
-                      style='padding:8px;margin:15px auto;'
-                      placeholder='Filter process name...'
-                      (keyup)='updateFilter($event)'
-                  />
-                  <select [(ngModel)]="_filter_categoryId" id="category" name="category" 
-                    style='padding:8px;margin:15px auto;' (change)='updateFilter($event)' >
-                    <option value="0" disabled selected>filter a category</option>
-                    <option value="0">All</option>
-                    <option *ngFor="let item of categories" [value]="item.id">{{item.categoryName}}</option>
-                  </select>
-                 
-                  <ngx-datatable class="ngx-datatable bootstrap"
-                      #table
-                      [rows]="processes"
-                      
-                      [columnMode]="'force'"
-                      [headerHeight]="50"
-                      [footerHeight]="50"
-                      [rowHeight]="'auto'"
-                      [limit]="5"
-                      >
-                      <ngx-datatable-column [width]="50" name="#">
-                          <ng-template let-rowIndex="rowIndex"  ngx-datatable-cell-template>
-                              {{rowIndex+1}}
-                          </ng-template>
-                         
-                      </ngx-datatable-column>
-                     
-                      <ngx-datatable-column prop="processName" name="Process Name"  ></ngx-datatable-column>
-                      <ngx-datatable-column prop="processDesc" name="Desc"  ></ngx-datatable-column>
-                      <ngx-datatable-column prop="category.categoryName" name="Category"  ></ngx-datatable-column>
-                      
-                      <ngx-datatable-column [width]="50" name="Edit">
-                          <ng-template  let-process="row"  ngx-datatable-cell-template>
-                              <a [routerLink]="" (click)="open(content,process,false)"><i class="fa fa-fw fa-edit"></i></a>
-                          </ng-template>
-                         
-                      </ngx-datatable-column>
-                      <ngx-datatable-column [width]="50" name="Det">
-                        <ng-template  let-process="row"  ngx-datatable-cell-template>
-                            <a [routerLink]="['/process-det',process.id,process.processName]" ><i class="fa fa-fw fa-expand"></i></a>
-                        </ng-template>
-                       
-                    </ngx-datatable-column>
-                      <ngx-datatable-column [width]="50" name="Delete" >
-                          <ng-template #deleteBtn let-process="row"  ngx-datatable-cell-template>
-                              <a [routerLink]="" (click)="deleteUser(process)"><i class="fa fa-fw fa-remove"></i></a>
-                          </ng-template>
-                      </ngx-datatable-column>
-                      
-                  </ngx-datatable>
-              </div>
-          </div>
-      </div>
+</mdb-card>
   </div> 
   
   

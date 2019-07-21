@@ -1,125 +1,177 @@
 <div [@routerTransition]>
-  <app-page-header *ngIf="!processId" [heading]="'Workflow'" [icon]="'fa-file-o'"></app-page-header>
-  <div class="row"> 
-    <div class="col col-xl-2 ">
-            
-        <div class="card mb-2 ">
-            <button type="button" class="btn btn-default" (click)="open(content,null,true)"  >New <i class="fa fa-w fa-folder-o"></i></button>
-        </div>
-    </div>
-  </div>
-  <!-- {{modalWorkflow|json}} -->
-  <!-- {{nodes|json}} -->
-  <div class="row">
-        <div class="col col-xl-12 col-lg-12">
-            <div class="card mb-3">
-                <div class="card-header">
-                    Workflow List
-                </div>
-            <div class="card-body table-responsive">
-                    <input
-                    type='text' [(ngModel)]="filter_Workflow.workflowName"
-                    style='padding:5px;margin:15px auto;'
-                    placeholder='Filter form name...'
-                    (keyup)='updateFilterEvent($event)'
-                />
-                
-               
-                <ngx-datatable class="ngx-datatable bootstrap"
-                    #table
-                    [rows]="workflowList"
+    <app-page-header *ngIf="!processId" [heading]="'Workflow'" [icon]="'fa-file-o'"></app-page-header>
+    
+    <!-- {{modalWorkflow|json}} -->
+    <!-- {{nodes|json}} -->
+    <mdb-card class="mb-5">
+            <mdb-card-body  class=" py-1">
+          <div class="row">
+  
+              <div class="col-xl-3 col-lg-6 col-md-6">
+  
+                  <form class="form-inline inputs ml-2">
+                      <div class="md-form  input-group">
+                              
+                          <input class="form-control" type="text" [(ngModel)]="filter_Workflow.workflowName" 
+                               name="workflowName" id="workflowName" (keyup)='updateFilterEvent($event)' mdbInput>
+                              <label for="workflowName">Workflow name</label>
+                      </div>
                     
-                    [columnMode]="'force'"
-                    [headerHeight]="50"
-                    [footerHeight]="50"
-                    [rowHeight]="'auto'"
-                    [limit]="10"
-                    >
-                    <ngx-datatable-column [minWidth]="50" [maxWidth]="50" name="#">
-                        <ng-template let-rowIndex="rowIndex"  ngx-datatable-cell-template>
-                            {{rowIndex+1}}
-                        </ng-template>
-                       
-                    </ngx-datatable-column>
-                    <ngx-datatable-column prop="workflowName" name="Form Name" [minWidth]="200"  ></ngx-datatable-column>
-                    <ngx-datatable-column prop="workflowDesc" name="Desc" [minWidth]="100"  ></ngx-datatable-column>
-                    <ngx-datatable-column prop="process.processName" name="Process"  ></ngx-datatable-column>                  
-                    <ngx-datatable-column  [minWidth]="50" [maxWidth]="70" name="Edit">
-                        <ng-template  let-row="row"  ngx-datatable-cell-template>
-                            <a [routerLink]="" (click)="open(content,row,false)"><i class="fa fa-fw fa-edit"></i></a>
-                        </ng-template>
-                       
-                    </ngx-datatable-column>
-                    <ngx-datatable-column  [minWidth]="50" [maxWidth]="70" name="Del." >
-                        <ng-template #deleteBtn let-row="row"  ngx-datatable-cell-template>
-                            <a [routerLink]="" (click)="delete(row)"><i class="fa fa-fw fa-remove"></i></a>
-                        </ng-template>
-                    </ngx-datatable-column>
-                    <ngx-datatable-column  [minWidth]="50" [maxWidth]="70" name="Design" >
-                      <ng-template #deleteBtn let-row="row"  ngx-datatable-cell-template>
-                          <a [routerLink]="" title="design" (click)="designClick(content2,row)"><i class="fa fa-fw fa-paint-brush"></i></a>
-                      </ng-template>
-                    </ngx-datatable-column>
-                    <ngx-datatable-column  [minWidth]="50" [maxWidth]="70" name="publish" >
-                      <ng-template #deleteBtn let-row="row"  ngx-datatable-cell-template>
-                            <!-- published -->
-                          <a [routerLink]="" title="publish" (click)="onPublishClick(row)"><i class="fa fa-fw fa-upload" [class.published]="row.published"></i></a>
-                      </ng-template>
-                     </ngx-datatable-column>
-                    
-                </ngx-datatable>
-            </div>
-        </div>
-    </div>
-  </div>
+                  </form>
   
+              </div>
   
-  <ng-template #content let-c="close" let-d="dismiss">
-  <div class="modal-header">
-    <h4 class="modal-title">Workflow</h4>
-    <button type="button" class="close" aria-label="Close" (click)="d('Close click')">
-        <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  <div class="modal-body">
-    <app-workflow-modal  [workflow]="modalWorkflow"
-     [isNew]="isNew" [processList]="processList"  (updated)="onUpdated($event)" >
-  </app-workflow-modal>
-   
-  </div>
-  <div class="modal-footer">
-    <button type="button" class="btn btn-secondary" (click)="c('Close click')">Close</button>
-  </div>
-  </ng-template>
-  
-  <ng-template #content2 let-c="close" let-d="dismiss">
-      <div class="modal-header">
-        <h6 class="modal-title">{{modalWorkflow.workflowName}}</h6>
-        <div class="row">
-            <div class="col-md-10">
-               
-           
-                <button type="button" class="close" aria-label="Close" (click)="d('Close click')">
-                    <span aria-hidden="true"><i class="fa fa-fw fa-close"></i></span>
-                </button>
-                <button type="button" class="close" aria-label="Close" (click)="onUpdatedDesign(nodes)">
-                        <span aria-hidden="true"><i class="fa fa-fw fa-save"></i></span>
-                    </button>
-            </div>
-            <div class="col-md-2">
+          </div>
+   </mdb-card-body>
 
+</mdb-card>
+             
+<mdb-card cascade="true" narrower="true" [ngClass]="{'z-depth-0': false }">
+
+          <!--Card image-->
+          <div class="view view-cascade gradient-card-header blue-gradient narrower py-2 mx-4 mb-3 d-flex justify-content-between align-items-center">
+  
+                  <div>
+                      <button type="button" class="btn btn-outline-white btn-rounded btn-sm px-2" (click)="open(content,null,true)" >
+                          <mdb-icon fas icon="plus" class="mt-0"></mdb-icon>
+                      </button>
+                      <!-- (click)="open(content,null,true)" -->
+                  </div>
+  
+                  <a href="" class="white-text mx-3">Workflow List</a>
+                  <div>
+                      </div>
+              
+  
+              </div>
+              <!--/Card image-->
+  
+  
+      <div class="px-4">
+  
+          <div class="table-wrapper">
+  
+  
+                 
+                  <ngx-datatable class="ngx-datatable bootstrap"
+                      #table
+                      [rows]="workflowList"
+                      
+                      [columnMode]="'force'"
+                      [headerHeight]="50"
+                      [footerHeight]="50"
+                      [rowHeight]="'auto'"
+                      [limit]="10"
+                      >
+                      <ngx-datatable-column [minWidth]="50" [maxWidth]="50" name="#">
+                          <ng-template let-rowIndex="rowIndex"  ngx-datatable-cell-template>
+                              {{rowIndex+1}}
+                          </ng-template>
+                         
+                      </ngx-datatable-column>
+                      <ngx-datatable-column prop="workflowName" name="Workflow Name" [minWidth]="200"  ></ngx-datatable-column>
+                      <ngx-datatable-column prop="workflowDesc" name="Desc" [minWidth]="100"  ></ngx-datatable-column>
+                      <ngx-datatable-column prop="process.processName" name="Process"  ></ngx-datatable-column>                  
+                   
+                      <ngx-datatable-column  [minWidth]="200" [maxWidth]="200" name="Actions"  >
+                          <ng-template #deleteBtn let-row="row"  ngx-datatable-cell-template>
+                                  <div>
+                                      
+  
+                                          <a [routerLink]="" (click)="open(content,row,false)" class="ml-0">
+                                              <mdb-icon fas icon="pencil-alt" class="mt-0"></mdb-icon>
+                                          </a>
+                                          <a [routerLink]="" (click)="delete(row)" class="ml-3">
+                                              <mdb-icon fas icon="trash-alt" class="mt-0"></mdb-icon>
+                                          </a>
+                                          <a [routerLink]="['/workflows/workflow-design',row.id]" title="design"  class="ml-3">
+                                                  <mdb-icon fas icon="paint-brush" class="mt-0"></mdb-icon>
+                                          </a>
+                                          <a [routerLink]="" title="publish" (click)="onPublishClick(row)" class="ml-3">
+                                              <mdb-icon fas icon="upload" class="mt-0" [class.published]="row.published"></mdb-icon>
+                                          </a>
+                                      </div>
+                            
+                          </ng-template>
+                      </ngx-datatable-column>
+                     
+                      
+                  </ngx-datatable>
+              
+              </div>
+          </div>
+        </mdb-card>
+    </div>
+  
+    <!-- <div mdbModal #workflowForm="mdb-modal" [config]="{ignoreBackdropClick: true}" class="modal fade" id="modalContactForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+    aria-hidden="true">
+      <div class="modal-dialog cascading-modal" role="document">
+          <div class="modal-content">
+              <div class="modal-header light-blue darken-3 white-text">
+                      <h4 class="title">
+                          <mdb-icon fas icon="pencil-alt"></mdb-icon> Workflow
+                      </h4>
+                      <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close" (click)="workflowForm.hide()">
+                      <span aria-hidden="true">×</span>
+                      </button>
+            </div>
+            
+              <div class="modal-body mb-0">
+                      <app-workflow-modal  [workflow]="modalWorkflow"
+                      [isNew]="isNew" [processList]="processList"  (updated)="onUpdated($event)" >
+                   </app-workflow-modal>
+              </div>
+          </div>
+      </div>
+    </div> -->
+  
+    <ng-template #content let-c="close" let-d="dismiss">
+   
+        <div class="modal-content">
+            <div class="modal-header light-blue darken-3 white-text">
+                    <h4 class="title">
+                        <mdb-icon fas icon="pencil-alt"></mdb-icon> Workflow
+                    </h4>
+                    <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close" (click)="d('Close click')">
+                    <span aria-hidden="true">×</span>
+                    </button>
+          </div>
+          
+            <div class="modal-body mb-0">
+                    <app-workflow-modal  [workflow]="modalWorkflow"
+                    [isNew]="isNew" [processList]="processList"  (updated)="onUpdated($event)" >
+                 </app-workflow-modal>
             </div>
         </div>
-      </div>
-      <div class="modal-body" >
-          
-        <app-workflow-design [workflow]="modalWorkflow" [nodes]="workflowNodeList" [links]="workflowLinkList"  [actionEventList]="actionEventList"  [workflowFormsList]="workflowFormsList"  
-       (nodeUpdated)="onNodeUpdated($event)" (linkUpdated)="onLinkUpdated($event)" [users]="users" [userGroups]="userGroups" [childWokflowList]="childWokflowList" >   </app-workflow-design>
-       
-      </div>
-      <!-- <div class="modal-footer">
-              
-              <button type="button" class="btn rounded-btn" (click)="onUpdatedDesign(nodes)"  >{{!isNew ? 'Update' : 'Save'}}</button>
-        </div> -->
-  </ng-template>
- 
+    <!-- </div> -->
+    
+    </ng-template>
+    
+    <!-- <ng-template #content2 let-c="close" let-d="dismiss">
+        <div class="modal-header">
+          <h6 class="modal-title">{{modalWorkflow.workflowName}}</h6>
+          <div class="row">
+              <div class="col-md-10">
+                 
+             
+                  <button type="button" class="close" aria-label="Close" (click)="d('Close click')">
+                      <span aria-hidden="true"><i class="fa fa-fw fa-close"></i></span>
+                  </button>
+                  <button type="button" class="close" aria-label="Close" (click)="onUpdatedDesign(nodes)">
+                          <span aria-hidden="true"><i class="fa fa-fw fa-save"></i></span>
+                      </button>
+              </div>
+              <div class="col-md-2">
+  
+              </div>
+          </div>
+        </div>
+        <div class="modal-body" >
+            
+          <app-workflow-design [workflow]="modalWorkflow" [nodes]="workflowNodeList" [links]="workflowLinkList"  [actionEventList]="actionEventList"  [workflowFormsList]="workflowFormsList"  
+         (nodeUpdated)="onNodeUpdated($event)" (linkUpdated)="onLinkUpdated($event)" [users]="users" [userGroups]="userGroups" [childWokflowList]="childWokflowList" >   </app-workflow-design>
+         
+        </div>
+      
+    </ng-template> -->
+   

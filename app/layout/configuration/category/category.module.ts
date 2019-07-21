@@ -7,13 +7,15 @@ import { CategoryComponent } from './category.component';
 import { CategoryModalComponent } from './category-modal/category-modal.component';
 import { CategoryRoutingModule } from './category-routing.module';
 import { PageHeaderModule,MsgViewModule } from '../../../shared';
+import { MDBBootstrapModulesPro } from 'ng-uikit-pro-standard';
 
 @NgModule({
   imports: [
     CommonModule,CategoryRoutingModule,FormsModule
     ,NgxDatatableModule
     ,PageHeaderModule
-   ,MsgViewModule
+   ,MsgViewModule,
+   MDBBootstrapModulesPro.forRoot()
   ],
   declarations: [CategoryComponent, CategoryModalComponent]
 })

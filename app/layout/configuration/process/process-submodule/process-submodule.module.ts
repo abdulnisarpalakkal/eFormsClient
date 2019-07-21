@@ -19,7 +19,7 @@ import {WorkflowModule} from './../../../workflow/workflow.module';
     CommonModule,
     ProcessSubmoduleRoutingModule,
     PageHeaderModule,
-    NgbModule.forRoot(),
+    NgbModule,
     FormModule,
     VirtualTableModule,
     WorkflowModule

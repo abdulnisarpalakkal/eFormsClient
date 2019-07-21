@@ -17,7 +17,7 @@ export class WorkflowTrackMasterComponent implements OnInit,OnDestroy {
 
   closeResult: string;
   modalReference: any;
-  @ViewChild('myTable') table: any;
+  @ViewChild('myTable', {static: false}) table: any;
   subscription: Subscription;
   constructor(private workflowService:WorkflowService,private modalService: NgbModal,private refreshService:RefreshService) { }
 

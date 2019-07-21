@@ -4,6 +4,7 @@ import { NgbModal, ModalDismissReasons, NgbTabset } from '@ng-bootstrap/ng-boots
 import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
 
 import {FormDesign} from '../../../model/form-design.model';
+import {FormComponent} from '../../../model/form-component.model';
 import { FormMaster } from '../../../model/form-master.model';
 import {VirtualTableFields} from '../../../model/virtual-table-fields.model';
 import {FormComponentEnum} from '../../../model/form-component.enum';
@@ -11,6 +12,11 @@ import { UserMsg } from '../../../model/user-msg.model';
 import { FormComponentRefValue } from '../../../model/form-component-ref-value.model';
 import { FormDesignDto } from '../../../model/form-design-dto.model';
 import { TableData } from '../../administration/user/table/table-data';
+import { TabsetComponent } from 'ng-uikit-pro-standard';
+import { ActivatedRoute } from '@angular/router';
+import { VirtualTableService, FormService } from '../../../shared';
+import { VirtualTableConstraintType } from '../../../model/virtual-table-constraints-type.model';
+import { VirtualTable } from '../../../model/virtual-table.model';
 
 @Component({
   selector: 'app-form-design-modal',
@@ -19,36 +25,34 @@ import { TableData } from '../../administration/user/table/table-data';
 })
 export class FormDesignModalComponent implements OnInit,AfterViewInit {
  
-  @Input() form: FormMaster;
-  @Input() formDesignDto: FormDesignDto;
-  @Input() virtualTableFieldsList: VirtualTableFields[]=[];
-  @Input() refTableMap:any;
-  @Output() updated = new EventEmitter<FormMaster>();
+  form: FormMaster;
+  formDesignDto: FormDesignDto;
+  virtualTableFieldsList: VirtualTableFields[]=[];
+  refTableMap:any;
+   updated = new EventEmitter<FormMaster>();
   
-  @Input() msgOb:UserMsg=new UserMsg();
-  // formDesignList:FormDesign[]=[];
   formDesign:FormDesign;
   isNew:boolean; 
-  showMenu: string = '';
-  pages:boolean[]=[];
-  listStyle: any;
-  @ViewChild('tabs') 
-  private tabs:NgbTabset;
-  constructor(private modalService: NgbModal) { }
+  formId:number;
+  
+  
+  @ViewChild('staticTabs', {static: false}) staticTabs: TabsetComponent;
+  constructor(private route: ActivatedRoute,private virtualTableService: VirtualTableService,private formService: FormService,private modalService: NgbModal) { }
 
   ngOnInit() {
-    this.pages[0]=true;
-    this.listStyle = {
-      width:'100%', //width of the list defaults to 300
-      height: '100%', //height of the list defaults to 250
-    }
-   
+  
+    this.route.paramMap.subscribe(params=>{
+      this.formId=+params.get("id");//+using to convert string to number
+      if(this.formId){
+        this.getFormDataUsingId(this.formId);
+      }
+    });
   }
   ngAfterViewInit(): void {
     // this.tabs.select("rules");
   }
   toggleExpandClass(index: number) {
-        this.pages[index]=!this.pages[index];
+        // this.pages[index]=!this.pages[index];
        
     }
     onUpdate(virtualTableForm:NgForm) {
@@ -62,14 +66,16 @@ export class FormDesignModalComponent implements OnInit,AfterViewInit {
         {
           this.virtualTableFieldsList.forEach((field,index) => {
             const component:FormDesign=new FormDesign();
+            component.formComponent=new FormComponent();
+
             component.componentName=field.fieldName;
-            component.componentLabel=field.fieldName;
+            component.formComponent.componentLabel=field.fieldName;
             component.alignOrder=index+1;
             component.formMaster=this.form;
-            component.virtualTableField=field;
-            if(this.refTableMap.has(component.virtualTableField.fieldName) && !component.componentRefValues){
-              component.componentRefValues=[];
-              component.componentRefValues.push(new FormComponentRefValue());
+            component.formComponent.virtualTableField=field;
+            if(this.refTableMap.has(component.formComponent.virtualTableField.fieldName) && !component.formComponent.componentRefValues){
+              component.formComponent.componentRefValues=[];
+              component.formComponent.componentRefValues.push(new FormComponentRefValue());
               component.componentType=FormComponentEnum.COMPO;
             }
             else{
@@ -82,6 +88,7 @@ export class FormDesignModalComponent implements OnInit,AfterViewInit {
       }
       createNewComponent(){
         const component:FormDesign=new FormDesign();
+        component.formComponent=new FormComponent();
             // component.componentName=field.fieldName;
             // component.componentLabel=field.fieldName;
             component.componentType=FormComponentEnum.TEXT;
@@ -97,9 +104,10 @@ export class FormDesignModalComponent implements OnInit,AfterViewInit {
         }
       }
       editComponent(formDesign:FormDesign){
-        this.tabs.select("component");
+        this.staticTabs.setActiveTab(2);
         this.formDesign=formDesign;
-        this.formDesign.virtualTableField=this.virtualTableFieldsList.find(x=>x.fieldName==this.formDesign.virtualTableField.fieldName);
+        this.formDesign.formComponent.virtualTableField=this.virtualTableFieldsList
+        .find(x=>x.fieldName==this.formDesign.formComponent.virtualTableField.fieldName);
        
 
       }
@@ -116,4 +124,93 @@ export class FormDesignModalComponent implements OnInit,AfterViewInit {
           FormDesign.alignOrder=index+1;
         });
       }
+
+
+    /**
+     * Service calls
+     */
+    public getFormDataUsingId (formId) {
+      this.formService.getOne(formId)
+      .subscribe(
+            data => {
+                this.form=data;   
+                this.loadDataForDesignPage();
+             });
+    } 
+  
+    public loadDataForDesignPage(){
+      this.getVirtualTableFieldList(this.form.virtualTableMaster);
+      this.getFormDesignList(this.form.id);
+      
+    }
+   
+    public getRefTableFieldNamesList(fieldName:string,tableId:number) {
+      this.virtualTableService.getTableFieldNamesByTable(tableId)
+      .subscribe(
+            data => {
+                this.refTableMap.set(fieldName,data); 
+            },
+            error=>{
+            }
+      );
+    }
+    public getVirtualTableFieldList(table:VirtualTable) {
+      this.virtualTableService.getTableFieldsByTable(table.id)
+      .subscribe(
+            data => {
+              this.virtualTableFieldsList=data; 
+              this.refTableMap=new Map();
+              this.virtualTableFieldsList.forEach(field=>{
+                if(field.fieldConstraintList){ //checking the field is having constraint
+                  field.fieldConstraintList.forEach(constraint=>{
+                    if(constraint.constraintType==VirtualTableConstraintType.FOREIGN_KEY) //checking whether constraint is foreign contraint or not
+                        this.getRefTableFieldNamesList(field.fieldName,constraint.foreignConstraint.virtualTableField.virtualTableMaster.id); //get all field names of referenced table
+                  });
+                }
+                
+              })  
+              
+            },
+            error=>{
+            }
+      );
+    }
+    public getFormDesignList (formId) {
+      this.formService.getAllFormDesignByFormId(formId)
+      .subscribe(
+            data => {
+    
+              this.formDesignDto=data;   
+              if(this.formDesignDto!=null && this.formDesignDto.formDesigns!=null){
+                this.formDesignDto.formDesigns=this.formDesignDto.formDesigns.sort((design1,design2):number=>{
+                  return design1.alignOrder<design2.alignOrder?-1:1;
+                });
+              }
+            },
+            error=>{
+            }
+      );
+    }
+    onUpdatedDesign() {
+      this.formService.updateDesign(this.formDesignDto)
+        .subscribe(
+            data => {
+             
+            },
+            error=>{
+            }
+        );
+    }
+    /**
+     * End service calls
+     */
+    //#region Modal 1
+openPreview(prevContent) {
+  
+  const modalReference=this.modalService.open(prevContent,{ size: 'lg', backdrop:"static" });
+  
+}
+
+
+//#endregion Modal1
 }

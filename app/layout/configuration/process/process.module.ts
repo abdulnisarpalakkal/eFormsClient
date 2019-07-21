@@ -10,7 +10,7 @@ import { ProcessRoutingModule } from './process-routing.module';
 import { PageHeaderModule,MsgViewModule } from '../../../shared';
 import {VirtualTableModule} from './../virtual-table/virtual-table.module';
 import { ProcessDetailsComponent } from './process-details/process-details.component';
-
+import { MDBBootstrapModulesPro } from 'ng-uikit-pro-standard';
 
 
 
@@ -19,10 +19,10 @@ import { ProcessDetailsComponent } from './process-details/process-details.compo
     CommonModule,ProcessRoutingModule,FormsModule
     ,NgxDatatableModule
     ,PageHeaderModule
-    ,NgbModule.forRoot()
+    ,NgbModule
     ,MsgViewModule
     ,VirtualTableModule
-   
+   ,MDBBootstrapModulesPro.forRoot()
    
   ],
   declarations: [ProcessComponent, ProcessModalComponent,ProcessDetailsComponent]

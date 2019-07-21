@@ -1,3 +1,4 @@
+<!-- {{rowRecords|json}} -->
 <div>
   
   <ngx-datatable class="ngx-datatable bootstrap"
@@ -19,7 +20,7 @@
   </ngx-datatable-column>
   <ngx-datatable-column  [minWidth]="50" [maxWidth]="70" name="Del." >
     <ng-template #deleteBtn let-row="row" let-rowIndex="rowIndex"  ngx-datatable-cell-template>
-        <a [routerLink]="" (click)="delete(row)"><i class="fa fa-fw fa-remove"></i></a>
+        <a [routerLink]="" (click)="delete(row)"><mdb-icon fas icon="trash-alt" class="mt-0"></mdb-icon></a>
     </ng-template>
   </ngx-datatable-column>
 </ngx-datatable>

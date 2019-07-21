@@ -24,7 +24,7 @@ export class UserComponent implements OnInit {
     modalReference2: any;
     modalUser: User;
     signupForm;
-    @ViewChild(DatatableComponent) table: DatatableComponent;
+    @ViewChild(DatatableComponent, {static: false}) table: DatatableComponent;
    
     
 

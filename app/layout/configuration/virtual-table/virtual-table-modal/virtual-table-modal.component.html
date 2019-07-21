@@ -4,26 +4,29 @@
            
       <div class="form-content ">
        
-          <div class="form-group">
-              <label class="form-control-label" for="visitorName">Table Name</label>
-              <input type="text" class="form-control input-underline input-lg " id="tableName"  [(ngModel)]="virtualTableFieldsConstraintDto.virtualTable.tableName" name="tableName">
+          <div class="md-form form-sm">
+              <input mdbInput type="text" class="form-control" id="tableName"  [(ngModel)]="virtualTableFieldsConstraintDto.virtualTable.tableName" name="tableName">
+              <label  for="tableName">Table Name</label>
               
           </div>
-          <div class="form-group">
-              <label class="form-control-label" for="tableDesc">Desc</label>
-              <input type="text" class="form-control input-underline input-lg " id="tableDesc"  [(ngModel)]="virtualTableFieldsConstraintDto.virtualTable.tableDesc" name="tableDesc">
+          <div class="md-form form-sm">
+              <input mdbInput type="text" class="form-control" id="tableDesc"  [(ngModel)]="virtualTableFieldsConstraintDto.virtualTable.tableDesc" name="tableDesc">
+              <label  for="tableDesc">Desc</label>
               
           </div>
-          <div class=" form-check form-check-inline mb-3">
+          <mdb-checkbox   [(ngModel)]="virtualTableFieldsConstraintDto.virtualTable.autoIncr" 
+          name="autoIncr" >Auto Incr</mdb-checkbox>
+          <!-- <div class=" form-check form-check-inline mb-3">
             <label class="form-check-label">
                     <input type="checkbox" class="form-check-input" id="autoIncr"  [(ngModel)]="virtualTableFieldsConstraintDto.virtualTable.autoIncr" name="autoIncr">Auto Incr
-            </label>
            
-        </div>
+             </label>
+           
+        </div> -->
           <div class="form-group has-danger">
             <label class="form-control-label" for="process">Process</label>
            
-            <select [(ngModel)]="_processId" id="process" name="process" class="form-control input-underline input-lg " (change)="OnChangeProcess($event)" >
+            <select [(ngModel)]="_processId" id="process" name="process" class="browser-default custom-select border-bottom " (change)="OnChangeProcess($event)" >
               <option value="" disabled selected>>select a process</option>
               <option *ngFor="let item of processList" [value]="item.id">{{item.processName}}</option>
             </select>

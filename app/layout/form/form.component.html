@@ -1,27 +1,61 @@
 <div [@routerTransition]>
 <app-page-header *ngIf="!processId" [heading]="'Forms'" [icon]="'fa-file-o'"></app-page-header>
-<div class="row"> 
-  <div class="col col-xl-2 ">
-          
-      <div class="card mb-2 ">
-          <button type="button" class="btn btn-default" (click)="open(content,null,true)"  >New <i class="fa fa-w fa-folder-o"></i></button>
-      </div>
-  </div>
-</div>
-<div class="row">
-      <div class="col col-xl-12 col-lg-12">
-          <div class="card mb-3">
-              <div class="card-header">
-                  Forms List
-              </div>
-          <div class="card-body table-responsive">
-                  <input
-                  type='text' [(ngModel)]="filter_Form.formName"
-                  style='padding:5px;margin:15px auto;'
-                  placeholder='Filter form name...'
-                  (keyup)='updateFilterEvent($event)'
-              />
+<mdb-card class="mb-5">
+
+    <mdb-card-body  class=" py-1"><!--Grid row-->
+
+  
+    <!--Grid row-->
+    <div class="row">
+
+               <!--Grid column-->
+        <div class="col-xl-3 col-lg-6 col-md-6">
+
+            <form class="form-inline inputs ml-2">
+                <!--Right-->
+                <div class="md-form  input-group">
+                        
+                    <input class="form-control" type="text" [(ngModel)]="filter_Form.formName" 
+                         name="filterFormName" id="filterFormName" (keyup)='updateFilterEvent($event)' mdbInputDirective>
+                        <label for="filterFormName">Form name</label>
+                </div>
               
+            </form>
+
+        </div>
+      
+    </div>
+  <!--Grid row--></mdb-card-body>
+
+</mdb-card>
+
+
+             
+<mdb-card cascade="true" narrower="true" [ngClass]="{'z-depth-0': false }">
+
+  
+                  <!--Card image-->
+                  <div class="view view-cascade gradient-card-header blue-gradient narrower py-2 mx-4 mb-3 d-flex justify-content-between align-items-center">
+          
+                          <div>
+                              <button type="button" class="btn btn-outline-white btn-rounded btn-sm px-2" (click)="open(content,null,true)" >
+                                  <mdb-icon fas icon="plus" class="mt-0"></mdb-icon>
+                              </button>
+                              <!-- (click)="open(content,null,true)" -->
+                          </div>
+          
+                          <a href="" class="white-text mx-3">Form List</a>
+                          <div>
+                              </div>
+                      
+          
+                      </div>
+                      <!--/Card image-->
+          
+          
+              <div class="px-4">
+          
+                  <div class="table-wrapper">        
              
               <ngx-datatable class="ngx-datatable bootstrap"
                   #table
@@ -41,89 +75,66 @@
                   </ngx-datatable-column>
                   <ngx-datatable-column prop="formName" name="Form Name" [minWidth]="200"  ></ngx-datatable-column>
                   <ngx-datatable-column prop="formDesc" name="Desc" [minWidth]="100"  ></ngx-datatable-column>
-                  <ngx-datatable-column prop="virtualTableMaster.tableName" name="Table"  ></ngx-datatable-column>                  
-                  <ngx-datatable-column  [minWidth]="50" [maxWidth]="70" name="Edit">
-                      <ng-template  let-row="row"  ngx-datatable-cell-template>
-                          <a [routerLink]="" (click)="open(content,row,false)"><i class="fa fa-fw fa-edit"></i></a>
-                      </ng-template>
-                     
-                  </ngx-datatable-column>
-                  <ngx-datatable-column  [minWidth]="50" [maxWidth]="70" name="Del." >
-                      <ng-template #deleteBtn let-row="row"  ngx-datatable-cell-template>
-                          <a [routerLink]="" (click)="delete(row)"><i class="fa fa-fw fa-remove"></i></a>
-                      </ng-template>
-                  </ngx-datatable-column>
-                  <ngx-datatable-column  [minWidth]="50" [maxWidth]="70" name="Design" >
-                    <ng-template #deleteBtn let-row="row"  ngx-datatable-cell-template>
-                        <a [routerLink]="" title="design" (click)="designClick(content2,row)"><i class="fa fa-fw fa-paint-brush"></i></a>
-                    </ng-template>
-                  </ngx-datatable-column>
-                  <!-- <ngx-datatable-column  [minWidth]="50" [maxWidth]="70" name="publish" >
-                    <ng-template #deleteBtn let-row="row"  ngx-datatable-cell-template>
-                        <a [routerLink]="" title="publish" (click)="publishClick(row)"><i class="fa fa-fw fa-upload"></i></a>
-                    </ng-template>
-                   </ngx-datatable-column> -->
+                  <ngx-datatable-column prop="virtualTableMaster.tableName" name="Table"  ></ngx-datatable-column>    
                   
+                  <ngx-datatable-column  [minWidth]="200" [maxWidth]="200" name="Actions"  >
+                      <ng-template #deleteBtn let-row="row"  ngx-datatable-cell-template>
+                              <div>
+                                  
+
+                                      <a [routerLink]="" (click)="open(content,row,false)" class="ml-0">
+                                          <mdb-icon fas icon="pencil-alt" class="mt-0"></mdb-icon>
+                                      </a>
+                                      <a [routerLink]="" (click)="delete(row)" class="ml-3">
+                                          <mdb-icon fas icon="trash-alt" class="mt-0"></mdb-icon>
+                                      </a>
+                                      <a [routerLink]="['/forms/form-design',row.id]" title="design"  class="ml-3">
+                                              <mdb-icon fas icon="paint-brush" class="mt-0"></mdb-icon>
+                                      </a>
+                                     
+                                </div>
+                        
+                      </ng-template>
+                  </ngx-datatable-column>
+
+
               </ngx-datatable>
           </div>
       </div>
-  </div>
+  
+</mdb-card>
 </div>
-
 
 <ng-template #content let-c="close" let-d="dismiss">
-<div class="modal-header">
-  <h4 class="modal-title">Form</h4>
-  <button type="button" class="close" aria-label="Close" (click)="d('Close click')">
-      <span aria-hidden="true">&times;</span>
-  </button>
-</div>
-<div class="modal-body">
-  <app-form-modal  [form]="modalform"   [isNew]="isNew" 
-  [virtualTableList]="virtualTableList" [userRoles]="userRoles"  (updated)="onUpdated($event)" >
-</app-form-modal>
- 
-</div>
-<div class="modal-footer">
-  <button type="button" class="btn btn-secondary" (click)="c('Close click')">Close</button>
-</div>
+
+    <div class="modal-content">
+        <div class="modal-header light-blue darken-3 white-text">
+                <h4 class="title">
+                    <mdb-icon fas icon="pencil-alt"></mdb-icon> Form
+                </h4>
+                <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close" (click)="d('Close click')">
+                <span aria-hidden="true">×</span>
+                </button>
+      </div>
+      
+        <div class="modal-body mb-0">
+            <app-form-modal  [form]="modalform"   [isNew]="isNew" 
+            [virtualTableList]="virtualTableList" [userRoles]="userRoles"  (updated)="onUpdated($event)" >
+          </app-form-modal>
+        </div>
+    </div>
+
+
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" (click)="c('Close click')">Close</button>
+    </div>
 </ng-template>
 
-<ng-template #content2 let-c="close" let-d="dismiss">
-    <div class="modal-header" style="display:block">
-      
-      <div class="row">
-        <!-- <div class="col-xl-10"> -->
-          <div class="col-xl-6">
-            <h6 class="modal-title">{{modalform.formName}}</h6>
-          </div>
-          <div class="col-xl-6 ">
-            <button type="button" title="close" class="close" aria-label="Close" (click)="d('Close click')">
-                <span aria-hidden="true"><i class="fa fa-fw fa-close"></i></span>
-            </button>
-            <button type="button" title="Save" class="close" aria-label="Save" (click)="onUpdatedDesign()">
-              <span aria-hidden="true"><i class="fa fa-fw fa-save"></i></span>
-            </button>
-            <button type="button" title="Preview" class="close" aria-label="Preview" (click)="openPreview(content3,content2)">
-              <span aria-hidden="true"><i class="fa fa-fw fa-eye"></i></span>
-            </button>
-          </div>
-        </div>
-      
-    </div>
-    <div class="modal-body" >
+
         
-      <app-form-design-modal [form]="modalform" [virtualTableFieldsList]="virtualTableFieldsList" [formDesignDto]="formDesignDto"  [refTableMap]="refTableMap"
-          >   </app-form-design-modal>
-     
-    </div>
-    <!-- <div class="modal-footer">
-            <button type="button" class="btn rounded-btn" (click)="openPreview(content3,content2)"  >Preview</button>
-            <button type="button" class="btn rounded-btn" (click)="onUpdatedDesign()"  >{{!isNew ? 'Update' : 'Save'}}</button>
-      </div> -->
-</ng-template>
-<ng-template #content3 let-c="close" let-d="dismiss">
-    <div class="modal-header">
+
+
+    <!-- <div class="modal-header">
       <h6 class="modal-title">{{modalform.formName}}</h6>
       <button type="button" class="close" aria-label="Close" (click)="d('Close click')">
           <span aria-hidden="true">&times;</span>
@@ -136,6 +147,4 @@
     </div>
     <div class="modal-footer">
             <button type="button" class="btn rounded-btn"  (click)="c('Close click')">Close</button>
-        <!-- <button type="button" class="btn btn-secondary" (click)="c('Close click')">Close</button> -->
-      </div>
-</ng-template>
+      </div> -->

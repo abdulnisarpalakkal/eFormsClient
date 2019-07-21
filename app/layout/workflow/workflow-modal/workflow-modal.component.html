@@ -2,34 +2,54 @@
            
       <div class="form-content ">
        
+         
+          <div class="md-form form-sm">
+              <!-- <mdb-icon far icon="envelope"></mdb-icon> -->
+              <input mdbInputDirective type="text" id="workflowName"  [(ngModel)]="workflow.workflowName" name="workflowName" class="form-control"  >
+              <label for="workflowName">Workflow Name</label>
+            </div>
+            <div class="md-form form-sm">
+                <!-- <mdb-icon far icon="envelope"></mdb-icon> -->
+                <input mdbInputDirective type="text" id="workflowDesc"  [(ngModel)]="workflow.workflowDesc" name="workflowDesc" class="form-control"  >
+                <label for="workflowDesc">Desc</label>
+              </div>
+         
+
+            <div class="form-group">
+                <input type="checkbox" id="child"  [(ngModel)]="workflow.child" name="child" class=" form-control form-check-input">
+                <label for="child" class="form-check-label">Child</label>
+              </div>
+              <!-- <div class="md-form form-sm">
+                <select class="browser-default custom-select">
+                    <option selected>Open this select menu</option>
+                    <option value="1">One</option>
+                    <option value="2">Two</option>
+                    <option value="3">Three</option>
+                  </select>
+              </div> -->
+              <!-- {{processList|json}} -->
+             <!--  <div class="md-form form-sm">
+                  <mdb-select [options]="processList"  placeholder="select process" 
+                  [(ngModel)]="_processId" id="process" name="process"></mdb-select>
+                  <label>Process</label>
+
+                  
+              </div> -->
           <div class="form-group">
-              <label class="form-control-label" for="workflowName">Workflow Name</label>
-              <input type="text" class="form-control input-underline input-lg " id="workflowName"  [(ngModel)]="workflow.workflowName" name="workflowName">
-              
-          </div>
-          <div class="form-group">
-              <label class="form-control-label" for="workflowDesc">Desc</label>
-              <input type="text" class="form-control input-underline input-lg " id="workflowDesc"  [(ngModel)]="workflow.workflowDesc" name="workflowDesc">
-              
-          </div>
-          <div class="form-check form-check-inline mb-3">
-            <label class="form-check-label">
-                    <input type="checkbox" class="form-check-input" id="child"  [(ngModel)]="workflow.child" name="child">Child
-            </label>
-          </div>
-          <div class="form-group has-danger">
               <label class="form-control-label" for="process">Process</label>
             
-              <select [(ngModel)]="_processId" id="process" name="process" class="form-control input-underline input-lg " >
+              <select [(ngModel)]="_processId" id="process" name="process" class="browser-default custom-select border-bottom" >
                 <option value="" disabled selected>>select a process</option>
                 <option *ngFor="let item of processList" [value]="item.id">{{item.processName}}</option>
               </select>
           </div>
-          
+          <div class="text-center mt-1-half">
+            <button type="submit" class="btn btn-info mb-2 waves-light" mdbWavesEffect  [disabled]="!workflowForm.form.valid">{{!isNew ? 'Update' : 'Save'}}
+              <!-- <mdb-icon far icon="paper-plane" class="ml-1"></mdb-icon> -->
+            </button>
+          </div>
          
       </div>
       
-     
-      <button type="submit" class="btn rounded-btn" [disabled]="!workflowForm.form.valid">{{!isNew ? 'Update' : 'Save'}}</button>
      
   </form>
