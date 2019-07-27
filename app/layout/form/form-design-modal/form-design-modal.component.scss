@@ -1,10 +1,13 @@
 .main-head{
+    // position: relative;
+    // margin-left: 118px;
+    // margin-right: 183px;
+    // background-color: #37474f;
+    // color:#fff !important; 
+    // border: 1px solid;
+
     position: relative;
-    margin-left: 118px;
-    margin-right: 183px;
-    background-color: #37474f;
-    color:#fff !important; 
-    border: 1px solid;
+    color:rgb(75, 72, 72) !important; 
 }
 .action-icon{
     color:#fff !important; 
@@ -12,7 +15,7 @@
 .main-container {
     margin-top: 0px;
     margin-left: 235px;
-    margin-right: 305px;
+    // margin-right: 305px;
     // margin-bottom: 10px;
     padding: 5px;
     -ms-overflow-x: hidden;

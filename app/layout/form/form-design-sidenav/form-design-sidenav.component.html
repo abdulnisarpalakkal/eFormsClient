@@ -7,7 +7,8 @@
    
 <!-- <div class="design"> -->
     <links class="side-nav  mt-5">
-      
+        <p class="h8 m-3">{{designform.formName}}</p>
+     
      
       <!-- Side navigation links -->
       <li>
@@ -50,7 +51,7 @@
                                     <mdb-item-body>
                                             <ul>
                                                     <li *ngFor="let virtualTableField of virtualTableFieldsList; let i = index">
-                                                            <a routerLink="pages/register" class="waves-effect" mdbWavesEffect>{{virtualTableField.fieldName}}</a>
+                                                            <a  class="waves-effect" mdbWavesEffect>{{virtualTableField.fieldName}}</a>
                                                     </li>
                                                    
                                             </ul>

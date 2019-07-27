@@ -3,7 +3,7 @@
 
 <!-- <div class="form-group"> -->
 <label *ngIf="formDesign.componentType==imgComponent || formDesign.componentType==fileUploadComponent 
-|| formDesign.componentType==labelComponent || formDesign.componentType==radioComponent" class="form-control-label" for="{{formDesign.componentName}}">{{formDesign.formComponent.componentLabel}}</label>
+|| formDesign.componentType==labelComponent || formDesign.componentType==radioComponent || formDesign.componentType==selectComponent" class="form-control-label" for="{{formDesign.componentName}}">{{formDesign.formComponent.componentLabel}}</label>
 <div *ngIf="formDesign.componentType==labelComponent else select_content" class="d-flex p-1">
     {{formDesign.formComponent.componentValue}}
 </div>
@@ -64,7 +64,7 @@
     </div>
 </ng-template>
   <ng-template #other_content>
-    <div class="md-form">
+    <div class="md-form" [class.design-form]= "!isFormForExecution">
       <input mdbInput  [disabled]="isDisableComponent"  type="{{formDesign.componentType}}" [(ngModel)]="formDesign.formComponent.componentValue" name="{{formDesign.componentName}}" class="form-control"  >
       <label  for="{{formDesign.componentName}}">{{formDesign.formComponent.componentLabel}}</label>
     </div>

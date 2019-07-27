@@ -1,0 +1,32 @@
+<!-- <div class="" role="document"> -->
+<div  class="modal-content" >
+        <div class="modal-header">
+          <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+            <span aria-hidden="true">×</span>
+          </button>
+          <h4 class="modal-title w-100" id="myModalLabel">Next node</h4>
+        </div>
+        <div class="modal-body">
+     
+              <div class="form-check form-check-inline" *ngFor="let nodeType of nextNodeTypes; let i=index">
+                  <input type="radio" class="form-check-input" id="nextNodeType{{i}}" name="nextNodeTypeName"
+                   [(ngModel)]="nextNodeTypeModel" value="{{nodeType}}" (change)="OnNodeTypeChanged()" mdbInput>
+                  <label class="form-check-label" for="nextNodeType{{i}}">{{nodeType}}</label>
+              </div>
+                
+              <app-workflow-node-properties-dir [node]="childNode" [formList]="formList" 
+[childWokflowList]="childWokflowList" [actionEventList]="actionEventList" [users]="users" 
+[userGroups]="userGroups" ></app-workflow-node-properties-dir>
+                <!-- <app-worflow-design-form-node [formNode]="childNode" [formList]="formList" 
+                [childWokflowList]="childWokflowList" [actionEventList]="actionEventList"  
+                [users]="users" [userGroups]="userGroups" [totalActionNodes]="totalActionNodes"></app-worflow-design-form-node> -->
+        </div>
+        <div class="modal-footer">
+          <button type="button" mdbBtn color="secondary" class="waves-light" aria-label="Close" (click)="modalRef.hide()" mdbWavesEffect>Close</button>
+          <button type="button" mdbBtn color="primary" class="relative waves-light" mdbWavesEffect (click)="appendNodes()">Save!</button>
+        </div>
+      </div>
+
+    <!-- </div> -->
+
+

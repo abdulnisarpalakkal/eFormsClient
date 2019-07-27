@@ -35,17 +35,20 @@ export class VirtualTableConstraintsComponent implements OnInit {
     this.foreignKeyConstraints[this.foreignKeyConstraints.length]=virtualTableConstraints;
   }
   removeForeignKey(fkConstraint:VirtualTableConstraints){
-    const index = this.foreignKeyConstraints.indexOf(fkConstraint, 0);
-    if (index > -1) {
-      this.foreignKeyConstraints.splice(index, 1);
-    }
+    fkConstraint.deleted=!fkConstraint.deleted;
+    // const index = this.foreignKeyConstraints.indexOf(fkConstraint, 0);
+    // if (index > -1) {
+    //   this.foreignKeyConstraints.splice(index, 1);
+    // }
   }
   updateFieldName(constraint:VirtualTableConstraints,field:string): void{
     constraint.virtualTableField = this.virtualTableFieldsConstraintDto.virtualTableFields.find(f=>f.fieldName==field);
     
   }
   updateRefConstraintField(constraint:VirtualTableConstraints,refConstraintField:string): void{
-    constraint.foreignConstraint =JSON.parse(JSON.stringify( this.pkeyRefConstraints.find(f=>f.virtualTableField.fieldName==refConstraintField) ));
+    constraint.foreignConstraint 
+    =JSON.parse(JSON.stringify( this.pkeyRefConstraints.find(f=>f.virtualTableField.fieldName==refConstraintField 
+      && f.virtualTableField.virtualTableMaster.tableName==constraint.foreignConstraint.virtualTableField.virtualTableMaster.tableName ) ));
     
   }
   onTableChanged(constraint:VirtualTableConstraints,tableName:string): void{

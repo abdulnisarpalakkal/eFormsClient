@@ -1,6 +1,6 @@
 <div  class="fluid  mt-5">
   
-  <app-workflow-design-sidenav (openNodePopEmit)="open($event)" (openLinkPopEmit)="openLinkPop($event)"></app-workflow-design-sidenav>
+  <app-workflow-design-sidenav [workflowName]="workflow.workflowName" (openNodePopEmit)="open($event)" (openLinkPopEmit)="openLinkPop($event)"></app-workflow-design-sidenav>
 
 <section class="main-container" >
  <!-- {{nodes|json}} -->
@@ -13,7 +13,7 @@
       <div class="row justify-content-between">
           <div class="col-4">
               <!-- <h5 > <mdb-badge class="px-2" color="black">{{workflow.workflowName}}</mdb-badge></h5> -->
-              <p class="h6">{{workflow.workflowName}}</p>
+              <!-- <p class="h8">{{workflow.workflowName}}</p> -->
           </div>
           <div class="col-1">
               <mdb-badge color="cyan">
@@ -49,15 +49,14 @@
       [view]="view"
       
       [enableZoom]="enableZoom"
-      [autoCenter]="autoCenter"
-      [legend]="showLegend"
+     
       [links]="links"
       (legendLabelClick)="onLegendLabelClick($event)"
       [nodes]="nodes"
       [scheme]="colorScheme"
       [curve]="curve"
       [orientation]="'TB'"
-      
+      [center$]="center$"
       (select)="select($event)">
     
       <ng-template #defsTemplate>
@@ -71,18 +70,20 @@
           </svg:g>
         </ng-template> -->
       <ng-template #nodeTemplate let-node >
-         
+         <!-- <div style="width: 200px;height: 200px; background-color: red" (click)="nodeClicked(node)">
+            {{node.label}}
+         </div> -->
             <svg:g class="node"
               ngx-tooltip
               [tooltipPlacement]="'top'"
               [tooltipType]="'tooltip'"
               [tooltipTitle]="node.label"
               (click)="nodeClicked(node)"
+              (dblclick)="OnDoubleClickNode(node)"
              >
               
-                <svg:rect  [attr.width]="node.width" [attr.height]="node.height" [attr.fill]="node.color" />
-                <svg:text alignment-baseline="central" [attr.x]="10" [attr.y]="node.height / 2">{{node.label}}</svg:text>
-                <!-- <svg:text>{{link|json}}</svg:text> -->
+                <svg:rect  rx="20" ry="20" [attr.width]="node.width" [attr.height]="node.height" [attr.fill]="node.color" class="custom-node" />
+                <svg:text alignment-baseline="central" [attr.x]="10" [attr.y]="(node.height / 2)+5">{{node.label}}</svg:text>
               
             </svg:g>
        
@@ -94,14 +95,14 @@
                   
               </svg:path>
               <svg:text class="edge-label" text-anchor="middle">
-                <textPath class="text-path" [attr.href]="'#' + link.id" [style.dominant-baseline]="link.dominantBaseline" startOffset="50%">
+                <textPath class="text-path p-3" [attr.href]="'#' + link.id" [style.dominant-baseline]="link.dominantBaseline" startOffset="50%">
                   {{link.label}}
                   
                 </textPath>
               </svg:text>
               
             </svg:g>
-            
+           
       </ng-template>
     
     </ngx-graph>

@@ -52,6 +52,7 @@ submitted = false;
     
     this.workflowService.runWorkflow(this.workflowStage)
     .subscribe(data=>{
+          this.getAllOpenWorkflow();
           this.workflowStage=data;
           this.form=this.workflowStage.formNode.formMaster;
           this.formDesignList=this.form.formDesignList;

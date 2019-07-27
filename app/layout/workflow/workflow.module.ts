@@ -18,6 +18,9 @@ import { WorkflowTrackComponent } from './workflow-track/workflow-track.componen
 import { WorkflowTrackMasterComponent } from './workflow-track-master/workflow-track-master.component';
 import { MDBBootstrapModulesPro } from 'ng-uikit-pro-standard';
 import { WorkflowDesignSidenavComponent } from './workflow-design-sidenav/workflow-design-sidenav.component';
+import { WorkflowDisignModalComponent } from './workflow-design/workflow-disign-modal/workflow-disign-modal.component';
+import { WorflowDesignFormNodeComponent } from './workflow-components/worflow-design-form-node/worflow-design-form-node.component';
+import { WorkflowUtilityService } from './workflow-services/workflow-utility-service';
 
 @NgModule({
   imports: [
@@ -35,8 +38,9 @@ import { WorkflowDesignSidenavComponent } from './workflow-design-sidenav/workfl
   ],
   declarations: [WorkflowComponent, WorkflowModalComponent, WorkflowDesignComponent, WorkflowNodePropertiesDirComponent
     , WorkflowLinkPropertiesDirComponent, ActionEventPropertiesComponent,NgbdModalConfirm,WorkflowTrackComponent
-    , WorkflowTrackMasterComponent, WorkflowDesignSidenavComponent]
-  ,entryComponents: [NgbdModalConfirm],
+    , WorkflowTrackMasterComponent, WorkflowDesignSidenavComponent,  WorflowDesignFormNodeComponent,WorkflowDisignModalComponent]
+  ,entryComponents: [NgbdModalConfirm,WorkflowDisignModalComponent],
+  providers:[WorkflowUtilityService],
   exports:[WorkflowComponent,WorkflowTrackComponent,WorkflowTrackMasterComponent]
 })
 export class WorkflowModule { }

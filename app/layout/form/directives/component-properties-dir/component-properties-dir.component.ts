@@ -42,7 +42,9 @@ export class ComponentPropertiesDirComponent implements OnInit {
     this.formDesign.formComponent.virtualTableField=field; 
     this.formDesign.componentName=field.fieldName; 
     this.formDesign.formComponent.componentLabel=field.fieldName; 
-    if(this.refTableMap.has(this.formDesign.formComponent.virtualTableField.fieldName) && !this.formDesign.formComponent.componentRefValues){
+    if(this.refTableMap.has(this.formDesign.formComponent.virtualTableField.fieldName)
+    && (!this.formDesign.formComponent.componentRefValues 
+      || this.formDesign.formComponent.componentRefValues.length==0 )){
       this.formDesign.formComponent.componentRefValues=[];
       this.formDesign.formComponent.componentRefValues.push(new FormComponentRefValue());
       this.formDesign.componentType=FormComponentEnum.COMPO; 

@@ -5,7 +5,7 @@
 
 export const environment = {
   production: false,
-  // baseUrl: 'http://localhost:8082/'
-  baseUrl: 'http://68.183.18.88:8080/eFormsAPI/'
+  baseUrl: 'http://localhost:8082/'
+  // baseUrl: 'http://68.183.18.88:8080/eFormsAPI/'
   // baseUrl:'http://localhost:8080/eFormsAPI-0.0.2-SNAPSHOT/' //for local tomcat
 };

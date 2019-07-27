@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { WorkflowNodeType } from '../../../model/workflow-node-type.enum';
 
 
@@ -8,7 +8,7 @@ import { WorkflowNodeType } from '../../../model/workflow-node-type.enum';
   styleUrls: ['./workflow-design-sidenav.component.scss']
 })
 export class WorkflowDesignSidenavComponent implements OnInit {
-
+  @Input() workflowName:string;
   @Output() openNodePopEmit=new EventEmitter();
   @Output() openLinkPopEmit=new EventEmitter();
   startNodeType:WorkflowNodeType=WorkflowNodeType.START;

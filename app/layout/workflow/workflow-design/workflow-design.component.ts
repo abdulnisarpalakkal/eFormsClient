@@ -1,4 +1,4 @@
-import { Component,EventEmitter, OnInit,Input,Output,ViewEncapsulation, ViewChild, TemplateRef } from '@angular/core';
+import { Component,EventEmitter, OnInit,Input,Output,ViewEncapsulation, ViewChild, TemplateRef, AfterViewInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { NgbModal,NgbActiveModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import * as shape from 'd3-shape';
@@ -16,6 +16,9 @@ import { UserRoles } from '../../../model/user-roles.model';
 import { UserMsg } from '../../../model/user-msg.model';
 import { ActivatedRoute } from '@angular/router';
 import { WorkflowActionService, WorkflowService, FormService, AdministrationService } from '../../../shared';
+import { MDBModalRef, MDBModalService } from 'ng-uikit-pro-standard';
+import { WorkflowDisignModalComponent } from './workflow-disign-modal/workflow-disign-modal.component';
+import { WorkflowUtilityService } from '../workflow-services/workflow-utility-service';
 
 @Component({
   selector: 'app-workflow-design',
@@ -23,7 +26,7 @@ import { WorkflowActionService, WorkflowService, FormService, AdministrationServ
   templateUrl: './workflow-design.component.html',
   styleUrls: ['./workflow-design.component.scss']
 })
-export class WorkflowDesignComponent implements OnInit {
+export class WorkflowDesignComponent implements OnInit,AfterViewInit {
   workflowId:number;
 
   workflow: WorkflowMaster;
@@ -32,6 +35,8 @@ export class WorkflowDesignComponent implements OnInit {
   users:User[];
   userGroups:UserRoles[];
   workflowFormsList: FormMaster[]=[];
+
+  modalRef: MDBModalRef;
   
   // nodeUpdated = new EventEmitter<any>();
   // linkUpdated = new EventEmitter<any>();
@@ -80,7 +85,8 @@ export class WorkflowDesignComponent implements OnInit {
 
   
   constructor(private modalService: NgbModal,private route: ActivatedRoute,private workflowActionService: WorkflowActionService
-    ,private workflowService: WorkflowService,private formService:FormService,private administrationService:AdministrationService) { }
+    ,private workflowService: WorkflowService,private formService:FormService,private administrationService:AdministrationService
+    ,private mdbModalService: MDBModalService,public utilityService:WorkflowUtilityService) { }
 
   ngOnInit() {
     this.route.paramMap.subscribe(params=>{
@@ -93,8 +99,11 @@ export class WorkflowDesignComponent implements OnInit {
     if (!this.fitContainer) {
       this.applyDimensions();
     }
-    this.center$.next(true);
+    // this.center$.next(true);
     
+  }
+  ngAfterViewInit() {
+    this.center$.next(true);
   }
   onLegendLabelClick(entry) {
     console.log('Legend clicked', entry);
@@ -164,46 +173,11 @@ export class WorkflowDesignComponent implements OnInit {
    
   }
   
-  generateNode(nodeType){
-    this.node=new WorkflowNode();
-    this.nodeType= (<any>WorkflowNodeType)[nodeType];
-    this.node.nodeType=nodeType;
-    
-    switch(this.nodeType){
-      case WorkflowNodeType.START:
-        this.node.label="START";
-        this.node.color="#9fef8f";
-        break;
-      case WorkflowNodeType.STOP:
-        this.node.label="STOP";
-        this.node.color="#ed0b0b";
-        break;
-      case WorkflowNodeType.FORM:
-        this.node.label="Form";
-        this.node.color="#8fbaef";
-        this.node.formMaster=new FormMaster();
-        break;
-      case WorkflowNodeType.ACTION:
-        this.node.label="Action";
-        this.node.color="#ef8f8f";
-        this.node.actionEventObjects=[];
-        
-        break;
-      case WorkflowNodeType.CHILD_WORKFLOW:
-        this.node.label="Workflow";
-        this.node.color="#56f442";
-        this.node.workflowMaster=new WorkflowMaster();
-        
-        break;
-      default:
-        this.node.color="#D5D5C9";
-        break;
-    }
-  }
+  
 //#region Modal 
 open(nodeType) {
   
-  this.generateNode(nodeType);
+  this.node=this.utilityService.generateNode(nodeType);
   const modalReference=this.modalService.open(this.nodeContent,{ size: 'lg', backdrop:"static",scrollable:true });
   
   modalReference.result.then((result) => {
@@ -394,6 +368,7 @@ convertGraphLinksToWorkflowLinks(graphLinks:WorkflowLink[]){
     // workflowLink.label=link.label;
     link.sourceNode=this.nodes.find(x=>x.id==link.source);
     link.targetNode=this.nodes.find(x=>x.id==link.target);
+   
     // workflowLink.workflowMaster=workflowMaster;
     // this.workflowLinkList.push(workflowLink);
    });
@@ -451,6 +426,69 @@ convertWorkflowNodesToGraphNodes(workflowNodeList:WorkflowNode[]){
     
    
   }
+  OnDoubleClickNode(selectedNode){
+    // this.center$.next(true);
+    this.node=this.nodes.find(x=>x.id==selectedNode.id);
+    var toNodeTypes:WorkflowNodeType[]=this.getNextNodeType(this.node.nodeType)
+     
+    this.modalRef = this.mdbModalService.show(WorkflowDisignModalComponent,{
+      class:"modal-dialog-scrollable",
+      data:{
+        nextNodeTypes:toNodeTypes,
+        sourceNode:this.node,
+        // nodes:this.nodes,
+        // links:this.links,
+        formList:this.workflowFormsList,
+        childWokflowList:this.childWokflowList,
+        actionEventList:this.actionEventList,
+        users:this.users,
+        userGroups:this.userGroups
+      }
+    });
+    this.modalRef.content.action.subscribe((childNode:WorkflowNode)=>{
+      
+        if(!childNode.id){
+          childNode.id=""+this.nodeSeq++;
+          this.nodes.push(childNode);
+          
+          var childLink=new WorkflowLink();
+          childLink.label=WorkflowLinkLabel.FORM;
+          childLink.sourceNode=this.node;
+          childLink.targetNode=childNode;
+          childLink.source=this.node.id;
+          childLink.target=childNode.id;
+          this.links.push(childLink);
+          this.nodes=[...this.nodes];
+          this.links=[...this.links];
+        }
+        
+      
+      this.modalRef.hide();
+    });
+  }
 //#endregion
+  getNextNodeType(fromNodeType:WorkflowNodeType){
+    var toNodeTypes:WorkflowNodeType[]=[];
+    switch(fromNodeType){
+      case WorkflowNodeType.START:
+          toNodeTypes[0]=WorkflowNodeType.FORM;
+          break;
+      case WorkflowNodeType.FORM:
+          toNodeTypes[0]=WorkflowNodeType.ACTION;
+          break;
+      case WorkflowNodeType.ACTION:
+          toNodeTypes[0]=WorkflowNodeType.FORM;
+          toNodeTypes[1]=WorkflowNodeType.CHILD_WORKFLOW;
+          toNodeTypes[2]=WorkflowNodeType.STOP;
+          break;
+      case WorkflowNodeType.CHILD_WORKFLOW:
+          toNodeTypes[0]=WorkflowNodeType.FORM;
+          break;
+      default:
+          toNodeTypes[0]=WorkflowNodeType.STOP;
+      
+    }
+    return toNodeTypes;
+  }
 
 }

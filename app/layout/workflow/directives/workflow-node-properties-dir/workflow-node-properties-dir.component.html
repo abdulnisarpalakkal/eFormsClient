@@ -31,12 +31,14 @@
           <option *ngFor="let workflow of childWokflowList" [ngValue]="workflow" >{{workflow.workflowName}}</option>
         </select>
      </div>
-      <div class="form-group form-group-sm " *ngIf="node.nodeType=='ACTION'" >
+      <!-- <div class="form-group form-group-sm " *ngIf="node.nodeType=='ACTION'" >
         <mdb-card>
          
           <mdb-card-body>
               <mdb-card-title>
-                  <h6>Action Events</h6>
+                  <h6>
+                    Action Events
+                  </h6>
                 </mdb-card-title>
               <p >
                   <button *ngFor="let actionEvent of actionEventList"  type="button" class="btn btn-sm btn-info mr-2" (click)="OnAddEventClick(actionEvent)">{{actionEvent.actionName}}</button>
@@ -50,7 +52,7 @@
             </div>
           </mdb-card-body>
         </mdb-card>
-      </div>
+      </div> -->
       
    </div>
    

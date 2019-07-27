@@ -8,5 +8,5 @@ export class VirtualTableConstraints {
     public constraintValue: String;
     public virtualTableField:VirtualTableFields;
     public foreignConstraint:VirtualTableConstraints;
-
+    public deleted:boolean;
 }

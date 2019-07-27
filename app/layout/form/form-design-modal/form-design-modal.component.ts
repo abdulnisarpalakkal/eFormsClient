@@ -73,7 +73,8 @@ export class FormDesignModalComponent implements OnInit,AfterViewInit {
             component.alignOrder=index+1;
             component.formMaster=this.form;
             component.formComponent.virtualTableField=field;
-            if(this.refTableMap.has(component.formComponent.virtualTableField.fieldName) && !component.formComponent.componentRefValues){
+            if(this.refTableMap.has(component.formComponent.virtualTableField.fieldName) 
+            && (!component.formComponent.componentRefValues|| component.formComponent.componentRefValues.length==0)){
               component.formComponent.componentRefValues=[];
               component.formComponent.componentRefValues.push(new FormComponentRefValue());
               component.componentType=FormComponentEnum.COMPO;

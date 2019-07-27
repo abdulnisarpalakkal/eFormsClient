@@ -18,7 +18,7 @@
          
           </div>
         <!-- {{formDesign|json}} -->
-        
+                  <!-- {{refTableMap.get(formDesign.formComponent.virtualTableField.fieldName)|json}} -->
         <div class="form-group">
             <label class="form-control-label " for="componentType">Component type</label>
             <select  id="componentType" name="componentType" [(ngModel)]="formDesign.componentType" class="browser-default form-control input-underline form-control-sm  " >
@@ -53,11 +53,12 @@
                   
                 
               </div>
+              
               <div *ngIf="refTableMap.get(formDesign.formComponent.virtualTableField.fieldName)">
-         
+                 
                   <div class="form-group">
                       <label class="form-control-label" for="refValue">ref. Value</label>
-                      <select  id="refValue" name="refValue" [(ngModel)]="formDesign.formComponent.componentRefValues[0].refValue" class="browser-default form-control input-underline form-control-sm  " >
+                      <select   name="refValue" [(ngModel)]="formDesign.formComponent.componentRefValues[0].refValue" class="browser-default form-control input-underline form-control-sm  " >
                         <option value="" disabled selected>>select a value</option>
                         <option *ngFor="let item of refTableMap.get(formDesign.formComponent.virtualTableField.fieldName)" >{{item}}</option>
                       </select>
@@ -75,7 +76,7 @@
         <!-- {{virtualTableFieldsList|json}} -->
         <div class="form-group">
             <label class="form-control-label" for="alignOrder">Table field</label>
-            <select  id="virtualTableField" name="virtualTableField" class="browser-default form-control input-underline form-control-sm  "  [(ngModel)]="formDesign.formComponent.virtualTableField"  (ngModelChange)="onChange($event)" >
+            <select  id="virtualTableField" name="virtualTableFieldfsafsa" class="browser-default form-control input-underline form-control-sm  "  [(ngModel)]="formDesign.formComponent.virtualTableField"  (ngModelChange)="onChange($event)" >
                 <option value="" disabled selected>>select a field</option>
                 <option *ngFor="let virtualTableField of virtualTableFieldsList" [ngValue]="virtualTableField">{{virtualTableField.fieldName}}</option>
               </select>
