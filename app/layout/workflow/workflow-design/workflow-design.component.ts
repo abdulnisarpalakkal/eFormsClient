@@ -423,7 +423,7 @@ convertWorkflowNodesToGraphNodes(workflowNodeList:WorkflowNode[]){
      });
   }
 
-  onUpdatedDesign(nodes) {
+  onUpdatedDesign() {
   
     this.convertGraphNodesToWorkflowNodes(this.nodes);
     this.convertGraphLinksToWorkflowLinks(this.links);

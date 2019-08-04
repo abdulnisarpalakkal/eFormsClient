@@ -1,12 +1,11 @@
-<!-- Sidebar navigation -->
+<!--Double navigation-->
+<header>
 
-
-   
-        <mdb-sidenav class="p-0 m-0"> 
-            </mdb-sidenav>
+        <!-- Sidebar navigation -->
+        <mdb-sidenav #sidenav class="wide sn-bg-5 fixed " [fixed]="true" [sidenavBreakpoint]="1200" >
    
 <!-- <div class="design"> -->
-    <links class="side-nav  mt-5">
+    <links >
         <p class="h8 m-3">{{designform.formName}}</p>
      
      
@@ -69,7 +68,55 @@
       </li>
       <!--/. Side navigation links -->
     </links>
-    <div class="sidenav-bg mask-strong"></div>
-  <!-- </div> -->
-  <!-- </mdb-side-nav> -->
-  <!--/. Sidebar navigation -->
+</mdb-sidenav>
+<!--/. Sidebar navigation -->
+
+<!-- SideClass="navbar fixed-top navbar-expand-md scrolling-navbar" -->
+<!-- Navbar -->
+<mdb-navbar SideClass="navbar fixed-top navbar-expand-md double-nav" [containerInside]="false">
+    <navlinks class="navbar-container">
+        <!-- SideNav slide-out button -->
+        <div class="float-xs-left">
+            <a (click)="sidenav.show()" class="button-collapse-non-fixed">
+                <mdb-icon fas icon="bars"></mdb-icon>
+            </a>
+        </div>
+        <!--/. SideNav slide-out button -->
+    </navlinks>
+    <logo>
+        <!-- Breadcrumb-->
+        <div class="breadcrumbs breadcrumb-dn mr-auto">
+            <p>eForms</p>
+        </div>
+        <!--/. Breadcrumb-->
+    </logo>
+    <navlinks>
+
+        <ul class="nav navbar-nav nav-flex-icons ml-auto ie-double-nav">
+            <li class="nav-item">
+             
+                <a (click)="goBack()" class="mr-3">
+                        <mdb-icon fas icon="arrow-left" class="ml-1"></mdb-icon> Go back</a>
+            </li>
+            <li class="nav-item">
+                 
+                    <a   mdbWavesEffect (click)="updateClick()" class="mr-3" title="save"> 
+                         <mdb-icon fas icon="save" class="action-icon"></mdb-icon>
+                    </a>
+                </li>
+                <li class="nav-item">
+                 
+                        <a  (click)="previewClick()" class="mr-3" title="preview" > 
+                                <span aria-hidden="true"><mdb-icon far icon="eye" class="action-icon"></mdb-icon></span>
+                              </a>
+                    </li>
+           
+        </ul>
+
+    </navlinks>
+
+</mdb-navbar>
+<!--/. Navbar -->
+
+</header>
+<!--/.Double navigation-->

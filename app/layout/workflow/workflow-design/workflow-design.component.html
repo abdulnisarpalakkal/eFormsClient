@@ -1,7 +1,7 @@
-<div  class="fluid  mt-5">
-  
-  <app-workflow-design-sidenav [workflowName]="workflow.workflowName" (openNodePopEmit)="open($event)" (openLinkPopEmit)="openLinkPop($event)"></app-workflow-design-sidenav>
 
+  
+  <app-workflow-design-sidenav [workflowName]="workflow.workflowName" (openNodePopEmit)="open($event)" (openLinkPopEmit)="openLinkPop($event)" (updateEmit)="onUpdatedDesign()" ></app-workflow-design-sidenav>
+  <div  class="fluid  mt-5">
 <section class="main-container" >
  <!-- {{nodes|json}} -->
  <!-- {{links|json}} -->
@@ -9,11 +9,9 @@
 <div class="row justify-content-between">
   <div class="col-sm-8 workflow-container ">
       
-    <div class="container main-head">
+    <!-- <div class="container main-head">
       <div class="row justify-content-between">
           <div class="col-4">
-              <!-- <h5 > <mdb-badge class="px-2" color="black">{{workflow.workflowName}}</mdb-badge></h5> -->
-              <!-- <p class="h8">{{workflow.workflowName}}</p> -->
           </div>
           <div class="col-1">
               <mdb-badge color="cyan">
@@ -23,7 +21,7 @@
                   </mdb-badge>
           </div>
         </div>
-      </div>
+      </div> -->
 
 
       <!-- <section class="main-head">

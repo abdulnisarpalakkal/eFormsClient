@@ -69,7 +69,7 @@
                       
                         <div *ngFor="let stage of openWorkflowStages"  [routerLink]="" class="list-group-item clearfix d-block bc-icons-2"  >
                          
-                          <mdb-breadcrumb customClass="black-text blue-grey lighten-4" textTransform="lowercase" >
+                          <mdb-breadcrumb customClass="black-text lighten-4" textTransform="lowercase" >
                               <mdb-breadcrumb-item fontWeight="light" class="active" >
                                 {{stage.workflowMaster.workflowName}}
                               </mdb-breadcrumb-item>
@@ -78,7 +78,7 @@
                               </mdb-breadcrumb-item>
                                 <mdb-breadcrumb-item fontWeight="bold" >
                                     <mdb-icon fas icon="angle-right" class="mr-1"></mdb-icon>
-                                    <a href="Javascript:void(0)" (click)="OnOpenWorkflowStageClick(stage,content)" class="ml-1">{{stage.formNode.label}} </a>
+                                    <a href="Javascript:void(0)" (click)="OnOpenWorkflowStageClick(stage,content)" >{{stage.formNode.label}} </a>
                                 </mdb-breadcrumb-item>
                           </mdb-breadcrumb>
                            

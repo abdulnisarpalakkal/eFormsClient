@@ -1,6 +1,6 @@
 import { Component,EventEmitter, OnInit,Input,Output, ViewChild, AfterViewInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { NgbModal, ModalDismissReasons, NgbTabset } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, ModalDismissReasons, NgbTabset, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
 
 import {FormDesign} from '../../../model/form-design.model';
@@ -37,6 +37,7 @@ export class FormDesignModalComponent implements OnInit,AfterViewInit {
   
   
   @ViewChild('staticTabs', {static: false}) staticTabs: TabsetComponent;
+  @ViewChild('previewContent',{static:false}) previewContent:NgbModalRef;
   constructor(private route: ActivatedRoute,private virtualTableService: VirtualTableService,private formService: FormService,private modalService: NgbModal) { }
 
   ngOnInit() {
@@ -206,9 +207,9 @@ export class FormDesignModalComponent implements OnInit,AfterViewInit {
      * End service calls
      */
     //#region Modal 1
-openPreview(prevContent) {
+openPreview() {
   
-  const modalReference=this.modalService.open(prevContent,{ size: 'lg', backdrop:"static" });
+  const modalReference=this.modalService.open(this.previewContent,{ size: 'lg', backdrop:"static" });
   
 }
 

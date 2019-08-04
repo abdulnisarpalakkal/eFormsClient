@@ -1,8 +1,9 @@
-<div  class="fluid  mt-5">
+
   <!-- {{virtualTableFieldsList|json}} -->
       
                 <app-form-design-sidenav [designform]="form" [virtualTableFieldsList]="virtualTableFieldsList" 
-                (autoGenerateComponentsEmit)="autoGenerateComponents()" (createNewComponentEmit)="createNewComponent()" ></app-form-design-sidenav>
+                (autoGenerateComponentsEmit)="autoGenerateComponents()" (createNewComponentEmit)="createNewComponent()"
+                (updateEmit)="onUpdatedDesign()" (previewEmit)="openPreview()" ></app-form-design-sidenav>
                 <!-- <section *ngIf="form" class="section section-blog-fw pb-3 wow fadeIn" style="animation-name: none; visibility: visible;"> -->
                     <!-- <div class="d-flex p-2 col-example">I'm a flexbox container!</div> -->
                     <!-- <section class="main-head">
@@ -21,17 +22,16 @@
                         </div>
                         </div>
                       </section> -->
-
+<div  class="fluid  mt-5">
  <section *ngIf="form" class="main-container" >
                 
 <div class="row justify-content-between">
     <div class="col-sm-8  " >
         <div class="container" >
-        <div class="container main-head">
+        <!-- <div class="container main-head">
             <div class="row justify-content-between">
                 <div class="col-4">
-                    <!-- <h5 > <mdb-badge class="px-2" color="black">{{workflow.workflowName}}</mdb-badge></h5> -->
-                    <!-- <p class="h8">{{workflow.workflowName}}</p> -->
+                    
                 </div>
                 <div class="col-2">
                     <mdb-badge color="cyan" class="mr-1">
@@ -47,7 +47,7 @@
                         </mdb-badge>
                 </div>
               </div>
-            </div>
+            </div> -->
 
             <section  data-spy="scroll">
             <div class="mt-2 ml-5 mr-5">
@@ -190,7 +190,7 @@
         </div>
 
 </div>
-<ng-template #content3 let-c="close" let-d="dismiss">
+<ng-template #previewContent let-c="close" let-d="dismiss">
     <div class="modal-content">
         <div class="modal-header light-blue darken-3 white-text">
                 <h4 class="title">
@@ -201,7 +201,7 @@
                 </button>
         </div>
         
-        <div class="modal-body mb-0">
+        <div class="modal-body mt-2 mb-0">
              
                 <app-form-preview [form]="form" [formDesignDto]="formDesignDto"  >   </app-form-preview>
         </div>
