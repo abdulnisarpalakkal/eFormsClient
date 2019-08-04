@@ -5,12 +5,12 @@
       <div class="form-content ">
        
           <div class="md-form form-sm">
-              <input mdbInput type="text" class="form-control" id="tableName"  [(ngModel)]="virtualTableFieldsConstraintDto.virtualTable.tableName" name="tableName">
+              <input mdbInput type="text" class="form-control" id="tableName"  [(ngModel)]="virtualTableFieldsConstraintDto.virtualTable.tableName" name="tableNameText">
               <label  for="tableName">Table Name</label>
               
           </div>
           <div class="md-form form-sm">
-              <input mdbInput type="text" class="form-control" id="tableDesc"  [(ngModel)]="virtualTableFieldsConstraintDto.virtualTable.tableDesc" name="tableDesc">
+              <input mdbInput type="text" class="form-control" id="tableDesc"  [(ngModel)]="virtualTableFieldsConstraintDto.virtualTable.tableDesc" name="tableDescText">
               <label  for="tableDesc">Desc</label>
               
           </div>
@@ -23,7 +23,7 @@
              </label>
            
         </div> -->
-          <div class="form-group has-danger">
+          <div class="form-group has-danger mt-2">
             <label class="form-control-label" for="process">Process</label>
            
             <select [(ngModel)]="_processId" id="process" name="process" class="browser-default custom-select border-bottom " (change)="OnChangeProcess($event)" >

@@ -19,10 +19,17 @@ export class WorkflowNodePropertiesDirComponent implements OnInit {
   @Input() formList: FormMaster[] ;
   @Input() childWokflowList: WorkflowMaster[] ;
   @Input() actionEventList: ActionEvent[] ;
+  @Input() otherNodes:WorkflowNode[];
   @Input() users:User[];
   @Input() userGroups:UserRoles[];
+  
+  @Output() otherNodeEmit=new EventEmitter<WorkflowNode>();
+  
   childWorkflowEnum:WorkflowNodeType=WorkflowNodeType.CHILD_WORKFLOW;
+  otherNodeEnum:WorkflowNodeType=WorkflowNodeType.OTHER_NODE;
+  otherNode:WorkflowNode;
   // @Input() actionEventParamList:ActionEventParam[];
+  
 
   constructor() { }
 
@@ -39,6 +46,10 @@ export class WorkflowNodePropertiesDirComponent implements OnInit {
   }
   onChangeworkflow(workflow:WorkflowMaster){
     this.node.workflowMaster=workflow; 
+  }
+  onChangeNode(node:WorkflowNode){
+    this.otherNode=node; 
+    this.otherNodeEmit.emit(this.otherNode);
   }
   onChangeAction(action:ActionEvent){
     const actionEventObject=new ActionEventObject();

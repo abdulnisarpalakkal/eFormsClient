@@ -19,7 +19,7 @@ export class WorkflowDisignModalComponent implements OnInit {
   //formal arguments 
  nextNodeTypes:WorkflowNodeType[];
  sourceNode:WorkflowNode;
-//  nodes:WorkflowNode[];
+ nodes:WorkflowNode[];
 //  links:WorkflowLink[];
  formList: FormMaster[] ;
  childWokflowList: WorkflowMaster[] ;
@@ -35,6 +35,7 @@ export class WorkflowDisignModalComponent implements OnInit {
  //variables
  childNode:WorkflowNode;
  nextNodeTypeModel:WorkflowNodeType;
+ otherNode:WorkflowNode;
  //end variables
 
  
@@ -49,24 +50,29 @@ export class WorkflowDisignModalComponent implements OnInit {
    
     if(!this.childNode)
       this.childNode=new WorkflowNode;
+    if(!this.otherNode)
+      this.otherNode=new WorkflowNode;
+    this.childNode=this.utilityService.generateNode(this.nextNodeTypeModel);
+      // switch(this.nextNodeTypeModel){
+      //   case WorkflowNodeType.FORM:
+      //       this.generateFormNode();
+      //       break;
+      //   case WorkflowNodeType.ACTION:
+      //       this.childNode=this.utilityService.generateNode(WorkflowNodeType.ACTION);
+      //       break;
+      //   case WorkflowNodeType.CHILD_WORKFLOW:
+      //       this.childNode=this.utilityService.generateNode(WorkflowNodeType.CHILD_WORKFLOW);
+      //       break;
+      //   case WorkflowNodeType.STOP:
+      //       this.childNode=this.utilityService.generateNode(WorkflowNodeType.STOP);
+      //       break;
+      //   case WorkflowNodeType.:
+      //     this.childNode=this.utilityService.generateNode(WorkflowNodeType.STOP);
+      //     break;
+      //   default:
+      //     break;
 
-      switch(this.nextNodeTypeModel){
-        case WorkflowNodeType.FORM:
-            this.generateFormNode();
-            break;
-        case WorkflowNodeType.ACTION:
-            this.childNode=this.utilityService.generateNode(WorkflowNodeType.ACTION);
-            break;
-        case WorkflowNodeType.CHILD_WORKFLOW:
-            this.childNode=this.utilityService.generateNode(WorkflowNodeType.CHILD_WORKFLOW);
-            break;
-        case WorkflowNodeType.STOP:
-            this.childNode=this.utilityService.generateNode(WorkflowNodeType.STOP);
-            break;
-        default:
-          break;
-
-      }
+      // }
      
     }
   
@@ -89,9 +95,15 @@ export class WorkflowDisignModalComponent implements OnInit {
   
   // }
   appendNodes(){
+    if(this.childNode.nodeType!=WorkflowNodeType.OTHER_NODE)
       this.action.next(this.childNode);
+    else
+      this.action.next(this.otherNode);
   }
   OnNodeTypeChanged(){
     this.generateNode();
+  }
+  OnOtherNodeEmit(node:WorkflowNode){
+    this.otherNode=node;
   }
 }

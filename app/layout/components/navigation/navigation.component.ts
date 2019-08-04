@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { TokenStorage } from '../../../shared';
 
 
 @Component({
@@ -11,7 +12,7 @@ export class NavigationComponent implements OnInit {
 
   clicked: boolean;
 
-  constructor() {
+  constructor(private token: TokenStorage) {
     this.clicked = this.clicked === undefined ? false : true;
   }
 
@@ -22,5 +23,8 @@ export class NavigationComponent implements OnInit {
   setClicked(val: boolean): void {
     this.clicked = val;
   }
-
+  onLoggedout() {
+    // localStorage.removeItem('isLoggedin');
+    this.token.signOut();
+}
 }

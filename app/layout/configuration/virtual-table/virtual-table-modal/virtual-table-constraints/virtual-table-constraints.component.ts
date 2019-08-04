@@ -35,11 +35,14 @@ export class VirtualTableConstraintsComponent implements OnInit {
     this.foreignKeyConstraints[this.foreignKeyConstraints.length]=virtualTableConstraints;
   }
   removeForeignKey(fkConstraint:VirtualTableConstraints){
-    fkConstraint.deleted=!fkConstraint.deleted;
-    // const index = this.foreignKeyConstraints.indexOf(fkConstraint, 0);
-    // if (index > -1) {
-    //   this.foreignKeyConstraints.splice(index, 1);
-    // }
+    if(fkConstraint.id)
+      fkConstraint.deleted=!fkConstraint.deleted;
+    else{
+      const index = this.foreignKeyConstraints.indexOf(fkConstraint, 0);
+      if (index > -1) {
+        this.foreignKeyConstraints.splice(index, 1);
+      }
+    }
   }
   updateFieldName(constraint:VirtualTableConstraints,field:string): void{
     constraint.virtualTableField = this.virtualTableFieldsConstraintDto.virtualTableFields.find(f=>f.fieldName==field);

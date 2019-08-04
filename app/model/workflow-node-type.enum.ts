@@ -3,5 +3,6 @@ export enum WorkflowNodeType {
     STOP = "STOP",
     FORM = "FORM",
     ACTION = "ACTION",
-    CHILD_WORKFLOW="CHILD_WORKFLOW"
+    CHILD_WORKFLOW="CHILD_WORKFLOW",
+    OTHER_NODE="NODE"
 }

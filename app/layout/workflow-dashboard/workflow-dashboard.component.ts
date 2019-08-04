@@ -9,6 +9,7 @@ import { WorkflowStage } from '../../model/workflow-stage.model';
 import { FormMaster } from '../../model/form-master.model';
 import { FormDesign } from '../../model/form-design.model';
 import { WorkflowNode } from '../../model/workflow-node.model';
+import { WorkflowTrackDet } from '../../model/workflow-track-det';
 
 @Component({
   selector: 'app-workflow-dashboard',
@@ -17,7 +18,7 @@ import { WorkflowNode } from '../../model/workflow-node.model';
   animations: [routerTransition()]
 })
 export class WorkflowDashboardComponent implements OnInit {
-  publishedWorkflows:WorkflowMaster[]=[]
+  publishedWorkflows:WorkflowStage[]=[]
   openWorkflowStages:WorkflowStage[]=[]
   constructor(public workflowService:WorkflowService,private modalService: NgbModal, private refreshService:RefreshService) { }
   workflowStage:WorkflowStage;
@@ -30,7 +31,7 @@ export class WorkflowDashboardComponent implements OnInit {
 submitted = false;
 
   ngOnInit() {
-    // this.getAllPublishedWorkflows();
+    this.getAllPublishedWorkflows();
     this.getAllOpenWorkflow();
   }
   //#region Service call
@@ -48,7 +49,7 @@ submitted = false;
     },error=>{
     });
   }
-  getWorkflowStage(workflowStage:WorkflowStage,content){
+  getWorkflowStage(content){
     
     this.workflowService.runWorkflow(this.workflowStage)
     .subscribe(data=>{
@@ -106,15 +107,25 @@ private getDismissReason(reason: any): string {
 OnWorkflowClick(workflow:WorkflowMaster,content){
   this.workflowStage=new WorkflowStage();
   this.workflowStage.workflowMaster=workflow;
-  this.getWorkflowStage(this.workflowStage,content);
+  this.getWorkflowStage(content);
 }
 onActionClick(actionNode:WorkflowNode){
   this.submitAction(actionNode);
 }
 OnOpenWorkflowStageClick(stage:WorkflowStage,content){
   this.workflowStage=stage;
-  this.getWorkflowStage(this.workflowStage,content);
+  this.getWorkflowStage(content);
 }
 //#region 
 
+  getLabels(workflowTrackDet:WorkflowTrackDet){
+    const labels:String[]=[];
+    var prevTrack=workflowTrackDet;
+    do{
+      labels[labels.length]=prevTrack.workflowActionNode.label;
+      prevTrack=prevTrack.workflowPrevTrack;
+    }while(prevTrack);
+
+    return labels.reverse();
+  }
 }

@@ -9,6 +9,7 @@ export class WorkflowTrackDet {
     public workflowFormNode: WorkflowNode;
     public dataId: number;
     public open:boolean;
+    public workflowPrevTrack:WorkflowTrackDet;
 
 
 }

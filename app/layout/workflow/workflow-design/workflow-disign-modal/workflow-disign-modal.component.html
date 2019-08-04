@@ -13,10 +13,11 @@
                    [(ngModel)]="nextNodeTypeModel" value="{{nodeType}}" (change)="OnNodeTypeChanged()" mdbInput>
                   <label class="form-check-label" for="nextNodeType{{i}}">{{nodeType}}</label>
               </div>
-                
+              <!-- {{childNode|json}} -->
+              <!-- {{otherNode|json}} -->
               <app-workflow-node-properties-dir [node]="childNode" [formList]="formList" 
 [childWokflowList]="childWokflowList" [actionEventList]="actionEventList" [users]="users" 
-[userGroups]="userGroups" ></app-workflow-node-properties-dir>
+[userGroups]="userGroups" [otherNodes]="nodes"  (otherNodeEmit)="OnOtherNodeEmit($event)" ></app-workflow-node-properties-dir>
                 <!-- <app-worflow-design-form-node [formNode]="childNode" [formList]="formList" 
                 [childWokflowList]="childWokflowList" [actionEventList]="actionEventList"  
                 [users]="users" [userGroups]="userGroups" [totalActionNodes]="totalActionNodes"></app-worflow-design-form-node> -->

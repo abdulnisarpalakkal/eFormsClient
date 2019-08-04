@@ -69,11 +69,12 @@
                           </ng-template>
                          
                       </ngx-datatable-column>
-                      <ngx-datatable-column prop="workflowName" name="Workflow Name" [minWidth]="200"  ></ngx-datatable-column>
-                      <ngx-datatable-column prop="workflowDesc" name="Desc" [minWidth]="100"  ></ngx-datatable-column>
-                      <ngx-datatable-column prop="process.processName" name="Process"  ></ngx-datatable-column>                  
+                      <ngx-datatable-column prop="workflowName" name="Workflow Name" [width]="200"  ></ngx-datatable-column>
+                      <ngx-datatable-column prop="workflowDesc" name="Desc" [width]="150"  ></ngx-datatable-column>
+                      <ngx-datatable-column prop="child" name="Child" [width]="30"  ></ngx-datatable-column>
+                      <ngx-datatable-column prop="process.processName" name="Process" [width]="100" ></ngx-datatable-column>                  
                    
-                      <ngx-datatable-column  [minWidth]="200" [maxWidth]="200" name="Actions"  >
+                      <ngx-datatable-column  [width]="200"  name="Actions"  >
                           <ng-template #deleteBtn let-row="row"  ngx-datatable-cell-template>
                                   <div>
                                       

@@ -25,10 +25,34 @@
 </div> -->
 
 <div class="row">
-    
-    <!-- /.col-lg-8 -->
-    <div class="col-lg-6 col-md-12 my-0">
+  <div class="col-lg-4 col-md-12 my-0">
    
+    <!-- <panel header="Published Workflows">
+        <mdb-card-body>
+        
+          <div class="list-group list-panel">
+             
+          </div>
+        </mdb-card-body>
+      </panel> -->
+      <mdb-card class="mb-3" borderColor="border-info" style="max-width: 30rem">
+          <mdb-card-header class="bg-transparent border-info">Published Workflows</mdb-card-header>
+          <mdb-card-body>
+            
+            <mdb-card-text>
+                <a *ngFor="let stage of publishedWorkflows"  [routerLink]="" class="list-group-item clearfix d-block" (click)="OnOpenWorkflowStageClick(stage,content)" >
+                    <i class="fa fa-cogs fa-fw"></i> {{stage.formNode.label}}
+                      <span class="float-right text-muted small"><em>{{stage.workflowMaster.process.processName}}</em></span>
+                  </a>
+            </mdb-card-text>
+          </mdb-card-body>
+        </mdb-card>
+<!-- </div> -->
+
+</div>
+    <!-- /.col-lg-8 -->
+    <div class="col-lg-8 col-md-12 my-0">
+      
             <!-- <panel header="Published Workflows">
                 <mdb-card-body>
                 
@@ -37,15 +61,29 @@
                   </div>
                 </mdb-card-body>
               </panel> -->
-              <mdb-card class="mb-3" borderColor="border-info" style="max-width: 30rem">
+              <mdb-card class="mb-3" borderColor="border-info" >
                   <mdb-card-header class="bg-transparent border-info">Initiated Workflows</mdb-card-header>
                   <mdb-card-body>
                     
                     <mdb-card-text>
-                        <a *ngFor="let stage of openWorkflowStages"  [routerLink]="" class="list-group-item clearfix d-block" (click)="OnOpenWorkflowStageClick(stage,content)" >
-                            <i class="fa fa-cogs fa-fw"></i> {{stage.formNode.label}}
+                      
+                        <div *ngFor="let stage of openWorkflowStages"  [routerLink]="" class="list-group-item clearfix d-block bc-icons-2"  >
+                         
+                          <mdb-breadcrumb customClass="black-text blue-grey lighten-4" textTransform="lowercase" >
+                              <mdb-breadcrumb-item fontWeight="light" class="active" >
+                                {{stage.workflowMaster.workflowName}}
+                              </mdb-breadcrumb-item>
+                              <mdb-breadcrumb-item fontWeight="normal" class="active" *ngFor="let nodeLabel of getLabels(stage.workflowTrackDet) " >
+                                  <mdb-icon fas icon="angle-right" class="mr-1"></mdb-icon>{{nodeLabel}}
+                              </mdb-breadcrumb-item>
+                                <mdb-breadcrumb-item fontWeight="bold" >
+                                    <mdb-icon fas icon="angle-right" class="mr-1"></mdb-icon>
+                                    <a href="Javascript:void(0)" (click)="OnOpenWorkflowStageClick(stage,content)" class="ml-1">{{stage.formNode.label}} </a>
+                                </mdb-breadcrumb-item>
+                          </mdb-breadcrumb>
+                           
                               <span class="float-right text-muted small"><em>{{stage.workflowMaster.process.processName}}</em></span>
-                          </a>
+                        </div>
                     </mdb-card-text>
                   </mdb-card-body>
                 </mdb-card>

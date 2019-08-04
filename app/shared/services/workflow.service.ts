@@ -47,9 +47,7 @@ export class WorkflowService {
   public getAllWorkflowByProcess(processId:number): Observable<any> {
     return this.http.get(this.workflowUrl+"/process/"+processId);
   }
-  public getAllPublishedWorkflow(): Observable<any> {
-    return this.http.get(this.workflowUrl+"/published");
-  }
+ 
   public getAllPublishedChildWorkflowsByProcess(processId:number): Observable<any> {
     return this.http.get(this.workflowUrl+"/published/child/"+processId);
   }
@@ -125,6 +123,9 @@ export class WorkflowService {
 
    public getAllOpenWorkflow(): Observable<any> {
     return this.http.get(this.workflowTrackUrl+"/openWorkflows");
+  }
+  public getAllPublishedWorkflow(): Observable<any> {
+    return this.http.get(this.workflowTrackUrl+"/publishedWorkflows");
   }
   public runWorkflow(workflowStage:WorkflowStage): Observable<any>  {
     return this.http.post(this.workflowTrackUrl+"/execute",workflowStage);

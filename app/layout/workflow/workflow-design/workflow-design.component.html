@@ -46,16 +46,15 @@
 
       <ngx-graph
       class="chart-container"
-      [view]="view"
-      
-      [enableZoom]="enableZoom"
      
+      [layout]="layout"
+      [layoutSettings]="layoutSettings"
       [links]="links"
       (legendLabelClick)="onLegendLabelClick($event)"
       [nodes]="nodes"
-      [scheme]="colorScheme"
+      
       [curve]="curve"
-      [orientation]="'TB'"
+      
       [center$]="center$"
       (select)="select($event)">
     
@@ -82,8 +81,8 @@
               (dblclick)="OnDoubleClickNode(node)"
              >
               
-                <svg:rect  rx="20" ry="20" [attr.width]="node.width" [attr.height]="node.height" [attr.fill]="node.color" class="custom-node" />
-                <svg:text alignment-baseline="central" [attr.x]="10" [attr.y]="(node.height / 2)+5">{{node.label}}</svg:text>
+                <svg:rect  rx="20" ry="20" [attr.width]="node.dimension.width" [attr.height]="node.dimension.height" [attr.fill]="node.color" class="custom-node" />
+                <svg:text alignment-baseline="central" [attr.x]="10" [attr.y]="(node.dimension.height / 2)+5">{{node.label}}</svg:text>
               
             </svg:g>
        

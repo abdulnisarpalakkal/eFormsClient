@@ -19,6 +19,8 @@ import { WorkflowActionService, WorkflowService, FormService, AdministrationServ
 import { MDBModalRef, MDBModalService } from 'ng-uikit-pro-standard';
 import { WorkflowDisignModalComponent } from './workflow-disign-modal/workflow-disign-modal.component';
 import { WorkflowUtilityService } from '../workflow-services/workflow-utility-service';
+import { Layout,Node,Edge, ClusterNode } from '@swimlane/ngx-graph';
+import { DagreNodesOnlyLayout } from './customDagreNodesOnly';
 
 @Component({
   selector: 'app-workflow-design',
@@ -43,6 +45,9 @@ export class WorkflowDesignComponent implements OnInit,AfterViewInit {
   
   nodes: WorkflowNode[]=[] ;
   links: WorkflowLink[] = [];
+
+ 
+  
   childWokflowList:WorkflowMaster[]=[];
   workflowList:WorkflowMaster[]=[];
   // workflowNodeList:WorkflowNode[]=[];
@@ -51,6 +56,12 @@ export class WorkflowDesignComponent implements OnInit,AfterViewInit {
 
 
   curve: any = shape.curveLinear;
+  public layout: Layout = new DagreNodesOnlyLayout();
+  // public layout="dagreCluster";
+  public layoutSettings = {
+    orientation: "TB"
+
+  }
   view: any[];
   autoZoom: boolean = false;
   panOnZoom: boolean = true;
@@ -432,7 +443,9 @@ convertWorkflowNodesToGraphNodes(workflowNodeList:WorkflowNode[]){
     var toNodeTypes:WorkflowNodeType[]=this.getNextNodeType(this.node.nodeType)
      
     this.modalRef = this.mdbModalService.show(WorkflowDisignModalComponent,{
+
       class:"modal-dialog-scrollable",
+      ignoreBackdropClick: true,
       data:{
         nextNodeTypes:toNodeTypes,
         sourceNode:this.node,
@@ -442,26 +455,26 @@ convertWorkflowNodesToGraphNodes(workflowNodeList:WorkflowNode[]){
         childWokflowList:this.childWokflowList,
         actionEventList:this.actionEventList,
         users:this.users,
-        userGroups:this.userGroups
+        userGroups:this.userGroups,
+        nodes:this.nodes
       }
     });
     this.modalRef.content.action.subscribe((childNode:WorkflowNode)=>{
       
-        if(!childNode.id){
-          childNode.id=""+this.nodeSeq++;
-          this.nodes.push(childNode);
-          
-          var childLink=new WorkflowLink();
-          childLink.label=WorkflowLinkLabel.FORM;
-          childLink.sourceNode=this.node;
-          childLink.targetNode=childNode;
-          childLink.source=this.node.id;
-          childLink.target=childNode.id;
-          this.links.push(childLink);
-          this.nodes=[...this.nodes];
-          this.links=[...this.links];
-        }
-        
+      if(!childNode.id){
+        childNode.id=""+this.nodeSeq++;
+        this.nodes.push(childNode);
+      }
+     
+      var childLink=new WorkflowLink();
+      childLink.label=WorkflowLinkLabel.SUCCESS;
+      childLink.sourceNode=this.node;
+      childLink.targetNode=childNode;
+      childLink.source=this.node.id;
+      childLink.target=childNode.id;
+      this.links.push(childLink);
+      this.nodes=[...this.nodes];
+      this.links=[...this.links];
       
       this.modalRef.hide();
     });
@@ -488,6 +501,7 @@ convertWorkflowNodesToGraphNodes(workflowNodeList:WorkflowNode[]){
           toNodeTypes[0]=WorkflowNodeType.STOP;
       
     }
+    toNodeTypes[toNodeTypes.length]=WorkflowNodeType.OTHER_NODE;
     return toNodeTypes;
   }
 

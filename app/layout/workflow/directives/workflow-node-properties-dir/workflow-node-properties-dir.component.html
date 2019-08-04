@@ -8,7 +8,7 @@
            
       </div>
       
-      <div class="md-form">
+      <div class="md-form" *ngIf="node.nodeType!=otherNodeEnum">
        
         <input mdbInput type="text" class="form-control" id="nodeLabel"  [(ngModel)]="node.label" name="nodeLabel">
         <label  for="nodeLabel">Node label</label>
@@ -31,6 +31,15 @@
           <option *ngFor="let workflow of childWokflowList" [ngValue]="workflow" >{{workflow.workflowName}}</option>
         </select>
      </div>
+     
+     <div class="form-group form-group-sm" *ngIf="node.nodeType==otherNodeEnum" >
+      <label class="form-control-label mb-1" for="nodeName">Other Nodes</label>
+      <select  id="nodeId" name="nodeName" [(ngModel)]="otherNode" class="browser-default form-control input-underline form-control-sm " (ngModelChange)="onChangeNode($event)">
+        <option value="" disabled selected>>select a Node</option>
+        <option *ngFor="let otherNode of otherNodes" [ngValue]="otherNode" >{{otherNode.label}}</option>
+      </select>
+   </div>
+     
       <!-- <div class="form-group form-group-sm " *ngIf="node.nodeType=='ACTION'" >
         <mdb-card>
          
