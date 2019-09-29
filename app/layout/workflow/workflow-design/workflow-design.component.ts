@@ -56,8 +56,8 @@ export class WorkflowDesignComponent implements OnInit,AfterViewInit {
 
 
   curve: any = shape.curveLinear;
-  public layout: Layout = new DagreNodesOnlyLayout();
-  // public layout="dagreCluster";
+  // public layout: Layout = new DagreNodesOnlyLayout();
+  public layout="dagreCluster";
   public layoutSettings = {
     orientation: "TB"
 
@@ -88,7 +88,7 @@ export class WorkflowDesignComponent implements OnInit,AfterViewInit {
   colorScheme: any = {
     domain: ['#D5D5C9']
   };
-  center$: Subject<any> = new Subject();
+  // center$: Subject<any> = new Subject();
   
   @ViewChild("nodeContent", {static: false}) nodeContent: TemplateRef<any>;
   @ViewChild("linkContent", {static: false}) linkContent: TemplateRef<any>;
@@ -114,7 +114,7 @@ export class WorkflowDesignComponent implements OnInit,AfterViewInit {
     
   }
   ngAfterViewInit() {
-    this.center$.next(true);
+    // this.center$.next(true);
   }
   onLegendLabelClick(entry) {
     console.log('Legend clicked', entry);
@@ -503,6 +503,9 @@ convertWorkflowNodesToGraphNodes(workflowNodeList:WorkflowNode[]){
     }
     toNodeTypes[toNodeTypes.length]=WorkflowNodeType.OTHER_NODE;
     return toNodeTypes;
+  }
+  alignToCenter(){
+    // this.center$.next(true);
   }
 
 }

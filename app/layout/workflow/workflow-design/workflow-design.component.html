@@ -15,7 +15,7 @@
           </div>
           <div class="col-1">
               <mdb-badge color="cyan">
-                  <a   mdbWavesEffect (click)="onUpdatedDesign(nodes)" > 
+                  <a   mdbWavesEffect (click)="alignToCenter()" > 
                     <mdb-icon fas icon="save" class="action-icon"></mdb-icon>
                   </a>
                   </mdb-badge>
@@ -50,10 +50,9 @@
       [links]="links"
       (legendLabelClick)="onLegendLabelClick($event)"
       [nodes]="nodes"
-      
+      [autoCenter]="true"
       [curve]="curve"
       
-      [center$]="center$"
       (select)="select($event)">
     
       <ng-template #defsTemplate>

@@ -10,6 +10,7 @@ export class WorkflowStage {
     public workflowMaster: WorkflowMaster;
     public workflowTrackDet:WorkflowTrackDet;
     public selectedActionNode:WorkflowNode;
+    public breadCrumpList:String[];
     // public prevTrack:WorkflowTrackDet;
 
 

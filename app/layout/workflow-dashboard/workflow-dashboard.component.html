@@ -61,6 +61,7 @@
                   </div>
                 </mdb-card-body>
               </panel> -->
+              
               <mdb-card class="mb-3" borderColor="border-info" >
                   <mdb-card-header class="bg-transparent border-info">Initiated Workflows</mdb-card-header>
                   <mdb-card-body>
@@ -70,10 +71,8 @@
                         <div *ngFor="let stage of openWorkflowStages"  [routerLink]="" class="list-group-item clearfix d-block bc-icons-2"  >
                          
                           <mdb-breadcrumb customClass="black-text lighten-4" textTransform="lowercase" >
-                              <mdb-breadcrumb-item fontWeight="light" class="active" >
-                                {{stage.workflowMaster.workflowName}}
-                              </mdb-breadcrumb-item>
-                              <mdb-breadcrumb-item fontWeight="normal" class="active" *ngFor="let nodeLabel of getLabels(stage.workflowTrackDet) " >
+                              
+                              <mdb-breadcrumb-item fontWeight="normal" class="active" *ngFor="let nodeLabel of stage.breadCrumpList " >
                                   <mdb-icon fas icon="angle-right" class="mr-1"></mdb-icon>{{nodeLabel}}
                               </mdb-breadcrumb-item>
                                 <mdb-breadcrumb-item fontWeight="bold" >

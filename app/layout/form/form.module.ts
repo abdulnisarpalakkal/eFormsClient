@@ -17,6 +17,7 @@ import { FormPreviewComponent } from './form-preview/form-preview.component';
 import { FormRulesDirComponent } from './directives/form-rules-dir/form-rules-dir.component';
 import { MDBBootstrapModulesPro } from 'ng-uikit-pro-standard';
 import { FormDesignSidenavComponent } from './form-design-sidenav/form-design-sidenav.component';
+import { GridPropertiesComponent } from './directives/grid-properties/grid-properties.component';
 
 @NgModule({
   imports: [
@@ -31,7 +32,7 @@ import { FormDesignSidenavComponent } from './form-design-sidenav/form-design-si
     ,FormDesignModule
     ,MDBBootstrapModulesPro.forRoot()
   ],
-  declarations: [FormComponent, FormModalComponent, FormDesignModalComponent, FormComponentDirComponent, ComponentPropertiesDirComponent,NgbdModalConfirm, FormPreviewComponent, FormRulesDirComponent,FormDesignSidenavComponent],
+  declarations: [FormComponent, FormModalComponent, FormDesignModalComponent, FormComponentDirComponent, ComponentPropertiesDirComponent,NgbdModalConfirm, FormPreviewComponent, FormRulesDirComponent,FormDesignSidenavComponent, GridPropertiesComponent],
   entryComponents: [NgbdModalConfirm],
   exports:[FormComponent,FormDesignModalComponent]
 })

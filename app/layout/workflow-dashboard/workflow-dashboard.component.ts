@@ -54,6 +54,7 @@ submitted = false;
     this.workflowService.runWorkflow(this.workflowStage)
     .subscribe(data=>{
           this.getAllOpenWorkflow();
+          this.getAllPublishedWorkflows();
           this.workflowStage=data;
           this.form=this.workflowStage.formNode.formMaster;
           this.formDesignList=this.form.formDesignList;
@@ -113,7 +114,7 @@ onActionClick(actionNode:WorkflowNode){
   this.submitAction(actionNode);
 }
 OnOpenWorkflowStageClick(stage:WorkflowStage,content){
-  this.workflowStage=stage;
+  this.workflowStage={...stage};
   this.getWorkflowStage(content);
 }
 //#region 

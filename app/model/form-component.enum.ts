@@ -6,5 +6,6 @@ export enum FormComponentEnum {
     DATE="DATE",
     LABEL="LABEL",
     FILE="FILE",
-    IMG="IMG"
+    IMG="IMG",
+    GRID="GRID"
 }
