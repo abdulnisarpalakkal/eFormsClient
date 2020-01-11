@@ -1,1 +1,66 @@
-<p>grid-properties works!</p>
+<!-- <div class="card "> -->
+   
+    <!-- <div class="card-body"> -->
+        <form >
+            <div class="form-content ">
+              <div class="md-form form-sm">
+                  
+                  <input mdbInputDirective type="text" class="form-control " id="componentName"  [(ngModel)]="formDesign.componentName" name="componentName">
+                  <label  for="componentName">Component name</label>
+              </div>
+       
+              <div class="md-form form-sm">
+                
+                <input mdbInputDirective type="text" class="form-control " id="alignOrder"  [(ngModel)]="formDesign.alignOrder" name="alignOrder">
+                <label for="alignOrder">Align order</label>
+              </div>
+              {{formDesign.formGrid|json}}
+                <!-- add -->
+                <div class="md-form form-sm">
+                  <mdb-checkbox [checked]="true" name="add" [(ngModel)]="formDesign.formGrid.add">Add</mdb-checkbox>
+                </div>
+                <!-- edit -->
+                <div class="md-form form-sm">
+                  <mdb-checkbox name="edit"  [(ngModel)]="formDesign.formGrid.edit">Edit</mdb-checkbox>
+                </div>
+                <!-- delete -->
+                <div class="md-form form-sm">
+                  <mdb-checkbox name="delete"  [(ngModel)]="formDesign.formGrid.delete">Delete</mdb-checkbox>
+                </div>
+                <!-- attach -->
+                <div class="md-form form-sm">
+                  <mdb-checkbox name="attach"  [(ngModel)]="formDesign.formGrid.attach">Attach</mdb-checkbox>
+                </div>
+                <div class="form-group">
+                  <label class="form-control-label " for="componentType">Child table</label>
+                  <select  id="childtable" name="childtable" [(ngModel)]="formDesign.formGrid.virtualTableMasterId" class="browser-default form-control input-underline form-control-sm  " >
+                    <option value="" disabled selected>>select a type</option>
+                    <option *ngFor="let childtable of virtualTablesReferringMe" [value]=childtable.id >{{childtable.tableName}}</option>
+                  </select>
+                  <!-- <mdb-select [options]="componentTypeList" placeholder="Choose your option"></mdb-select> -->
+              </div>
+                <!-- virtualTableMasterId -->
+                <!-- virtualTableFields -->
+                <!-- parentReferFieldId -->
+                
+               <div class="card">
+                 <div class="card-body">
+                    <span class="badge  badge-light mr-1" *ngFor="let formRule of formDesign.formRules">{{formRule.formRuleName}}
+                      <a [routerLink]="" (click)="removeFormRule(formRule)">
+                        <i  class="fa fa-fw fa-times" aria-hidden="true" ></i>
+                      </a>
+                    </span>
+                    <select *ngIf="showRulesCompo"  id="formRule" name="formRule" class="browser-default form-control input-underline form-control-sm "  ngModel  (ngModelChange)="onChangeFormRule($event)" >
+                      <option value="" disabled selected>>select rule</option>
+                      <option *ngFor="let formRule of formRules" [ngValue]="formRule">{{formRule.formRuleName}}</option>
+                    </select>     
+                    <a [routerLink]="" (click)="addNewRule()">
+                        <i  class="fa fa-fw fa-plus" ></i>
+                    </a>
+                 </div>
+              </div>
+           </div>
+           
+            </form>
+          <!-- </div> -->
+        <!-- </div> -->

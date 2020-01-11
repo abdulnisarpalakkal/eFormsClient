@@ -14,6 +14,7 @@ export class FormDesignSidenavComponent implements OnInit,AfterViewInit {
   @Input() virtualTableFieldsList: VirtualTableFields[]=[];
   @Output() autoGenerateComponentsEmit=new EventEmitter<any>();
   @Output() createNewComponentEmit=new EventEmitter<any>();
+  @Output() createNewGridEmit=new EventEmitter<any>();
   @Output() updateEmit=new EventEmitter();
   @Output() previewEmit=new EventEmitter();
   // @ViewChild('sidenavformdesign', {static: false}) sidenavformdesign: SidenavComponent;
@@ -31,6 +32,9 @@ export class FormDesignSidenavComponent implements OnInit,AfterViewInit {
   }
   createNewComponent(){
     this.createNewComponentEmit.emit();
+  }
+  createNewGrid(){
+    this.createNewGridEmit.emit();
   }
   goBack(): void {
     this.location.back();

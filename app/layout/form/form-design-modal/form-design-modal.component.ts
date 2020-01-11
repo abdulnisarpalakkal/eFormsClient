@@ -17,6 +17,7 @@ import { ActivatedRoute } from '@angular/router';
 import { VirtualTableService, FormService } from '../../../shared';
 import { VirtualTableConstraintType } from '../../../model/virtual-table-constraints-type.model';
 import { VirtualTable } from '../../../model/virtual-table.model';
+import { FormGrid } from '../../../model/form-grid.model';
 
 @Component({
   selector: 'app-form-design-modal',
@@ -28,12 +29,14 @@ export class FormDesignModalComponent implements OnInit,AfterViewInit {
   form: FormMaster;
   formDesignDto: FormDesignDto;
   virtualTableFieldsList: VirtualTableFields[]=[];
+  virtualTablesReferringMe:VirtualTable[]=[];
   refTableMap:any;
    updated = new EventEmitter<FormMaster>();
   
   formDesign:FormDesign;
   isNew:boolean; 
   formId:number;
+  formComponentEnumGrid:FormComponentEnum=FormComponentEnum.GRID;
   
   
   @ViewChild('staticTabs', {static: false}) staticTabs: TabsetComponent;
@@ -99,6 +102,15 @@ export class FormDesignModalComponent implements OnInit,AfterViewInit {
             // component.virtualTableField=field;
             this.formDesignDto.formDesigns.push(component);
       }
+      createNewGrid(){
+        const component:FormDesign=new FormDesign();
+        component.formGrid=new FormGrid();
+        component.formComponent=new FormComponent();
+        component.componentType=FormComponentEnum.GRID;
+        component.alignOrder=this.formDesignDto.formDesigns.length+1;
+        component.formMaster=this.form;
+        this.formDesignDto.formDesigns.push(component);
+      }
       deleteComponent(formDesign:FormDesign){
         const index = this.formDesignDto.formDesigns.indexOf(formDesign, 0);
         if (index > -1) {
@@ -143,9 +155,12 @@ export class FormDesignModalComponent implements OnInit,AfterViewInit {
     public loadDataForDesignPage(){
       this.getVirtualTableFieldList(this.form.virtualTableMaster);
       this.getFormDesignList(this.form.id);
+      this.getAllTablesReferringMe(this.form.virtualTableMaster.id);
       
     }
-   
+   /**
+    * get all parent tables wrt associated foreign key
+    */
     public getRefTableFieldNamesList(fieldName:string,tableId:number) {
       this.virtualTableService.getTableFieldNamesByTable(tableId)
       .subscribe(
@@ -156,6 +171,10 @@ export class FormDesignModalComponent implements OnInit,AfterViewInit {
             }
       );
     }
+    /**
+     * get all fields and and parent table fields
+     * @param table current virtual table
+     */
     public getVirtualTableFieldList(table:VirtualTable) {
       this.virtualTableService.getTableFieldsByTable(table.id)
       .subscribe(
@@ -183,11 +202,23 @@ export class FormDesignModalComponent implements OnInit,AfterViewInit {
             data => {
     
               this.formDesignDto=data;   
+              
               if(this.formDesignDto!=null && this.formDesignDto.formDesigns!=null){
                 this.formDesignDto.formDesigns=this.formDesignDto.formDesigns.sort((design1,design2):number=>{
                   return design1.alignOrder<design2.alignOrder?-1:1;
                 });
               }
+            },
+            error=>{
+            }
+      );
+    }
+
+    public getAllTablesReferringMe(tableId:number) {
+      this.virtualTableService.getAllTablesReferringMe(tableId)
+      .subscribe(
+            data => {
+              this.virtualTablesReferringMe=data;
             },
             error=>{
             }

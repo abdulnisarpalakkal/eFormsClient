@@ -1,53 +1,17 @@
 
   <!-- {{virtualTableFieldsList|json}} -->
-      
+  <!-- {{formDesignDto|json}} -->
                 <app-form-design-sidenav [designform]="form" [virtualTableFieldsList]="virtualTableFieldsList" 
-                (autoGenerateComponentsEmit)="autoGenerateComponents()" (createNewComponentEmit)="createNewComponent()"
+                (autoGenerateComponentsEmit)="autoGenerateComponents()" (createNewComponentEmit)="createNewComponent()" (createNewGridEmit)="createNewGrid()"
                 (updateEmit)="onUpdatedDesign()" (previewEmit)="openPreview()" ></app-form-design-sidenav>
-                <!-- <section *ngIf="form" class="section section-blog-fw pb-3 wow fadeIn" style="animation-name: none; visibility: visible;"> -->
-                    <!-- <div class="d-flex p-2 col-example">I'm a flexbox container!</div> -->
-                    <!-- <section class="main-head">
-                      <div class="row" >
-                        <div class="col-6">
-                          <h6 class="modal-title">{{form.formName}}</h6>
-                        </div>
-                        <div class="col-6 ">
-                         
-                          <button type="button" title="Save" class="close" aria-label="Save" (click)="onUpdatedDesign()">
-                            <span aria-hidden="true"><i class="fa fa-fw fa-save"></i></span>
-                          </button>
-                          <button type="button" title="Preview" class="close" aria-label="Preview" (click)="openPreview(content3,content2)">
-                            <span aria-hidden="true"><i class="fa fa-fw fa-eye"></i></span>
-                          </button>
-                        </div>
-                        </div>
-                      </section> -->
+               
 <div  class="fluid  mt-5">
  <section *ngIf="form" class="main-container" >
                 
 <div class="row justify-content-between">
     <div class="col-sm-8  " >
         <div class="container" >
-        <!-- <div class="container main-head">
-            <div class="row justify-content-between">
-                <div class="col-4">
-                    
-                </div>
-                <div class="col-2">
-                    <mdb-badge color="cyan" class="mr-1">
-                        <a   mdbWavesEffect (click)="onUpdatedDesign(nodes)" title="save"> 
-                          <mdb-icon fas icon="save" class="action-icon"></mdb-icon>
-                        </a>
-                        </mdb-badge>
-                  
-                        <mdb-badge color="cyan">
-                          <a  (click)="openPreview(content3)" title="preview" > 
-                            <span aria-hidden="true"><mdb-icon far icon="eye" class="action-icon"></mdb-icon></span>
-                          </a>
-                        </mdb-badge>
-                </div>
-              </div>
-            </div> -->
+        
 
             <section  data-spy="scroll">
             <div class="mt-2 ml-5 mr-5">
@@ -92,7 +56,9 @@
                            <div class="row">
                              <div class="col-12">
                                <br>
-                               <app-component-properties-dir *ngIf="formDesign"  [virtualTableFieldsList]="virtualTableFieldsList" [formDesign]="formDesign" [refTableMap]="refTableMap" [formRules]="formDesignDto.formRules" ></app-component-properties-dir>
+                              
+                               <app-component-properties-dir *ngIf="formDesign && formDesign.componentType!=formComponentEnumGrid"  [virtualTableFieldsList]="virtualTableFieldsList" [formDesign]="formDesign" [refTableMap]="refTableMap" [formRules]="formDesignDto.formRules" ></app-component-properties-dir>
+                               <app-grid-properties *ngIf="formDesign && formDesign.componentType==formComponentEnumGrid"  [virtualTableFieldsList]="virtualTableFieldsList" [formDesign]="formDesign" [virtualTablesReferringMe]="virtualTablesReferringMe" [formRules]="formDesignDto.formRules" ></app-grid-properties>
      
                              </div>
                            </div>
@@ -110,81 +76,7 @@
   </div>
   </section>
   
-                        
-                <!-- <section class="main-head">
-                    <div class="d-flex">
-                        
-                        <div class="mr-auto p-1"><h6 class="modal-title">{{form.formName}}</h6></div>
-                        <div class="p-1 mr-1">
-                           <a  (click)="onUpdatedDesign()" > 
-                             <mdb-icon fas icon="save" class="action-icon"></mdb-icon>
-                           </a>
-                        </div>
-                        <div class="p-1 mr-3">
-                            <a  (click)="openPreview(content3)" > 
-                              <span aria-hidden="true"><mdb-icon far icon="eye" class="action-icon"></mdb-icon></span>
-                            </a>
-                        </div>
-                    </div>
-                </section> -->
-                <!-- <section class="main-container" data-spy="scroll">
-           
-                <div class="form-content ">
-                 
-                
-                
-                        <div *ngIf="formDesignDto!=null" class="example-list" cdkDropList (cdkDropListDropped)="drop($event)">
-                            <div class="example-box"  *ngFor="let formDesign of formDesignDto.formDesigns" cdkDrag >
-                                        <div class="example-handle" cdkDragHandle>
-                                                <svg width="24px" fill="currentColor" viewBox="0 0 24 24">
-                                                        <path d="M10 9h4V6h3l-5-5-5 5h3v3zm-1 1H6V7l-5 5 5 5v-3h3v-4zm14 2l-5-5v3h-3v4h3v3l5-5zm-9 3h-4v3H7l5 5 5-5h-3v-3z"></path>
-                                                        <path d="M0 0h24v24H0z" fill="none"></path>
-                                                </svg>
-                                        </div>
-                                <app-form-component-dir [formDesign]="formDesign" (deleteComponentEmit)="deleteComponent($event)" 
-                        (editComponentEmit)="editComponent($event)"></app-form-component-dir>
-                            </div>
-                        </div>
-                       
-                   
-                </div>
-           
-</section>
-<section class="sidebar-right mt-5"  >
-                <mdb-card >
-         <div class="row mb-3">
-
-                <div class="col-md-12">
-    
-    
-                  <mdb-tabset #staticTabs [buttonClass]="'nav md-pills pills-dark'" [justified]="true" [contentClass]="'card'">
-                    <mdb-tab heading="Rules">
-                      <div class="row">
-                        <div class="col-12">
-                          <br>
-                          <app-form-rules-dir  [formRules]="formDesignDto.formRules" [formRuleTypes]="formDesignDto.formRuleTypes"></app-form-rules-dir>
-
-                        </div>
-                      </div>
-                    </mdb-tab>
-                    <mdb-tab heading="Properties">
-                      <div class="row">
-                        <div class="col-12">
-                          <br>
-                          <app-component-properties-dir *ngIf="formDesign"  [virtualTableFieldsList]="virtualTableFieldsList" [formDesign]="formDesign" [refTableMap]="refTableMap" [formRules]="formDesignDto.formRules" ></app-component-properties-dir>
-
-                        </div>
-                      </div>
-                    </mdb-tab>
-                </mdb-tabset>
-
-        </div>
-
-
-      </div>
-      </mdb-card>
-     </section>
-   </section> -->
+            
         <div *ngIf="!form">
             <mdb-spinner spinnerColor="blue"></mdb-spinner>
         </div>

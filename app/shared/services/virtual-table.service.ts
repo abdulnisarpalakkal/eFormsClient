@@ -48,6 +48,9 @@ export class VirtualTableService {
   public getConstraintRefDataByProcessId(processId): Observable<any> {
     return this.http.get(this.virtualTableUrl+ "/constraintRef/"+ processId);
   }
+  public getAllTablesReferringMe(tableId): Observable<any> {
+    return this.http.get(this.virtualTableUrl+ "/tablesReferringMe/"+ tableId);
+  }
  //#endregion
 
  //#region virtualTableFields

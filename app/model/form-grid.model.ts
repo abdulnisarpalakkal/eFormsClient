@@ -8,8 +8,10 @@ export class FormGrid {
     public  add: boolean;
     public  edit: boolean;
     public  delete: boolean;
-    public virtualTableMaster:VirtualTable;
-    public virtualTableFields:VirtualTableFields[];
+    public  attach: boolean;
+    public virtualTableMasterId:number;
+    public virtualTableFields:VirtualTableFields[]=[];
+    public parentReferFieldId:number;
     public gridRecords:VirtualRowRecordsDto;
     public formDesignList:FormDesign[];
 
